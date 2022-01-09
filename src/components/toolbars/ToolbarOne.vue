@@ -1,5 +1,5 @@
 <template>
-   <div id="toolbar_one" class="flex justify-between items-center full-width q-my-sm q-px-md">
+   <div id="toolbar_one" class="flex justify-between items-center full-width q-my-sm q-px-sm">
       <!-- Prepend -->
       <div class="prepend-content">
          <slot name="prepend">
