@@ -28,7 +28,9 @@
 
 <script>
 import AppLayout from 'layouts/AppLayout.vue'
+import { createMetaMixin } from 'quasar'
 export default {
+   mixins: [createMetaMixin(() => ({ title: 'My Favourit' }))],
    components: {
       AppLayout
    }

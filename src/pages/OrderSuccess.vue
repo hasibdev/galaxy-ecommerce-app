@@ -22,7 +22,10 @@
 <script>
 import AppLayout from 'layouts/AppLayout.vue'
 import Onboarding4Svg from 'components/svg/Onboard4.vue'
+import { createMetaMixin } from 'quasar'
+
 export default {
+   mixins: [createMetaMixin(() => ({ title: 'Order Success' }))],
    components: {
       AppLayout, Onboarding4Svg
    }

@@ -22,8 +22,7 @@ import { createMetaMixin } from 'quasar'
 export default defineComponent({
    name: 'PageIndex',
    components: { AppLayout, BannerSlider, TodaysBest, HeroSlider },
-   mixins: [createMetaMixin(() => ({ title: 'Galaxy' })
-   )],
+   mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
    data() {
       return {
          heroSlider: null,

@@ -76,7 +76,9 @@
 <script>
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
+import { createMetaMixin } from 'quasar'
 export default {
+   mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
    components: {
       AppLayout, ToolbarOne
    }
