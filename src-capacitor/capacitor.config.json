@@ -1,6 +1,6 @@
 {
   "appId": "galaxytelecom.fr.app",
-  "appName": "Quasar App",
+  "appName": "Galaxy Ecommerce",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"

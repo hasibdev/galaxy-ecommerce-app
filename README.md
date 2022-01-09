@@ -1,4 +1,4 @@
-# Quasar App (ecommerce-app)
+# Galaxy Ecommerce (ecommerce-app)
 
 A Quasar Framework app
 

@@ -51,11 +51,12 @@
 import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
+import { createMetaMixin } from 'quasar'
 export default {
    components: {
       AppLayout, ToolbarOne, Swiper, SwiperSlide
    },
+   mixins: [createMetaMixin(() => ({ title: "My Orders" }))],
    data() {
       return {
          items: [
