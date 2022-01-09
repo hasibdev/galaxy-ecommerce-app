@@ -1,0 +1,40 @@
+
+// Toolba One Style
+#toolbar_one {
+   .middle-content {
+      position: relative;
+      flex: 1;
+      .search-icon {
+         position: absolute;
+         left: 5px;
+         top: 50%;
+         transform: translateY(-50%);
+         font-size: 20px;
+      }
+      .search-input {
+         background-color: $grey-3;
+         padding: 9px 10px 9px 45px;
+         width: 100%;
+         border: 0;
+         border-radius: 10px;
+         font-size: 17px;
+         color: $grey-14;
+         letter-spacing: 1px;
+      }
+   }
+}
+
+// Swiper Dot Pagination
+.swiper-wrapper, .products-swiper {
+   .q-carousel__navigation-icon--inactive {
+      opacity: 0.5 !important;
+   }
+   .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+   .swiper-pagination-horizontal.swiper-pagination-bullets
+      .swiper-pagination-bullet {
+      margin: 0 8px;
+   }
+   .swiper-pagination-bullet-active {
+      background-color: $grey-10;
+   }
+}
