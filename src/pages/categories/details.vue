@@ -17,7 +17,7 @@
       <div id="category_slider">
          <swiper :slides-per-view="3.5" :freeMode="true" :mousewheel="true" :space-between="5">
             <swiper-slide v-for="(item, i) in items" :key="i">
-               <p class="text-item" :class="{'active': i==0}">{{ item.title }}</p>
+               <p @click="onCategoryClick(item)" class="text-item" :class="{'active': item.slug == activeCategory}">{{ item.name }}</p>
             </swiper-slide>
          </swiper>
       </div>
@@ -46,15 +46,21 @@ export default {
    },
    data() {
       return {
-         items: [
-            { title: "Handphone", icon: 'las la-mobile' },
-            { title: "Gaming", icon: 'las la-gamepad' },
-            { title: "TV", icon: 'las la-tv' },
-            { title: "Headphone", icon: 'las la-headphones' },
-            { title: "Gaming", icon: 'las la-gamepad' },
-            { title: "TV", icon: 'las la-tv' },
-            { title: "Headphone", icon: 'las la-headphones' }
-         ]
+         activeCategory: null
+      }
+   },
+   computed: {
+      items() {
+         return this.$store.state.appData.categories
+      }
+   },
+   mounted() {
+      this.activeCategory = this.$route.params.slug
+   },
+   methods: {
+      onCategoryClick(item) {
+         this.activeCategory = item.slug
+         this.$router.push(`/categories/${item.slug}`)
       }
    }
 }
@@ -68,6 +74,7 @@ export default {
       padding: 5px 10px;
       border: 1px solid transparent;
       border-radius: 18px;
+      transition: all 0.2s ease-in-out;
       &.active {
          border-color: $primary;
          font-weight: 500;
