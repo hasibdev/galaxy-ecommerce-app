@@ -78,17 +78,29 @@ import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
 export default {
-   mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
+   mixins: [createMetaMixin(() => ({ title: 'My Profile' }))],
    components: {
       AppLayout, ToolbarOne
    }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #profile_expansion {
    .q-item__section.q-item__section--avatar {
       align-items: center !important;
+   }
+   .q-list {
+      .q-expansion-item {
+         .q-item__section.q-item__section--avatar {
+            .q-icon {
+               color: $secondary !important;
+               background: $cyan-1;
+               padding: 12px 10px;
+               border-radius: 10px;
+            }
+         }
+      }
    }
 }
 </style>
