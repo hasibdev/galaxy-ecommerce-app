@@ -6,18 +6,29 @@
       </div>
 
       <div class="row q-col-gutter-md">
-         <div class="col-6" v-for="item in items" :key="item.id">
-            <product-card @click="$router.push(`/products/${item.id}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
-         </div>
+         <!-- Product Card  -->
+         <template v-if="items.length">
+            <div class="col-6" v-for="item in items" :key="item.id">
+               <product-card @click="$router.push(`/products/${item.id}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
+            </div>
+         </template>
+
+         <!-- Product Card Skeleton -->
+         <template v-else>
+            <div v-for="item in 4" :key="item" class="col-6">
+               <product-skeleton />
+            </div>
+         </template>
       </div>
    </div>
 </template>
 
 <script>
 import ProductCard from 'components/ProductCard'
+import ProductSkeleton from 'components/skeletons/ProductCartSkeleton.vue'
 export default {
    components: {
-      ProductCard
+      ProductCard, ProductSkeleton
    },
    data() {
       return {
