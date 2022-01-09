@@ -19,7 +19,7 @@
       <!-- Append -->
       <div class="append-content">
          <slot name="append">
-            <q-btn to="/cart" flat round dense color="primary" icon="las la-shopping-cart" class="q-ml-md" />
+            <q-btn to="/cart" flat round dense color="primary" icon="las la-shopping-cart" class="q-ml-sm" />
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
          </slot>
       </div>

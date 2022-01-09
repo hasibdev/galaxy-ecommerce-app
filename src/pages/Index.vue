@@ -1,5 +1,18 @@
 <template>
    <app-layout>
+      <template #toolbar>
+         <toolbar-one>
+            <template #prepend>
+               <q-btn unelevated class="">
+
+                  <img :src="require('assets/galaxy-svg.png')" style="width: 88px;">
+
+               </q-btn>
+            </template>
+         </toolbar-one>
+
+      </template>
+
       <hero-slider />
 
       <br>
@@ -18,10 +31,11 @@ import HeroSlider from 'components/home/HeroSlider.vue'
 import TodaysBest from 'components/home/TodaysBest.vue'
 import BannerSlider from 'components/home/BannerSlider.vue'
 import { createMetaMixin } from 'quasar'
+import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 
 export default defineComponent({
    name: 'PageIndex',
-   components: { AppLayout, BannerSlider, TodaysBest, HeroSlider },
+   components: { AppLayout, BannerSlider, TodaysBest, HeroSlider, ToolbarOne },
    mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
    data() {
       return {
