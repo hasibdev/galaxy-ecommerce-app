@@ -62,6 +62,10 @@ export default {
          this.activeCategory = item.slug
          this.$router.push(`/categories/${item.slug}`)
       }
+   },
+   async created() {
+      const resProducts = await this.$api.get(`/categories/${this.$route.params.slug}/products`)
+      console.log(resProducts)
    }
 }
 </script>

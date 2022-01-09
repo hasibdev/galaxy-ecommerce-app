@@ -28,7 +28,7 @@ export default {
          required: true
       },
       price: {
-         type: Number,
+         type: [String, Number],
          required: true
       },
       star: {
