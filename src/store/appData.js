@@ -5,10 +5,15 @@ export default {
    state: {
       categories: null
    },
+   mutations: {
+      SET_DATA(state, { property, data }) {
+         state[property] = data
+      }
+   },
    actions: {
-      async fetchCategories(state) {
+      async fetchCategories({ commit }) {
          const res = await api.get('/featured-categories')
-         state.categories = res.data.categories
+         commit('SET_DATA', { property: 'categories', data: res.data.categories })
       }
    }
 }

@@ -25,8 +25,8 @@ export default {
       }
    },
    async created() {
-      const res = await this.$api('/vertical-products/2')
-      console.log(res)
+      // const res = await this.$api('/vertical-products/2')
+      // console.log(res)
    }
 }
 </script>

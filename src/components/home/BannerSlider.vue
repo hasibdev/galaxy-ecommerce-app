@@ -1,6 +1,6 @@
 <template>
    <div class="q-mt-md swiper-wrapper items-center">
-      <swiper v-if="items.length" :slides-per-view="4" :pagination="{ 'clickable': true }" :mousewheel="true" :space-between="20">
+      <swiper v-if="items" :slides-per-view="4" :pagination="{ 'clickable': true }" :mousewheel="true" :space-between="20">
          <swiper-slide v-for="(item, i) in items" :key="i">
             <div @click="$router.push(`/categories/${item.slug}`)" class="text-center q-pb-xl">
                <div class="q-pa-sm border-1 round-10 flex justify-center items-center" style="height:55px;">
@@ -48,14 +48,11 @@ export default {
       Swiper,
       SwiperSlide
    },
-   data() {
-      return {
-         items: []
+
+   computed: {
+      items() {
+         return this.$store.state.appData.categories
       }
-   },
-   async created() {
-      const res = await this.$api('/featured-categories')
-      this.items = res.data.categories
    }
 }
 </script>
