@@ -3,9 +3,9 @@
       <template #toolbar>
          <toolbar-one>
             <template #prepend>
-               <q-btn unelevated class="q-pl-none">
+               <q-btn unelevated class="q-pl-sm">
 
-                  <img :src="require('assets/galaxy-svg.png')" style="width: 130px;">
+                  <img :src="require('assets/galaxy-svg.png')" style="width: 110px;">
 
                </q-btn>
             </template>
