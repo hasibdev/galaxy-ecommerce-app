@@ -36,7 +36,7 @@ import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 export default defineComponent({
    name: 'PageIndex',
    components: { AppLayout, BannerSlider, TodaysBest, HeroSlider, ToolbarOne },
-   mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
+   mixins: [createMetaMixin(() => ({ title: 'Galaxy Telecom' }))],
    data() {
       return {
          heroSlider: null,
