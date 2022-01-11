@@ -16,18 +16,27 @@
 
       <div id="category_slider">
          <swiper :slides-per-view="3.5" :freeMode="true" :mousewheel="true" :space-between="5">
-            <swiper-slide v-for="(item, i) in items" :key="i">
+            <swiper-slide v-for="(item, i) in categories" :key="i">
                <p @click="onCategoryClick(item)" class="text-item" :class="{'active': item.slug == activeCategory}">{{ item.name }}</p>
             </swiper-slide>
          </swiper>
       </div>
 
       <!-- Results -->
-      <div class="row q-col-gutter-md q-mt-md">
-         <div class="col-6" v-for="item in 4" :key="item">
-            <product-card name="Cafe Basilico" :price="32.50" :star="3.5" :reviews="1259" image="https://cdn.quasar.dev/img/chicken-salad.jpg" />
+      <div v-if="products" class="row q-col-gutter-md q-mt-md">
+         <p v-if="!products.length" class="text-body1">Product list is Empty</p>
+
+         <div class="col-6" v-for="item in products" :key="item.id">
+            <product-card :name="item.name" :price="32.50" :star="3.5" :reviews="1259" image="https://cdn.quasar.dev/img/chicken-salad.jpg" />
          </div>
       </div>
+      <template v-else>
+         <div class="row">
+            <div v-for="item in 4" :key="item" class="col-6">
+               <product-skeleton />
+            </div>
+         </div>
+      </template>
 
    </app-layout>
 </template>
@@ -37,20 +46,21 @@
 import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import ProductCard from 'components/ProductCard'
-
+import ProductSkeleton from 'components/skeletons/ProductCartSkeleton.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 export default {
    components: {
-      AppLayout, ToolbarOne, ProductCard, Swiper, SwiperSlide
+      AppLayout, ToolbarOne, ProductCard, Swiper, SwiperSlide, ProductSkeleton
    },
    data() {
       return {
-         activeCategory: null
+         activeCategory: null,
+         products: null
       }
    },
    computed: {
-      items() {
+      categories() {
          return this.$store.state.appData.categories
       }
    },
@@ -61,11 +71,18 @@ export default {
       onCategoryClick(item) {
          this.activeCategory = item.slug
          this.$router.push(`/categories/${item.slug}`)
+      },
+      async fetchProducts(category) {
+         try {
+            const resProducts = await this.$api.get(`/categories/${category}/products`)
+            this.products = resProducts.data.products.data
+         } catch (error) {
+            console.log(error)
+         }
       }
    },
-   async created() {
-      const resProducts = await this.$api.get(`/categories/${this.$route.params.slug}/products`)
-      console.log(resProducts)
+   created() {
+      this.fetchProducts(this.$route.params.slug)
    }
 }
 </script>
