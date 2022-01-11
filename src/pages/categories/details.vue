@@ -24,7 +24,7 @@
 
       <!-- Results -->
       <div v-if="products" class="row q-col-gutter-md q-mt-md">
-         <p v-if="!products.length" class="text-body1">Product list is Empty</p>
+         <p v-if="!products.length" class="text-body1">No Product is avilable for "{{ $route.params.slug }}"</p>
 
          <div class="col-6" v-for="item in products" :key="item.id">
             <product-card :name="item.name" :price="32.50" :star="3.5" :reviews="1259" image="https://cdn.quasar.dev/img/chicken-salad.jpg" />

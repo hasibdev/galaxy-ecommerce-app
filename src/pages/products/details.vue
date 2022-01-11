@@ -75,6 +75,11 @@
          </div>
       </template>
 
+      <!-- Loading state -->
+      <template v-else>
+         <p>Loading...</p>
+      </template>
+
    </app-layout>
 </template>
 
