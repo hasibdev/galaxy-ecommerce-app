@@ -27,7 +27,7 @@
          <p v-if="!products.length" class="text-body1">No Product is avilable for "{{ $route.params.slug }}"</p>
 
          <div class="col-6" v-for="item in products" :key="item.id">
-            <product-card :name="item.name" :price="32.50" :star="3.5" :reviews="1259" image="https://cdn.quasar.dev/img/chicken-salad.jpg" />
+            <product-card @click="$router.push(`/products/${item.slug}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
          </div>
       </div>
       <template v-else>
