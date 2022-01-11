@@ -77,7 +77,9 @@
 
       <!-- Loading state -->
       <template v-else>
-         <p>Loading...</p>
+         <div class="text-center q-mt-xl">
+            <q-spinner color="grey-14" size="3em" />
+         </div>
       </template>
 
    </app-layout>
