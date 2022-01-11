@@ -24,53 +24,56 @@
          </q-footer>
       </template>
 
-      <!-- Products Slider -->
-      <div class="products-swiper">
-         <swiper :pagination="{clickable: true}" :slides-per-view="1" :mousewheel="true">
-            <swiper-slide v-for="(item, i) in 4" :key="i">
-               <q-img :src="require(`assets/images/products/0${item}.jpg`)" />
-            </swiper-slide>
-         </swiper>
-      </div>
-
-      <!-- Main Content -->
-      <div class="q-mt-lg relative-position">
-         <!-- Product details -->
-         <h5 class="q-pr-lg">Handphone</h5>
-         <h4 class="q-mt-sm">$234</h4>
-         <!-- Ragings -->
-         <div class="flex q-mt-sm">
-            <q-rating :model-value="4" icon-half="star_half" :max="5" size="16px" color="secondary" />
-            <span class="q-ml-sm" style="font-size: 12px;">562 Reviews</span>
+      <!-- Page Content -->
+      <template v-if="product">
+         <!-- Products Slider -->
+         <div class="products-swiper">
+            <swiper :pagination="{clickable: true}" :slides-per-view="1" :mousewheel="true">
+               <swiper-slide v-for="(item, i) in product.files" :key="i">
+                  <q-img :src="item.path" />
+               </swiper-slide>
+            </swiper>
          </div>
 
-         <div class="floating-btn bg-white">
-            <span class="material-icons-outlined text-h5 q-pa-sm">
-               favorite_border
-            </span>
+         <!-- Main Content -->
+         <div class="q-mt-lg relative-position">
+            <!-- Product details -->
+            <h5 class="q-pr-lg">{{ product.name }}</h5>
+            <h5 class="q-mt-sm text-bold">{{ product.formatted_price }}</h5>
+            <!-- Ragings -->
+            <div class="flex q-mt-sm">
+               <q-rating :model-value="product.rating_percent" icon-half="star_half" :max="5" size="16px" color="secondary" />
+               <span class="q-ml-sm" style="font-size: 12px;">{{product.reviews.length}} Reviews</span>
+            </div>
+
+            <div class="floating-btn bg-white">
+               <span class="material-icons-outlined text-h5 q-pa-sm">
+                  favorite_border
+               </span>
+            </div>
          </div>
-      </div>
 
-      <!-- Sold range -->
-      <div class="sold-range q-mt-md">
-         <span class="first-range"></span>
-         <span class="second-range"></span>
-         <span class="content">200 Sold</span>
-      </div>
+         <!-- Sold range -->
+         <div class="sold-range q-mt-md">
+            <span class="first-range"></span>
+            <span class="second-range"></span>
+            <span class="content">200 Sold</span>
+         </div>
 
-      <!-- Variant -->
-      <div class="q-mt-md">
-         <q-btn color="primary" class="q-pa-lg q-mr-sm round-10" />
-         <q-btn color="secondary" class="q-pa-lg q-mr-sm round-10" />
-         <q-btn color="grey-6" class="q-pa-lg q-mr-sm round-10" />
-         <q-btn color="black" class="q-pa-lg q-mr-sm round-10" />
-      </div>
+         <!-- Variant -->
+         <div class="q-mt-md">
+            <q-btn color="primary" class="q-pa-lg q-mr-sm round-10" />
+            <q-btn color="secondary" class="q-pa-lg q-mr-sm round-10" />
+            <q-btn color="grey-6" class="q-pa-lg q-mr-sm round-10" />
+            <q-btn color="black" class="q-pa-lg q-mr-sm round-10" />
+         </div>
 
-      <!-- Description -->
-      <div class="q-mt-lg">
-         <p class="text-body1">Description Product</p>
-         <p class="text-grey-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-      </div>
+         <!-- Description -->
+         <div class="q-mt-lg">
+            <p class="text-body1" style="font-size:20px;">Description Product</p>
+            <p class="text-grey-7" v-html="product.description"> </p>
+         </div>
+      </template>
 
    </app-layout>
 </template>
@@ -85,6 +88,16 @@ import "swiper/css/pagination"
 export default {
    components: {
       ToolbarOne, AppLayout, Swiper, SwiperSlide
+   },
+   data() {
+      return {
+         product: null
+      }
+   },
+   async created() {
+      const resProduct = await this.$api.get(`/products/${this.$route.params.slug}`)
+      this.product = resProduct.data.product
+      console.log(this.product)
    }
 }
 </script>
@@ -123,7 +136,7 @@ export default {
 // Floating Favourite Icon
 .floating-btn {
    position: absolute;
-   top: 10px;
+   top: 8px;
    right: 0;
 }
 </style>
