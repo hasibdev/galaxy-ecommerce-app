@@ -46,8 +46,8 @@
                <span class="q-ml-sm" style="font-size: 12px;">{{product.reviews.length}} Reviews</span>
             </div>
 
-            <div class="floating-btn bg-white">
-               <span class="material-icons-outlined text-h5 q-pa-sm">
+            <div @click="addToFavorit(product)" class="floating-btn">
+               <span :class="{'text-primary': alreadyInFavorite}" class="material-icons-outlined text-h5 q-pa-sm">
                   favorite_border
                </span>
             </div>
@@ -98,13 +98,41 @@ export default {
    },
    data() {
       return {
-         product: null
+         product: null,
+         localFavItems: []
+      }
+   },
+   computed: {
+      alreadyInFavorite() {
+         return this.localFavItems.find(p => p.id === this.product.id)
       }
    },
    async created() {
+      this.initLocaldata()
+
       const resProduct = await this.$api.get(`/products/${this.$route.params.slug}`)
       this.product = resProduct.data.product
-      console.log(this.product)
+   },
+   methods: {
+      initLocaldata() {
+         const localCart = JSON.parse(localStorage.getItem('localCart'))
+         if (localCart && localCart.length) {
+            this.localFavItems = localCart
+         }
+      },
+      addToFavorit(product) {
+         const hasItem = this.localFavItems.some(p => p.id === product.id)
+         if (hasItem) {
+            this.localFavItems = this.localFavItems.filter(p => p.id !== product.id)
+         } else {
+            this.localFavItems = [...this.localFavItems, product]
+         }
+      }
+   },
+   watch: {
+      localFavItems(val) {
+         localStorage.setItem('localCart', JSON.stringify(val))
+      }
    }
 }
 </script>
