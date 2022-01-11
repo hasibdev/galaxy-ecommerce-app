@@ -5,10 +5,10 @@
             <q-skeleton size="130px" type="QAvatar" class="q-mx-auto q-mb-lg" />
 
             <q-skeleton class="q-mx-lg" type="text" />
-            <q-skeleton class="q-mx-lg" height="5px" width="70px" type="text" />
-            <q-skeleton class="q-mx-lg" height="5px" width="50px" type="text" />
+            <q-skeleton class="q-mx-lg" height="8px" width="70px" type="text" />
+            <q-skeleton class="q-mx-lg" height="8px" width="50px" type="text" />
             <q-skeleton class="q-mx-lg q-mt-lg" height="10px" width="50px" type="text" />
-            <q-skeleton class="q-mx-lg" height="10px" width="50px" type="text" />
+            <q-skeleton class="q-mx-lg" height="13px" width="50px" type="text" />
 
          </div>
       </q-item-section>

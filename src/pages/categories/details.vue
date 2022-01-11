@@ -30,9 +30,11 @@
             <product-card @click="$router.push(`/products/${item.slug}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
          </div>
       </div>
+
+      <!-- Skeleton -->
       <template v-else>
-         <div class="row">
-            <div v-for="item in 4" :key="item" class="col-6">
+         <div class="row  q-col-gutter-md">
+            <div v-for="item in 4" :key="item" class="col-6 q-mt-md">
                <product-skeleton />
             </div>
          </div>
@@ -70,7 +72,7 @@ export default {
    methods: {
       onCategoryClick(item) {
          this.activeCategory = item.slug
-         this.$router.push(`/categories/${item.slug}`)
+         // this.$router.push(`/categories/${item.slug}`)
       },
       async fetchProducts(category) {
          try {
@@ -83,6 +85,12 @@ export default {
    },
    created() {
       this.fetchProducts(this.$route.params.slug)
+   },
+   watch: {
+      activeCategory(val) {
+         this.products = null
+         this.fetchProducts(val)
+      }
    }
 }
 </script>
