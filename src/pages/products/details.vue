@@ -19,7 +19,7 @@
          <q-footer class="bg-white text-grey-9">
             <div class="flex justify-between items-center q-px-md q-my-lg">
                <q-btn dense outline color="primary" icon="las la-shopping-cart" class="q-pa-md round-10"></q-btn>
-               <q-btn rounded color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Buy Now</q-btn>
+               <q-btn rounded @click="onBuyNow" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Buy Now</q-btn>
             </div>
          </q-footer>
       </template>
@@ -115,9 +115,9 @@ export default {
    },
    methods: {
       initLocaldata() {
-         const localCart = JSON.parse(localStorage.getItem('localCart'))
-         if (localCart && localCart.length) {
-            this.localFavItems = localCart
+         const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
+         if (localfavourite && localfavourite.length) {
+            this.localFavItems = localfavourite
          }
       },
       addToFavorit(product) {
@@ -131,7 +131,7 @@ export default {
    },
    watch: {
       localFavItems(val) {
-         localStorage.setItem('localCart', JSON.stringify(val))
+         localStorage.setItem('localfavourite', JSON.stringify(val))
       }
    }
 }
