@@ -32,7 +32,7 @@
                <p class="text-body2 q-ml-auto">Forgot Password?</p>
             </div>
 
-            <q-btn rounded no-caps type="submit" size="lg" label="Login" color="primary" class="full-width q-mt-lg" />
+            <q-btn rounded no-caps :disable="savingState" :loading="savingState" type="submit" size="lg" label="Login" color="primary" class="full-width q-mt-lg" />
             <p class="text-grey-6 text-body1 text-center q-my-md">Or</p>
             <q-btn rounded outline no-caps size="lg" label="Continue With FB" color="primary" class="full-width" />
             <q-btn rounded outline no-caps size="lg" label="Continue With Google" color="primary" class="full-width q-mt-md" />
@@ -61,19 +61,22 @@ export default {
             email: 'test2@test.com',
             password: '123456'
          },
-         passwordVisible: false
+         passwordVisible: false,
+         savingState: false
       }
    },
    methods: {
       ...mapActions('auth', ['login']),
       async formSubmit() {
+         this.savingState = true
          try {
-            // const res = await this.$api.post('/login', this.form)
-            const res = await this.login({ url: '/login', data: this.form })
-            console.log(res)
-            // this.$router.push('/')
+            await this.login({ url: '/login', data: this.form })
+
+            this.$router.replace('/home')
          } catch (error) {
             console.log(error)
+         } finally {
+            this.savingState = false
          }
       }
    }

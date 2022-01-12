@@ -23,7 +23,7 @@ export default {
       async login({ commit }, { data, url }) {
          try {
             const res = await api.post(url, data)
-            // window.utilities.setCookie('access_token', res.data.access_token)
+            localStorage.setItem('token', res.data.token)
 
             commit('SET_AUTH', { status: true, user: res.data.user })
 
