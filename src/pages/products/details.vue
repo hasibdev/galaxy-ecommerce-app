@@ -18,7 +18,7 @@
       <template #footer>
          <q-footer class="bg-white text-grey-9">
             <div class="flex justify-between items-center q-px-md q-my-lg">
-               <q-btn dense outline color="primary" icon="las la-shopping-cart" class="q-pa-md round-10"></q-btn>
+               <q-btn dense outline @click="addToCart(product)" color="primary" icon="las la-shopping-cart" class="q-pa-md round-10"></q-btn>
                <q-btn rounded @click="onBuyNow" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Buy Now</q-btn>
             </div>
          </q-footer>
@@ -99,7 +99,8 @@ export default {
    data() {
       return {
          product: null,
-         localFavItems: []
+         localFavItems: [],
+         localCartItems: []
       }
    },
    computed: {
@@ -115,9 +116,15 @@ export default {
    },
    methods: {
       initLocaldata() {
+         // local favourite
          const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
          if (localfavourite && localfavourite.length) {
             this.localFavItems = localfavourite
+         }
+         // local cart
+         const localCart = JSON.parse(localStorage.getItem('localCart'))
+         if (localCart && localCart.length) {
+            this.localCartItems = localCart
          }
       },
       addToFavorit(product) {
@@ -128,11 +135,27 @@ export default {
             this.localFavItems = [...this.localFavItems, product]
          }
       },
+      addToCart(product) {
+         const hasItem = this.localCartItems.some(p => p.id === product.id)
+         if (hasItem) {
+            const itemindex = this.localCartItems.findIndex(p => p.id === product.id)
+            ++this.localCartItems[itemindex].quantity
+            console.log(this.localCartItems)
+         } else {
+            this.localCartItems = [...this.localCartItems, { ...product, quantity: 1 }]
+         }
+      },
       onBuyNow() {
          this.$router.push('/checkout')
       }
    },
    watch: {
+      localCartItems: {
+         handler: function (val) {
+            localStorage.setItem('localCart', JSON.stringify(val))
+         },
+         deep: true
+      },
       localFavItems(val) {
          localStorage.setItem('localfavourite', JSON.stringify(val))
       }

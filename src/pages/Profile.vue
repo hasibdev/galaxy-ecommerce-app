@@ -11,7 +11,7 @@
          <q-avatar size="150px">
             <img :src="require('assets/images/user-04.png')">
          </q-avatar>
-         <h6 class="q-mt-lg">Jane Doe</h6>
+         <h6 class="q-mt-lg">{{ user.first_name }} {{ user.last_name }}</h6>
       </div>
 
       <div class="flex items-center q-mt-lg custom-shadow q-px-md q-py-sm round-10">
@@ -77,12 +77,15 @@
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
    mixins: [createMetaMixin(() => ({ title: 'My Profile' }))],
    components: {
       AppLayout, ToolbarOne
+   },
+   computed: {
+      ...mapState('auth', ['user'])
    },
    methods: {
       ...mapActions('auth', ['logout']),
