@@ -59,10 +59,8 @@ export default {
       async logout() {
          try {
             const res = await api.post('/logout')
-            console.log(res)
             return Promise.resolve(res)
          } catch (error) {
-            console.log(error)
             return Promise.reject(error)
          }
       }

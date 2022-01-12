@@ -66,7 +66,7 @@
                   </q-card-section>
                </q-card>
             </q-expansion-item>
-            <q-expansion-item @click="logout" icon="logout" label="Logout" expand-icon-class="hidden"> </q-expansion-item>
+            <q-expansion-item @click="onLogout" icon="logout" label="Logout" expand-icon-class="hidden"> </q-expansion-item>
          </q-list>
       </div>
 
@@ -85,7 +85,15 @@ export default {
       AppLayout, ToolbarOne
    },
    methods: {
-      ...mapActions('auth', ['logout'])
+      ...mapActions('auth', ['logout']),
+      async onLogout() {
+         try {
+            await this.logout()
+            this.$router.replace('/home')
+         } catch (error) {
+            console.log(error)
+         }
+      }
    }
 }
 </script>
