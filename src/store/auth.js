@@ -20,6 +20,20 @@ export default {
       }
    },
    actions: {
+      async checkAuth({ commit }) {
+         try {
+            const token = localStorage.getItem('token')
+            if (!token) return Promise.reject(false)
+
+            const res = await api.get('/account/profile')
+            console.log(res)
+            commit('SET_AUTH', { status: true, user: 'test' })
+            // return Promise.resolve(res)
+         } catch (error) {
+            console.log(error)
+            // return Promise.reject(error)
+         }
+      },
       async login({ commit }, { data, url }) {
          try {
             const res = await api.post(url, data)
@@ -33,8 +47,24 @@ export default {
             return Promise.reject(error)
          }
       },
-      regester() {
-         console.log('register')
+      async regester({ commit }, { data, url }) {
+         try {
+            const res = await api.post(url, data)
+            commit('SET_AUTH', { status: true, user: res.data.user })
+            return Promise.resolve(res)
+         } catch (error) {
+            return Promise.reject(error)
+         }
+      },
+      async logout() {
+         try {
+            const res = await api.post('/logout')
+            console.log(res)
+            return Promise.resolve(res)
+         } catch (error) {
+            console.log(error)
+            return Promise.reject(error)
+         }
       }
    }
 }

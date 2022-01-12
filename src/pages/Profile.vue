@@ -66,7 +66,7 @@
                   </q-card-section>
                </q-card>
             </q-expansion-item>
-            <q-expansion-item icon="logout" label="Logout" expand-icon-class="hidden"> </q-expansion-item>
+            <q-expansion-item @click="logout" icon="logout" label="Logout" expand-icon-class="hidden"> </q-expansion-item>
          </q-list>
       </div>
 
@@ -77,10 +77,15 @@
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
+import { mapActions } from 'vuex'
+
 export default {
    mixins: [createMetaMixin(() => ({ title: 'My Profile' }))],
    components: {
       AppLayout, ToolbarOne
+   },
+   methods: {
+      ...mapActions('auth', ['logout'])
    }
 }
 </script>

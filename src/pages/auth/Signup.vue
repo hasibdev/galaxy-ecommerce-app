@@ -68,7 +68,7 @@
 <script>
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
    components: {
       ToolbarOne, AppLayout
@@ -89,15 +89,14 @@ export default {
       }
    },
    methods: {
-      ...mapMutations('auth', ['regester']),
+      ...mapActions('auth', ['regester']),
       async formSubmit() {
          try {
-            const res = await this.$api.post('/regester', this.form)
-            console.log(res)
+            await this.regester({ url: '/regester', data: this.form })
+            this.$router.push('/')
          } catch (error) {
             console.log(error)
          }
-         // this.$router.push('/')
       }
    }
 }
