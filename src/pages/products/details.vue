@@ -131,8 +131,16 @@ export default {
          const hasItem = this.localFavItems.some(p => p.id === product.id)
          if (hasItem) {
             this.localFavItems = this.localFavItems.filter(p => p.id !== product.id)
+            this.$q.notify({
+               message: 'Removed from Favourite',
+               color: 'warning'
+            })
          } else {
             this.localFavItems = [...this.localFavItems, product]
+            this.$q.notify({
+               message: 'Added to Favourite',
+               color: 'info'
+            })
          }
       },
       addToCart(product) {
@@ -144,6 +152,10 @@ export default {
          } else {
             this.localCartItems = [...this.localCartItems, { ...product, quantity: 1 }]
          }
+         this.$q.notify({
+            message: 'Added to Cart',
+            color: 'info'
+         })
       },
       onBuyNow() {
          this.$router.push('/checkout')

@@ -148,6 +148,11 @@ export default {
          this.selected.forEach(id => {
             this.localCartItems = this.localCartItems.filter(product => product.id !== id)
          })
+
+         this.$q.notify({
+            message: 'Removed from Cart',
+            color: 'warning'
+         })
       }
    },
    watch: {

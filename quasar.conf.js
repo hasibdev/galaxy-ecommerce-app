@@ -91,6 +91,9 @@ module.exports = configure(function (ctx) {
       config: {
         loadingBar: {
           color: 'secondary'
+        },
+        notify: {
+          timeout: 2000
         }
       },
 
@@ -105,7 +108,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Dialog', 'Meta', 'LoadingBar']
+      plugins: ['Dialog', 'Meta', 'LoadingBar', 'Notify']
     },
 
     // animations: 'all', // --- includes all animations
