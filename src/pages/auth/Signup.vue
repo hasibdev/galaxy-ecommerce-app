@@ -26,9 +26,9 @@
             </div>
             <!-- Mobile -->
             <div class="row q-col-gutter-sm">
-               <!-- <div class="col-3">
-                  <q-select outlined v-model="form.countryCode" :options="mobileOptions" class="small-select-box" dropdown-icon="expand_more" />
-               </div> -->
+               <div class="col-3">
+                  <q-select outlined v-model="countryCode" :options="mobileOptions" class="small-select-box" dropdown-icon="expand_more" />
+               </div>
                <div class="col">
                   <q-input outlined color="secondary" v-model="form.phone" type="tel" placeholder="Mobile Number" input-class="text-body1" class="q-mb-md" />
                </div>
@@ -83,6 +83,7 @@ export default {
             password_confirmation: "123456",
             phone: "1580919000"
          },
+         countryCode: '+880',
          passwordVisible: false,
          mobileOptions: ['+880', '+650', '+84'],
          savingState: false
@@ -94,12 +95,11 @@ export default {
          this.savingState = true
          try {
             await this.regester({
-               url: '/regester',
-               // data: { ...this.form, phone: `${this.form.countryCode} ${this.form.phone}` }
-               data: this.form
+               url: '/register',
+               data: { ...this.form, phone: `${this.countryCode} ${this.form.phone}` }
             })
 
-            // this.$router.push('/')
+            this.$router.replace('/home')
          } catch (error) {
             console.log(error)
          } finally {
