@@ -18,8 +18,8 @@
 
             <div v-if="true" class="flex justify-between items-center q-px-md q-my-lg">
                <div>
-                  <p class="text-grey-6" style="font-size: 12px;">Total (3 Items)</p>
-                  <p class="text-bold text-body1">$490</p>
+                  <p class="text-grey-6" style="font-size: 12px;">Total ({{totalCartItems}} Items)</p>
+                  <p class="text-bold text-body1">{{ getTotalPrice }}</p>
                </div>
                <q-btn rounded color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
             </div>
@@ -55,13 +55,13 @@
                            <span class="bg-grey-14 inline-block rounded-borders" style="width:19px; height:19px;"></span>
                            <span class="q-ml-sm inline-block ">Grey</span>
                         </p> -->
-                        <p class="text-h6 text-black q-mt-sm text-bold">{{ item.formatted_price }}</p>
+                        <p class="text-h6 text-black q-mt-sm text-bold">{{ (item.price.inCurrentCurrency.amount * item.quantity).toFixed(2) }}</p>
                      </q-item-label>
                      <!-- Quantity adjust -->
                      <q-item-label>
                         <div class="flex justify-end">
                            <div style="margin-top: -25px;">
-                              <q-btn dense unelevated @click="--item.quantity" color="grey-3" class="round-10 text-grey-6" icon="remove" />
+                              <q-btn dense unelevated @click="item.quantity !== 1 ? --item.quantity : null" color="grey-3" class="round-10 text-grey-6" icon="remove" />
                               <q-btn outline dense unelevated color="grey-3" class="round-10 q-px-md text-grey-10 q-mx-sm">{{ item.quantity }}</q-btn>
                               <q-btn dense unelevated @click="++item.quantity" color="grey-3" class="round-10 text-grey-6" icon="add" />
                            </div>
@@ -111,6 +111,25 @@ export default {
    computed: {
       allIds() {
          return this.localCartItems.map(c => c.id)
+      },
+      totalCartItems() {
+         if (this.selected.length) {
+            return this.selected.length
+         } else {
+            return this.localCartItems.length
+         }
+      },
+      getTotalPrice() {
+         if (this.selected.length) {
+            let p = 0
+            this.selected.forEach(id => {
+               const product = this.localCartItems.find(item => item.id === id)
+               p += (product.price.inCurrentCurrency.amount * product.quantity)
+            })
+            return p
+         } else {
+            return this.localCartItems.reduce((acc, product) => (acc += product.price.inCurrentCurrency.amount * product.quantity), 0)
+         }
       }
    },
    methods: {
