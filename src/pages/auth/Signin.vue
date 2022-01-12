@@ -49,6 +49,8 @@
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import ShopSvg from 'components/svg/ShopSvg.vue'
+import { mapActions } from 'vuex'
+
 export default {
    components: {
       ToolbarOne, AppLayout, ShopSvg
@@ -56,15 +58,23 @@ export default {
    data() {
       return {
          form: {
-            email: 'user@example.com',
+            email: 'test2@test.com',
             password: '123456'
          },
          passwordVisible: false
       }
    },
    methods: {
-      formSubmit() {
-         this.$router.push('/')
+      ...mapActions('auth', ['login']),
+      async formSubmit() {
+         try {
+            // const res = await this.$api.post('/login', this.form)
+            const res = await this.login({ url: '/login', data: this.form })
+            console.log(res)
+            // this.$router.push('/')
+         } catch (error) {
+            console.log(error)
+         }
       }
    }
 }

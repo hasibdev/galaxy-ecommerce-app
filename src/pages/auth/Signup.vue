@@ -68,6 +68,7 @@
 <script>
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
+import { mapMutations } from 'vuex'
 export default {
    components: {
       ToolbarOne, AppLayout
@@ -75,12 +76,12 @@ export default {
    data() {
       return {
          form: {
-            email: '',
-            password: '',
-            password_confirmation: '',
-            firstName: '',
-            lastName: '',
-            phone: '',
+            email: 'test@test.com',
+            password: '123456',
+            password_confirmation: '123456',
+            firstName: 'Test',
+            lastName: 'User',
+            phone: '1580919000',
             countryCode: '+880'
          },
          passwordVisible: false,
@@ -88,6 +89,7 @@ export default {
       }
    },
    methods: {
+      ...mapMutations('auth', ['regester']),
       async formSubmit() {
          try {
             const res = await this.$api.post('/regester', this.form)

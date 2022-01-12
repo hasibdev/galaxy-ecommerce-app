@@ -127,6 +127,9 @@ export default {
          } else {
             this.localFavItems = [...this.localFavItems, product]
          }
+      },
+      onBuyNow() {
+         this.$router.push('/checkout')
       }
    },
    watch: {
