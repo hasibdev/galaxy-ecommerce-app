@@ -35,7 +35,7 @@
          <!-- Check box -->
          <div class="flex justify-between">
             <q-checkbox @click="onCheckAll" v-model="checkAll" label="Select All" />
-            <span v-if="selected.length" class="text-primary">Delete All</span>
+            <span v-if="selected.length" @click="onDeleteAll" class="text-primary">Delete All</span>
          </div>
          <!-- List -->
          <div>
@@ -143,6 +143,11 @@ export default {
          console.log('check all')
          if (this.checkAll) this.selected = this.allIds
          else this.selected = []
+      },
+      onDeleteAll() {
+         this.selected.forEach(id => {
+            this.localCartItems = this.localCartItems.filter(product => product.id !== id)
+         })
       }
    },
    watch: {
