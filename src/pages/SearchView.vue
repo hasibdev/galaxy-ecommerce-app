@@ -85,7 +85,7 @@
                <q-icon name="las la-angle-down" />
             </p>
             <div>
-               <q-icon name="las la-bars" size="25px" class="text-bold text-grey-8" />
+               <!-- <q-icon name="las la-bars" size="25px" class="text-bold text-grey-8" /> -->
                <q-icon @click="openFilter" name="las la-sliders-h" size="25px" class="text-bold text-grey-8 q-ml-sm" />
             </div>
          </div>
