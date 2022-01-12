@@ -1,10 +1,13 @@
 
+const isFirst = localStorage.getItem('onboarding')
+
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('pages/Index.vue') },
+      { path: '', redirect: isFirst ? '/home' : '/onboarding' },
+      { path: '/home', name: 'home', component: () => import('pages/Index.vue') },
       { path: 'search-view', name: 'search-view', component: () => import('pages/SearchView.vue') },
       { path: 'categories/:slug', name: 'category-details', component: () => import('pages/categories/details.vue') },
       { path: 'products/:slug', name: 'product-details', component: () => import('pages/products/details.vue') },

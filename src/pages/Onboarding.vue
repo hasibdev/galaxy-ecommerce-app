@@ -22,7 +22,7 @@
          </swiper>
 
          <div class="q-mt-xl">
-            <q-btn rounded no-caps unelevated to="/signin" color="primary" label="Getting Started" size="lg" class="full-width" />
+            <q-btn rounded no-caps unelevated @click="onGetStarted" color="primary" label="Getting Started" size="lg" class="full-width" />
          </div>
       </div>
    </q-page>
@@ -36,6 +36,12 @@ import Onboard3Svg from 'components/svg/Onboard3.vue'
 export default {
    components: {
       Swiper, SwiperSlide, Onboard1Svg, Onboard2Svg, Onboard3Svg
+   },
+   methods: {
+      onGetStarted() {
+         localStorage.setItem('onboarding', 'true')
+         this.$router.replace('/home')
+      }
    }
 }
 </script>
