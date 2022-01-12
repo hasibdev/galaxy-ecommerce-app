@@ -41,7 +41,14 @@ const routes = [
         }
       },
       { path: 'onboarding', name: 'onboarding', component: () => import('pages/Onboarding.vue') },
-      { path: 'checkout', name: 'checkout', component: () => import('src/pages/Checkout.vue') },
+      {
+        path: 'checkout',
+        name: 'checkout',
+        component: () => import('src/pages/Checkout.vue'),
+        meta: {
+          middleware: [auth]
+        }
+      },
       { path: 'verification', name: 'verification', component: () => import('src/pages/Verification.vue') },
       { path: 'order-success', name: 'order-success', component: () => import('src/pages/OrderSuccess.vue') }
     ]

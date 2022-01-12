@@ -49,6 +49,9 @@ export default {
       async regester({ commit }, { data, url }) {
          try {
             const res = await api.post(url, data)
+            console.log(res)
+            localStorage.setItem('token', res.data.token)
+
             commit('SET_AUTH', { status: true, user: res.data.user })
             return Promise.resolve(res)
          } catch (error) {
@@ -58,6 +61,7 @@ export default {
       async logout() {
          try {
             const res = await api.post('/logout')
+            localStorage.removeItem('token')
             return Promise.resolve(res)
          } catch (error) {
             return Promise.reject(error)

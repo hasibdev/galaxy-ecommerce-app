@@ -18,18 +18,18 @@
             <!-- First and Last Name -->
             <div class="row q-col-gutter-sm">
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.firstName" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
                </div>
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.lastName" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
                </div>
             </div>
             <!-- Mobile -->
             <div class="row q-col-gutter-sm">
-               <div class="col-3">
+               <!-- <div class="col-3">
                   <q-select outlined v-model="form.countryCode" :options="mobileOptions" class="small-select-box" dropdown-icon="expand_more" />
-               </div>
-               <div class="col-9">
+               </div> -->
+               <div class="col">
                   <q-input outlined color="secondary" v-model="form.phone" type="tel" placeholder="Mobile Number" input-class="text-body1" class="q-mb-md" />
                </div>
             </div>
@@ -52,7 +52,7 @@
 
             <p class="text-grey-5 q-mt-md">By signing up for a Elektra account you are agreeing to our community Terms of service and privacy policy.</p>
 
-            <q-btn rounded no-caps size="lg" type="submit" label="Sign Up" color="primary" class="full-width q-mt-lg" />
+            <q-btn rounded no-caps :loading="savingState" :disable="savingState" size="lg" type="submit" label="Sign Up" color="primary" class="full-width q-mt-lg" />
             <p class="text-grey-6 text-body1 text-center q-my-md">Or Sign up with</p>
             <q-btn rounded outline no-caps size="lg" label="Continue With FB" color="primary" class="full-width" />
             <q-btn rounded outline no-caps size="lg" label="Continue With Google" color="primary" class="full-width q-mt-md" />
@@ -76,26 +76,34 @@ export default {
    data() {
       return {
          form: {
-            email: 'test@test.com',
-            password: '123456',
-            password_confirmation: '123456',
-            firstName: 'Test',
-            lastName: 'User',
-            phone: '1580919000',
-            countryCode: '+880'
+            first_name: "Test",
+            last_name: "User",
+            email: "test7@test.com",
+            password: "123456",
+            password_confirmation: "123456",
+            phone: "1580919000"
          },
          passwordVisible: false,
-         mobileOptions: ['+880', '+650', '+84']
+         mobileOptions: ['+880', '+650', '+84'],
+         savingState: false
       }
    },
    methods: {
       ...mapActions('auth', ['regester']),
       async formSubmit() {
+         this.savingState = true
          try {
-            await this.regester({ url: '/regester', data: this.form })
-            this.$router.push('/')
+            await this.regester({
+               url: '/regester',
+               // data: { ...this.form, phone: `${this.form.countryCode} ${this.form.phone}` }
+               data: this.form
+            })
+
+            // this.$router.push('/')
          } catch (error) {
             console.log(error)
+         } finally {
+            this.savingState = false
          }
       }
    }
