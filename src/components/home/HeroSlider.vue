@@ -53,18 +53,15 @@
 export default {
    data() {
       return {
-         slide: 1,
-         items: []
+         slide: 1
       }
    },
-   async created() {
-      try {
-         const resSliders = await this.$api.get('/sliders')
-         this.items = resSliders.data.slides
-      } catch (error) {
-         console.log(error)
+   computed: {
+      items() {
+         return this.$store.state.appData.heroSliders
       }
    }
+
 }
 </script>
 

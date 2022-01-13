@@ -30,14 +30,10 @@ export default {
    components: {
       ProductCard, ProductSkeleton
    },
-   data() {
-      return {
-         items: []
+   computed: {
+      items() {
+         return this.$store.state.appData.todaysBest
       }
-   },
-   async created() {
-      const res = await this.$api('/storefront/vertical-products/1')
-      this.items = res.data
    }
 }
 </script>

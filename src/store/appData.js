@@ -3,7 +3,9 @@ import { api } from 'boot/axios'
 export default {
    namespaced: true,
    state: {
-      categories: null
+      categories: null,
+      heroSliders: [],
+      todaysBest: []
    },
    mutations: {
       SET_DATA(state, { property, data }) {
@@ -12,8 +14,28 @@ export default {
    },
    actions: {
       async fetchCategories({ commit }) {
-         const res = await api.get('/featured-categories')
-         commit('SET_DATA', { property: 'categories', data: res.data.categories })
+         try {
+            const res = await api.get('/featured-categories')
+            commit('SET_DATA', { property: 'categories', data: res.data.categories })
+         } catch (error) {
+            console.log(error)
+         }
+      },
+      async fetchHeroSliders({ commit }) {
+         try {
+            const res = await api.get('/sliders')
+            commit('SET_DATA', { property: 'heroSliders', data: res.data.slides })
+         } catch (error) {
+            console.log(error)
+         }
+      },
+      async fetchTodaysBest({ commit }) {
+         try {
+            const res = await api.get('/storefront/vertical-products/1')
+            commit('SET_DATA', { property: 'todaysBest', data: res.data })
+         } catch (error) {
+            console.log(error)
+         }
       }
    }
 }
