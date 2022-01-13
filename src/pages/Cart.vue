@@ -55,7 +55,7 @@
                            <span class="bg-grey-14 inline-block rounded-borders" style="width:19px; height:19px;"></span>
                            <span class="q-ml-sm inline-block ">Grey</span>
                         </p> -->
-                        <p class="text-h6 text-black q-mt-sm text-bold">{{ (item.price.inCurrentCurrency.amount * item.quantity).toFixed(2) }}</p>
+                        <p class="text-h6 text-black q-mt-sm text-bold">{{item.formatted_price[0]}}{{ (item.price.inCurrentCurrency.amount * item.quantity).toFixed(2) }}</p>
                      </q-item-label>
                      <!-- Quantity adjust -->
                      <q-item-label>
@@ -122,13 +122,25 @@ export default {
       getTotalPrice() {
          if (this.selected.length) {
             let p = 0
+            let symbol = ''
             this.selected.forEach(id => {
                const product = this.localCartItems.find(item => item.id === id)
                p += (product.price.inCurrentCurrency.amount * product.quantity)
+
+               // this is a little bit hack for currency symbol
+               symbol = product.formatted_price[0]
             })
-            return p
+            return `${symbol}${p}`
          } else {
-            return this.localCartItems.reduce((acc, product) => (acc += product.price.inCurrentCurrency.amount * product.quantity), 0)
+            return this.localCartItems.reduce((acc, product) => {
+               let symbol = ''
+               acc += product.price.inCurrentCurrency.amount * product.quantity
+
+               // this is a little bit hack for currency symbol
+               symbol = product.formatted_price[0]
+
+               return `${symbol}${acc}`
+            }, 0)
          }
       }
    },
