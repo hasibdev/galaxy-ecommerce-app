@@ -21,7 +21,7 @@
                   <p class="text-grey-6" style="font-size: 12px;">Total ({{totalCartItems}} Items)</p>
                   <p class="text-bold text-body1">{{ getTotalPrice }}</p>
                </div>
-               <q-btn rounded color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
+               <q-btn rounded to="/checkout" color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
             </div>
             <!-- Empty cart footer -->
             <div v-else class="q-ma-md">

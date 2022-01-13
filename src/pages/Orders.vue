@@ -14,7 +14,7 @@
       <div id="orders_category_slider">
          <swiper :slides-per-view="3" :freeMode="true" :mousewheel="true" :space-between="5">
             <swiper-slide v-for="(item, i) in items" :key="i">
-               <p class="text-item" :class="{active: i==0}">{{ item.title }}</p>
+               <p class="text-item" @click="currentValue=item.value" :class="{active: currentValue==item.value}">{{ item.title }}</p>
             </swiper-slide>
          </swiper>
       </div>
@@ -60,10 +60,19 @@ export default {
    data() {
       return {
          items: [
-            { title: "Shipped" },
-            { title: "Delivered" },
-            { title: "Cancled" }
-         ]
+            { title: "Shipped", value: 'shipped' },
+            { title: "Delivered", value: 'delivered' },
+            { title: "Cancled", value: 'cancled' }
+         ],
+         currentValue: 'shipped'
+      }
+   },
+   async created() {
+      try {
+         const res = await this.$api.get('/account/orders')
+         console.log(res.data.orders)
+      } catch (error) {
+         console.log(error)
       }
    }
 }

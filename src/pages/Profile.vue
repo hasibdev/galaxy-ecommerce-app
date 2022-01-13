@@ -32,10 +32,10 @@
          <q-list class="rounded-borders">
             <q-expansion-item icon="las la-user-circle" label="My Profile">
                <q-card>
-                  <q-card-section>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                     commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                     eveniet doloribus ullam aliquid.
+                  <q-card-section class="text-body1">
+                     <p><strong>Email:</strong> {{ user.email }}</p>
+                     <p><strong>Phone:</strong> {{ user.phone || '-' }}</p>
+                     <p><strong>Last Login:</strong> {{ user.last_login || '-' }}</p>
                   </q-card-section>
                </q-card>
             </q-expansion-item>
