@@ -10,7 +10,7 @@
             <template #middle>
                <div class="text-center">
                   <q-icon name="las la-search" color="grey-5" class="search-icon q-px-sm" />
-                  <input v-model="searchText" ref="searchInput" class="search-input" placeholder="Search" type="text">
+                  <input v-model="searchText" @input="onSearch" ref="searchInput" class="search-input" placeholder="Search" type="text">
                </div>
             </template>
             <!-- <template v-if="!searchText" #append>
@@ -29,16 +29,16 @@
             </div>
             <!-- List -->
             <q-list>
-               <q-item v-for="(item, i) in 3" :key="i" clickable v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
+               <q-item v-for="(item, i) in recentSearch" :key="i" clickable v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
                   <q-item-section avatar>
                      <q-avatar rounded color="transparent" text-color="white">
-                        <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/chicken-salad.jpg" />
+                        <q-img class="rounded-borders" :src="item.base_image.path" />
                      </q-avatar>
                   </q-item-section>
 
                   <q-item-section>
                      <q-item-label>
-                        <p class="text-body1 text-bold">Headphone Joss</p>
+                        <p class="text-body1 text-bold">{{ item.name }}</p>
                      </q-item-label>
                   </q-item-section>
 
@@ -57,16 +57,16 @@
             </div>
             <!-- List -->
             <q-list>
-               <q-item v-for="item in 3" :key="item" class="q-my-sm round-10 bg-white" clickable v-ripple>
+               <q-item v-for="(item, i) in popularSearch" :key="i" class="q-my-sm round-10 bg-white" clickable v-ripple :class="{'custom-shadow': i==0}">
                   <q-item-section avatar>
                      <q-avatar rounded color="transparent" text-color="white">
-                        <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/chicken-salad.jpg" />
+                        <q-img class="rounded-borders" :src="item.base_image.path" />
                      </q-avatar>
                   </q-item-section>
 
                   <q-item-section>
                      <q-item-label>
-                        <p class="text-body1 text-bold">Headphone Joss</p>
+                        <p class="text-body1 text-bold">{{ item.name }}</p>
                      </q-item-label>
                   </q-item-section>
 
@@ -92,10 +92,19 @@
 
          <!-- Results -->
          <div class="row q-col-gutter-md q-mt-md">
-            <div class="col-6" v-for="item in 4" :key="item">
-               <product-card name="Cafe Basilico" :price="32.50" :star="3.5" :reviews="1259" image="https://cdn.quasar.dev/img/chicken-salad.jpg" />
-            </div>
+            <template v-if="searchResults && searchResults.length">
+               <div class="col-6" v-for="(item, i) in searchResults" :key="i">
+                  <product-card @click="$router.push(`/products/${item.slug}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
+               </div>
+            </template>
+            <!-- Product Card Skeleton -->
+            <template v-else>
+               <div v-for="item in 4" :key="item" class="col-6">
+                  <product-skeleton />
+               </div>
+            </template>
          </div>
+
       </div>
 
    </app-layout>
@@ -106,13 +115,23 @@ import ProductCard from 'components/ProductCard'
 import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import SearchFilter from 'components/modals/SearchFilter.vue'
+import ProductSkeleton from 'components/skeletons/ProductCartSkeleton.vue'
 export default {
    components: {
-      AppLayout, ToolbarOne, ProductCard
+      AppLayout, ToolbarOne, ProductCard, ProductSkeleton
    },
    data() {
       return {
-         searchText: ''
+         searchText: '',
+         searchResults: null
+      }
+   },
+   computed: {
+      popularSearch() {
+         return this.$store.state.appData.todaysBest
+      },
+      recentSearch() {
+         return this.$store.state.appData.todaysBest
       }
    },
    mounted() {
@@ -121,6 +140,18 @@ export default {
    methods: {
       openFilter() {
          this.$q.dialog({ component: SearchFilter })
+      },
+      async onSearch() {
+         if (!this.searchText) {
+            return
+         }
+
+         try {
+            const res = await this.$api.get(`/products?query=${this.searchText}`)
+            this.searchResults = res.data.products.data
+         } catch (error) {
+            console.log(error)
+         }
       }
    }
 }
