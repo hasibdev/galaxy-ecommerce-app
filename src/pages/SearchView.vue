@@ -25,26 +25,26 @@
          <div>
             <div class="flex justify-between items-center">
                <h6 class="text-bold">Recent Search</h6>
-               <span v-if="recentSearch.length">View All</span>
+               <!-- <span v-if="recentSearch.length">View All</span> -->
             </div>
             <p v-if="!recentSearch.length">No Recent Search!</p>
             <!-- List -->
             <q-list v-else>
-               <q-item v-for="(item, i) in recentSearch" :key="i" @click="$router.push(`/products/${item.slug}`)" clickable v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
-                  <q-item-section avatar>
+               <q-item v-for="(item, i) in recentSearch" :key="i" v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
+                  <q-item-section avatar @click="$router.push(`/products/${item.slug}`)">
                      <q-avatar rounded color="transparent" text-color="white">
                         <q-img class="rounded-borders" :src="item.base_image.path" />
                      </q-avatar>
                   </q-item-section>
 
-                  <q-item-section>
+                  <q-item-section @click="$router.push(`/products/${item.slug}`)">
                      <q-item-label>
                         <p class="text-body1 text-bold">{{ item.name }}</p>
                      </q-item-label>
                   </q-item-section>
 
                   <q-item-section side>
-                     <q-icon name="las la-times" size="20px" color="grey-10" />
+                     <q-icon @click="removeRecentSearch(item.id)" name="las la-times" size="20px" color="grey-10" />
                   </q-item-section>
                </q-item>
             </q-list>
@@ -54,24 +54,24 @@
          <div>
             <div class="flex justify-between items-center">
                <h6 class="text-bold">Popular Search</h6>
-               <span>View All</span>
+               <!-- <span>View All</span> -->
             </div>
             <!-- List -->
             <q-list>
-               <q-item v-for="(item, i) in popularSearch" :key="i" @click="$router.push(`/products/${item.slug}`)" class="q-my-sm round-10 bg-white" clickable v-ripple :class="{'custom-shadow': i==0}">
-                  <q-item-section avatar>
+               <q-item v-for="(item, i) in popularSearch" :key="i" class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
+                  <q-item-section avatar @click="$router.push(`/products/${item.slug}`)">
                      <q-avatar rounded color="transparent" text-color="white">
                         <q-img class="rounded-borders" :src="item.base_image.path" />
                      </q-avatar>
                   </q-item-section>
 
-                  <q-item-section>
+                  <q-item-section @click="$router.push(`/products/${item.slug}`)">
                      <q-item-label>
                         <p class="text-body1 text-bold">{{ item.name }}</p>
                      </q-item-label>
                   </q-item-section>
 
-                  <q-item-section side>
+                  <q-item-section side @click="removePopularSearch(item.id)">
                      <q-icon name="las la-times" size="20px" color="grey-10" />
                   </q-item-section>
                </q-item>
@@ -125,17 +125,14 @@ export default {
       return {
          searchText: '',
          searchResults: null,
-         recentSearch: []
-      }
-   },
-   computed: {
-      popularSearch() {
-         return this.$store.state.appData.todaysBest
+         recentSearch: [],
+         popularSearch: []
       }
    },
    mounted() {
       this.$refs.searchInput.focus()
       this.recentSearch = this.$store.getters['appData/getRecentSearch']
+      this.popularSearch = this.$store.state.appData.todaysBest
    },
    methods: {
       openFilter() {
@@ -157,8 +154,14 @@ export default {
          this.$router.push(`/products/${item.slug}`)
 
          // Save to local storage
-         this.recentSearch.unshift(item)
-         localStorage.setItem('recentSearch', JSON.stringify(this.recentSearch))
+         this.$store.commit('appData/ADD_RECENT_SEARCH', item)
+      },
+      removeRecentSearch(id) {
+         this.recentSearch = this.recentSearch.filter(item => item.id !== id)
+         this.$store.commit('appData/REMOVE_RECENT_SEARCH', id)
+      },
+      removePopularSearch(id) {
+         this.popularSearch = this.popularSearch.filter(item => item.id !== id)
       }
    }
 }

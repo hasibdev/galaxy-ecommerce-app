@@ -17,6 +17,21 @@ export default {
    mutations: {
       SET_DATA(state, { property, data }) {
          state[property] = data
+      },
+      ADD_RECENT_SEARCH(state, item) {
+         const localData = JSON.parse(localStorage.getItem('recentSearch'))
+         if (localData) {
+            const newData = [item, ...localData]
+            localStorage.setItem('recentSearch', JSON.stringify(newData))
+         } else {
+            localStorage.setItem('recentSearch', JSON.stringify([item]))
+         }
+         console.log(localData)
+      },
+      REMOVE_RECENT_SEARCH(state, id) {
+         const localData = JSON.parse(localStorage.getItem('recentSearch'))
+         const newData = localData.filter(item => item.id !== id)
+         localStorage.setItem('recentSearch', JSON.stringify(newData))
       }
    },
    actions: {
