@@ -117,6 +117,8 @@ import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import SearchFilter from 'components/modals/SearchFilter.vue'
 import ProductSkeleton from 'components/skeletons/ProductCartSkeleton.vue'
+import { debounce } from 'quasar'
+
 export default {
    components: {
       AppLayout, ToolbarOne, ProductCard, ProductSkeleton
@@ -138,7 +140,7 @@ export default {
       openFilter() {
          this.$q.dialog({ component: SearchFilter })
       },
-      async onSearch() {
+      onSearch: debounce(async function () {
          if (!this.searchText) {
             return
          }
@@ -149,7 +151,7 @@ export default {
          } catch (error) {
             console.log(error)
          }
-      },
+      }, 300),
       onProductItemClick(item) {
          this.$router.push(`/products/${item.slug}`)
 
