@@ -25,11 +25,12 @@
          <div>
             <div class="flex justify-between items-center">
                <h6 class="text-bold">Recent Search</h6>
-               <span>View All</span>
+               <span v-if="recentSearch.length">View All</span>
             </div>
+            <p v-if="!recentSearch.length">No Recent Search!</p>
             <!-- List -->
-            <q-list>
-               <q-item v-for="(item, i) in recentSearch" :key="i" clickable v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
+            <q-list v-else>
+               <q-item v-for="(item, i) in recentSearch" :key="i" @click="$router.push(`/products/${item.slug}`)" clickable v-ripple class="q-my-sm round-10 bg-white" :class="{'custom-shadow': i==0}">
                   <q-item-section avatar>
                      <q-avatar rounded color="transparent" text-color="white">
                         <q-img class="rounded-borders" :src="item.base_image.path" />
@@ -57,7 +58,7 @@
             </div>
             <!-- List -->
             <q-list>
-               <q-item v-for="(item, i) in popularSearch" :key="i" class="q-my-sm round-10 bg-white" clickable v-ripple :class="{'custom-shadow': i==0}">
+               <q-item v-for="(item, i) in popularSearch" :key="i" @click="$router.push(`/products/${item.slug}`)" class="q-my-sm round-10 bg-white" clickable v-ripple :class="{'custom-shadow': i==0}">
                   <q-item-section avatar>
                      <q-avatar rounded color="transparent" text-color="white">
                         <q-img class="rounded-borders" :src="item.base_image.path" />
@@ -94,7 +95,7 @@
          <div class="row q-col-gutter-md q-mt-md">
             <template v-if="searchResults && searchResults.length">
                <div class="col-6" v-for="(item, i) in searchResults" :key="i">
-                  <product-card @click="$router.push(`/products/${item.slug}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
+                  <product-card @click="onProductItemClick(item)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
                </div>
             </template>
             <!-- Product Card Skeleton -->
@@ -123,19 +124,18 @@ export default {
    data() {
       return {
          searchText: '',
-         searchResults: null
+         searchResults: null,
+         recentSearch: []
       }
    },
    computed: {
       popularSearch() {
          return this.$store.state.appData.todaysBest
-      },
-      recentSearch() {
-         return this.$store.state.appData.todaysBest
       }
    },
    mounted() {
       this.$refs.searchInput.focus()
+      this.recentSearch = this.$store.getters['appData/getRecentSearch']
    },
    methods: {
       openFilter() {
@@ -152,6 +152,13 @@ export default {
          } catch (error) {
             console.log(error)
          }
+      },
+      onProductItemClick(item) {
+         this.$router.push(`/products/${item.slug}`)
+
+         // Save to local storage
+         this.recentSearch.unshift(item)
+         localStorage.setItem('recentSearch', JSON.stringify(this.recentSearch))
       }
    }
 }

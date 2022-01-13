@@ -7,6 +7,13 @@ export default {
       heroSliders: [],
       todaysBest: []
    },
+   getters: {
+      getRecentSearch() {
+         const localData = JSON.parse(localStorage.getItem('recentSearch'))
+
+         return localData ? localData.slice(0, 4) : []
+      }
+   },
    mutations: {
       SET_DATA(state, { property, data }) {
          state[property] = data
