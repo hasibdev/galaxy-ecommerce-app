@@ -93,10 +93,13 @@ export default {
             password_confirmation: ''
          },
          addressForm: {
-            street: 'Ulon',
-            city: 'Dhaka',
-            country: 'Bangladesh',
-            zip: '2000'
+            address_1: 'Address one',
+            address_2: 'Address Two',
+            street: '',
+            city: '',
+            state: '',
+            country: '',
+            zip: ''
          },
          countryCode: '+880',
          mobileOptions: ['+880', '+650', '+84'],
@@ -113,8 +116,16 @@ export default {
          try {
             const res = await this.$api.post('/account/profile', this.form)
             console.log(res)
+            this.$q.notify({
+               type: 'positive',
+               message: 'Profile updated successfully!'
+            })
          } catch (error) {
             console.log(error)
+            this.$q.notify({
+               type: 'negative',
+               message: 'Request Fail!'
+            })
          } finally {
             this.savingState = false
          }
@@ -123,8 +134,16 @@ export default {
          try {
             const res = await this.$api.post('account/address', this.addressForm)
             console.log(res)
+            this.$q.notify({
+               type: 'positive',
+               message: 'Address updated successfully!'
+            })
          } catch (error) {
             console.log(error)
+            this.$q.notify({
+               type: 'negative',
+               message: 'Request Fail!'
+            })
          }
       }
    },
