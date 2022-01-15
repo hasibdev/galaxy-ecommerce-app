@@ -7,4 +7,5 @@ export default boot(async ({ store }) => {
   store.dispatch('appData/fetchHeroSliders')
   store.dispatch('appData/fetchCategories')
   store.dispatch('appData/fetchTodaysBest')
+  store.dispatch('cart/loadData')
 })

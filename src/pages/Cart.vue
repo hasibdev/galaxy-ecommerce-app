@@ -132,15 +132,14 @@ export default {
             })
             return `${symbol}${p}`
          } else {
-            return this.localCartItems.reduce((acc, product) => {
-               let symbol = ''
-               acc += product.price.inCurrentCurrency.amount * product.quantity
-
-               // this is a little bit hack for currency symbol
-               symbol = product.formatted_price[0]
-
-               return `${symbol}${acc}`
+            // this is a little bit hack for currency symbol
+            const symbol = this.localCartItems[0].formatted_price[0]
+            const total = this.localCartItems.reduce((acc, product) => {
+               const t = acc += product.price.inCurrentCurrency.amount * product.quantity
+               return t
             }, 0)
+
+            return `${symbol}${total}`
          }
       }
    },

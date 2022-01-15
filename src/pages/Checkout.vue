@@ -141,15 +141,13 @@ export default {
       ...mapState('checkout', ['products']),
       ...mapState('auth', ['user', 'address']),
       getTotalPrice() {
-         return this.items.reduce((acc, product) => {
-            let symbol = ''
-            acc += product.price.inCurrentCurrency.amount * product.quantity
-
-            // this is a little bit hack for currency symbol
-            symbol = product.formatted_price[0]
-
-            return `${symbol}${acc}`
+         const symbol = this.items[0].formatted_price[0]
+         const total = this.items.reduce((acc, product) => {
+            const t = acc += product.price.inCurrentCurrency.amount * product.quantity
+            return t
          }, 0)
+
+         return `${symbol}${total}`
       }
    },
    created() {

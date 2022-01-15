@@ -165,6 +165,7 @@ export default {
       localCartItems: {
          handler: function (val) {
             localStorage.setItem('localCart', JSON.stringify(val))
+            this.$store.dispatch('cart/loadData')
          },
          deep: true
       },

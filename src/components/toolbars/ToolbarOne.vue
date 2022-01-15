@@ -19,7 +19,11 @@
       <!-- Append -->
       <div class="append-content">
          <slot name="append">
-            <q-btn to="/cart" flat round dense color="primary" icon="las la-shopping-cart" class="q-ml-sm" />
+            <q-btn to="/cart" flat round dense color="primary" class="q-ml-sm">
+               <q-icon size="30px" name="las la-shopping-cart" />
+               <q-badge color="orange" rounded floating>{{ totalCart }}</q-badge>
+
+            </q-btn>
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
          </slot>
       </div>
@@ -29,6 +33,7 @@
 <script>
 import BackBtn from 'components/buttons/BackBtn.vue'
 import HelpChat from 'components/modals/HelpChat.vue'
+import { mapGetters } from 'vuex'
 export default {
    props: {
       canBack: {
@@ -46,6 +51,9 @@ export default {
    },
    components: {
       BackBtn
+   },
+   computed: {
+      ...mapGetters('cart', ['totalCart'])
    },
    methods: {
       openSearchView(e) {
