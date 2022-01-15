@@ -1,6 +1,6 @@
 <template>
    <div id="home-hero">
-      <q-carousel navigation autoplay swipeable infinite v-model="slide" height="230px" transition-prev="slide-right" transition-next="slide-left" animated control-color="grey-10" class="rounded-borders">
+      <q-carousel navigation autoplay swipeable infinite v-model="slide" height="230px" transition-prev="slide-right" transition-next="slide-left" transition-duration="1000" animated control-color="grey-10" class="rounded-borders">
 
          <template v-if="items.length">
             <q-carousel-slide v-for="(item, i) in items" :key="i" :name="i" :img-src="item.file.path" class="column no-wrap">
