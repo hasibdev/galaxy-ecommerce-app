@@ -16,7 +16,7 @@
       <template #footer>
          <q-footer id="app_footer" class="bg-white text-grey-9">
 
-            <div v-if="true" class="flex justify-between items-center q-px-md q-my-lg">
+            <div v-if="localCartItems.length" class="flex justify-between items-center q-px-md q-my-lg">
                <div>
                   <p class="text-grey-6" style="font-size: 12px;">Total ({{totalCartItems}} Items)</p>
                   <p class="text-bold text-body1">{{ getTotalPrice }}</p>
@@ -31,7 +31,7 @@
       </template>
 
       <!-- Main Content -->
-      <section v-if="true">
+      <section v-if="localCartItems.length">
          <!-- Check box -->
          <div class="flex justify-between">
             <q-checkbox @click="onCheckAll" v-model="checkAll" label="Select All" />

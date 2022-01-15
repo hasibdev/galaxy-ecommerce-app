@@ -55,6 +55,7 @@
             <h6 class="q-my-md">Update Address</h6>
             <q-input outlined color="secondary" v-model="address.street" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="address.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="address.country" type="text" placeholder="Country" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="address.zipCode" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 
             <div class="flex justify-end">
@@ -90,6 +91,7 @@ export default {
          address: {
             street: '',
             city: '',
+            country: '',
             zipCode: ''
          },
          countryCode: '+880',

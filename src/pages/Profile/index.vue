@@ -8,6 +8,10 @@
          </toolbar-one>
       </template>
 
+      <div v-if="!user" class="text-center q-mt-xl">
+         <q-spinner color="grey-14" size="3em" />
+      </div>
+
       <div v-if="user">
          <div class="text-center">
             <q-avatar size="150px">
