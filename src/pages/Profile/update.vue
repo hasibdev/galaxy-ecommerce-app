@@ -93,7 +93,8 @@ export default {
             zipCode: ''
          },
          countryCode: '+880',
-         mobileOptions: ['+880', '+650', '+84']
+         mobileOptions: ['+880', '+650', '+84'],
+         passwordVisible: false
       }
    },
    computed: {

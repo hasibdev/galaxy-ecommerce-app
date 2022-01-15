@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
-const api = axios.create({ baseURL: process.env.API_URL || 'https://galaxytelecom.fr/api' })
+const api = axios.create({ baseURL: 'https://galaxytelecom.fr/api' })
 
 api.interceptors.request.use(async function (config) {
   // Do something before request is sent

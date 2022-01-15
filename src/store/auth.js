@@ -5,7 +5,8 @@ export default {
    state: function () {
       return {
          status: false,
-         user: null
+         user: null,
+         address: null
       }
    },
    getters: {
@@ -26,6 +27,8 @@ export default {
             if (!token) return Promise.reject(false)
 
             const res = await api.get('/account/profile')
+            const resAddress = await api.get('/account/address')
+            console.log(resAddress)
             commit('SET_AUTH', { status: true, user: res.data.account })
             return Promise.resolve(res)
          } catch (error) {
