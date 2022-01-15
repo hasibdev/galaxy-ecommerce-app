@@ -21,7 +21,7 @@
 
             <div class="flex q-mt-sm">
                <q-btn @click="removeFavorite(item.id)" outline dense color="primary" class="round-10 q-pa-sm" icon="las la-trash" />
-               <q-btn no-caps color="primary" rounded class="flex-1 q-ml-md" label="Buy Now" />
+               <q-btn no-caps to="/checkout" color="primary" rounded class="flex-1 q-ml-md" label="Buy Now" />
             </div>
          </div>
       </template>

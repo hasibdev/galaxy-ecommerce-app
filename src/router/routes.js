@@ -16,7 +16,15 @@ const routes = [
       {
         path: 'profile',
         name: 'profile',
-        component: () => import('pages/Profile.vue'),
+        component: () => import('src/pages/Profile/index.vue'),
+        meta: {
+          middleware: [auth]
+        }
+      },
+      {
+        path: 'profile/update',
+        name: 'profile-update',
+        component: () => import('src/pages/Profile/update.vue'),
         meta: {
           middleware: [auth]
         }
