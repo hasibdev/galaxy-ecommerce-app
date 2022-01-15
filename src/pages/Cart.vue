@@ -21,7 +21,7 @@
                   <p class="text-grey-6" style="font-size: 12px;">Total ({{totalCartItems}} Items)</p>
                   <p class="text-bold text-body1">{{ getTotalPrice }}</p>
                </div>
-               <q-btn rounded to="/checkout" color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
+               <q-btn rounded @click="addCheckout" color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
             </div>
             <!-- Empty cart footer -->
             <div v-else class="q-ma-md">
@@ -164,6 +164,21 @@ export default {
             message: 'Removed from Cart',
             color: 'warning'
          })
+      },
+      addCheckout() {
+         if (!this.selected.length) {
+            this.$store.commit('checkout/SET_DATA', { property: 'products', data: this.localCartItems })
+            localStorage.setItem('checkout', JSON.stringify(this.localCartItems))
+         } else {
+            const data = []
+            for (let i = 0; i < this.selected.length; i++) {
+               const product = this.localCartItems.find(p => p.id === this.selected[i])
+               data.push(product)
+            }
+            this.$store.commit('checkout/SET_DATA', { property: 'products', data })
+            localStorage.setItem('checkout', JSON.stringify(data))
+         }
+         this.$router.push('/checkout')
       }
    },
    watch: {
