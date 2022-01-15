@@ -15,7 +15,8 @@
       <div v-if="user">
          <div class="text-center">
             <q-avatar size="150px">
-               <img :src="require('assets/images/user-04.png')">
+               <img v-if="user.image" :src="user.image">
+               <img v-else :src="require('assets/images/user-01.png')">
             </q-avatar>
             <h6 class="q-mt-lg">{{ user.first_name }} {{ user.last_name }}</h6>
          </div>
@@ -25,8 +26,8 @@
                <q-icon name="las la-wallet text-primary" size="30px" />
             </div>
             <div class="q-ml-sm">
-               <p class="text-body1 text-bold">{{ user.email }}</p>
-               <p v-if="user.phone">{{ user.phone }}</p>
+               <p class="text-body1">{{ user.email }}</p>
+               <p v-if="user.phone" class="text-body2">{{ user.phone }}</p>
             </div>
 
             <q-btn class="q-ml-auto" to="/profile/update" rounded unelevated color="primary">Update</q-btn>
@@ -54,15 +55,7 @@
                      </q-card-section>
                   </q-card>
                </q-expansion-item>
-               <q-expansion-item icon="las la-bell" label="Notification">
-                  <q-card>
-                     <q-card-section>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                        commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                        eveniet doloribus ullam aliquid.
-                     </q-card-section>
-                  </q-card>
-               </q-expansion-item>
+
                <q-expansion-item icon="gpp_good" label="Help Center">
                   <q-card>
                      <q-card-section>
