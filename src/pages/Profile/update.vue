@@ -16,6 +16,9 @@
 
       <div>
          <form @submit.prevent="updateProfile" class="q-mt-lg">
+            <div class="q-mb-md flex justify-center">
+               <image-atach-field v-model="form.image" />
+            </div>
             <!-- First and Last Name -->
             <div class="row q-col-gutter-sm">
                <div class="col">
@@ -47,16 +50,16 @@
             <q-input outlined color="secondary" v-model="form.password_confirmation" type="password" input-class="text-body1" placeholder="Confirm Password"></q-input>
 
             <div class="flex justify-end">
-               <q-btn type="submit" color="primary" rounded label="Update Profile" class="q-mt-md" />
+               <q-btn type="submit" :loading="savingState" :disable="savingState" color="primary" rounded label="Update Profile" class="q-mt-md" />
             </div>
          </form>
 
          <form @submit.prevent="updateAddress">
             <h6 class="q-my-md">Update Address</h6>
-            <q-input outlined color="secondary" v-model="address.street" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="address.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="address.country" type="text" placeholder="Country" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="address.zipCode" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.street" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.country" type="text" placeholder="Country" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 
             <div class="flex justify-end">
                <q-btn type="submit" color="primary" rounded label="Update Address" />
@@ -72,15 +75,16 @@
 import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import BackBtn from 'components/buttons/BackBtn.vue'
-
+import ImageAtachField from 'components/form/ImageAtachField.vue'
 import { mapState } from 'vuex'
 export default {
    components: {
-      AppLayout, ToolbarOne, BackBtn
+      AppLayout, ToolbarOne, BackBtn, ImageAtachField
    },
    data() {
       return {
          form: {
+            image: '',
             first_name: '',
             last_name: '',
             phone: '',
@@ -88,32 +92,52 @@ export default {
             password: '',
             password_confirmation: ''
          },
-         address: {
-            street: '',
-            city: '',
-            country: '',
-            zipCode: ''
+         addressForm: {
+            street: 'Ulon',
+            city: 'Dhaka',
+            country: 'Bangladesh',
+            zip: '2000'
          },
          countryCode: '+880',
          mobileOptions: ['+880', '+650', '+84'],
-         passwordVisible: false
+         passwordVisible: false,
+         savingState: false
       }
    },
    computed: {
-      ...mapState('auth', ['user'])
+      ...mapState('auth', ['user', 'address'])
    },
    methods: {
-      updateProfile() {
-         console.log('Form Submit')
+      async updateProfile() {
+         this.savingState = true
+         try {
+            const res = await this.$api.post('/account/profile', this.form)
+            console.log(res)
+         } catch (error) {
+            console.log(error)
+         } finally {
+            this.savingState = false
+         }
       },
-      updateAddress() {
-         console.log('Form Submit')
+      async updateAddress() {
+         try {
+            const res = await this.$api.post('account/address', this.addressForm)
+            console.log(res)
+         } catch (error) {
+            console.log(error)
+         }
       }
    },
    watch: {
       user: {
          handler: function (val) {
             this.form = { ...this.form, ...val }
+         },
+         immediate: true
+      },
+      address: {
+         handler: function (val) {
+            if (val) this.addressForm = val
          },
          immediate: true
       }
