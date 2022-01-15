@@ -62,7 +62,7 @@
             <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 
             <div class="flex justify-end">
-               <q-btn type="submit" color="primary" rounded label="Update Address" />
+               <q-btn :loading="savingState2" :disable="savingState2" type="submit" color="primary" rounded label="Update Address" />
             </div>
          </form>
 
@@ -104,7 +104,8 @@ export default {
          countryCode: '+880',
          mobileOptions: ['+880', '+650', '+84'],
          passwordVisible: false,
-         savingState: false
+         savingState: false,
+         savingState2: false
       }
    },
    computed: {
@@ -114,7 +115,7 @@ export default {
       async updateProfile() {
          this.savingState = true
          try {
-            const res = await this.$api.post('/account/profile', this.form)
+            const res = await this.$api.post('/account/profile', { ...this.form, phone: `${this.countryCode} ${this.form.phone}` })
             console.log(res)
             this.$q.notify({
                type: 'positive',
@@ -131,6 +132,7 @@ export default {
          }
       },
       async updateAddress() {
+         this.savingState2 = true
          try {
             const res = await this.$api.post('account/address', this.addressForm)
             console.log(res)
@@ -144,6 +146,8 @@ export default {
                type: 'negative',
                message: 'Request Fail!'
             })
+         } finally {
+            this.savingState2 = false
          }
       }
    },

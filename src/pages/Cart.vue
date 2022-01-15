@@ -7,7 +7,7 @@
                <div></div>
             </template>
             <template #middle>
-               <p class="text-center text-body1 text-bold q-mr-lg">My Cart</p>
+               <p class="text-center text-body1 text-bold q-mr-lg">Shopping Cart</p>
             </template>
 
          </toolbar-one>
