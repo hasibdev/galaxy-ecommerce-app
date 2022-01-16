@@ -58,8 +58,8 @@ export default {
    data() {
       return {
          form: {
-            email: 'test2@test.com',
-            password: '123456'
+            email: '',
+            password: ''
          },
          passwordVisible: false,
          savingState: false

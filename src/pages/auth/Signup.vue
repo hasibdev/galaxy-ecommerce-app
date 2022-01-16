@@ -76,12 +76,12 @@ export default {
    data() {
       return {
          form: {
-            first_name: "Test",
-            last_name: "User",
-            email: "test7@test.com",
-            password: "123456",
-            password_confirmation: "123456",
-            phone: "1580919000"
+            first_name: "",
+            last_name: "",
+            email: "",
+            password: "",
+            password_confirmation: "",
+            phone: ""
          },
          countryCode: '+880',
          passwordVisible: false,
