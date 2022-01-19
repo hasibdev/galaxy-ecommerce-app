@@ -95,7 +95,7 @@
          <div class="row q-col-gutter-md q-mt-md">
             <template v-if="searchResults && searchResults.length">
                <div class="col-6" v-for="(item, i) in searchResults" :key="i">
-                  <product-card @click="onProductItemClick(item)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
+                  <product-card @click="onProductItemClick(item)" :product="item" />
                </div>
             </template>
             <!-- Product Card Skeleton -->

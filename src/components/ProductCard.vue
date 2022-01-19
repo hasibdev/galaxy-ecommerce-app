@@ -1,47 +1,29 @@
 <template>
-   <q-card class="custom-shadow">
-      <q-img :src="image" />
-      <q-card-section>
-         <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis text-grey-10">
-               {{ name }}
-            </div>
-         </div>
+   <div>
+      <q-card class="custom-shadow round-15">
+         <q-img :src="product.base_image.path" />
+      </q-card>
 
+      <!-- Product info -->
+      <div class="q-mt-lg text-center">
+         <p style="font-size:15px;">{{ product.name }}</p>
          <!-- Ragings -->
-         <div class="flex justify-between">
-            <q-rating :model-value="star" icon-half="star_half" :max="5" size="13px" color="secondary" />
-            <span class="" style="font-size: 10px;">{{ reviews }} Reviews</span>
+         <div class="flex justify-center q-mt-sm">
+            <q-rating no-dimming :model-value="product.rating_percent" icon-half="star_half" :max="5" size="14px" color-selected="orange" color-half="orange" color="grey-5" />
+
+            <span style="font-size: 10px;margin-left: 5px;">{{product.rating_percent}} | <span class="text-blue-8">{{ product.reviews.length }} Reviews</span></span>
          </div>
-
-         <p class="text-h6 text-bold q-mt-sm">${{ price }}</p>
-
-      </q-card-section>
-   </q-card>
+         <p class="text-h6 text-bold q-mt-sm">{{ product.formatted_price }}</p>
+      </div>
+   </div>
 </template>
 
 <script>
 export default {
    props: {
-      name: {
-         type: String,
+      product: {
+         type: Object,
          required: true
-      },
-      price: {
-         type: [String, Number],
-         required: true
-      },
-      star: {
-         type: Number,
-         required: true
-      },
-      reviews: {
-         type: Number,
-         required: true
-      },
-      image: {
-         type: String,
-         required: false
       }
    }
 }

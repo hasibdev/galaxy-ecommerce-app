@@ -27,7 +27,7 @@
          <p v-if="!products.length" class="text-body1">No Product is avilable for "{{ $route.params.slug }}"</p>
 
          <div class="col-6" v-for="item in products" :key="item.id">
-            <product-card @click="$router.push(`/products/${item.slug}`)" :name="item.name" :price="item.formatted_price" :star="item.rating_percent" :reviews="item.reviews.length" :image="item.base_image.path" />
+            <product-card @click="$router.push(`/products/${item.slug}`)" :product="item" />
          </div>
       </div>
 

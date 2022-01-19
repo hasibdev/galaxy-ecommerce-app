@@ -6,7 +6,7 @@ body {
    background-color: $body-bg;
 }
 .body-bg {
-   background-color: $body-bg;   
+   background-color: $body-bg;
 }
 
 // app global css in SCSS form
@@ -26,6 +26,9 @@ input:focus {
 .round-10 {
    border-radius: 10px;
 }
+.round-15 {
+   border-radius: 15px;
+}
 
 .border-1 {
    border: 1px solid $grey-4;
@@ -40,4 +43,7 @@ input:focus {
 // Override
 .q-field--outlined .q-field__control {
    border-radius: 10px;
+}
+.q-rating__icon {
+  text-shadow: none !important;
 }
