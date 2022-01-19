@@ -1,9 +1,9 @@
 <template>
    <app-layout>
       <template #toolbar>
-         <toolbar-one canMessage :searchIcon="false">
+         <toolbar-one canBack canMessage :searchIcon="false">
             <template #middle>
-               <p class="text-center text-body1 text-bold q-ml-xl">Profile</p>
+               <p class="text-center text-body1 text-bold q-ml-md">Profile</p>
             </template>
          </toolbar-one>
       </template>

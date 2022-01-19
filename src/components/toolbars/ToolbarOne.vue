@@ -3,7 +3,7 @@
       <!-- Prepend -->
       <div class="prepend-content">
          <slot name="prepend">
-            <q-icon v-if="canBack" @click="$router.back()" name="las la-angle-left" color="primary" size="25px" class="q-pr-sm" />
+            <q-icon v-if="canBack" @click="$router.back()" name="arrow_back" color="primary" size="25px" class="q-pr-sm" />
             <back-btn v-if="backWithText" />
          </slot>
       </div>
@@ -11,7 +11,7 @@
       <!-- Middle Input area -->
       <div class="middle-content">
          <slot name="middle">
-            <h6 class="q-ml-md">{{ title }}</h6>
+            <p class="text-center text-body1 text-bold">{{ title }}</p>
             <!-- <q-icon name="las la-search" color="grey-5" class="search-icon q-px-sm" />
             <input @click="openSearchView" @focus="openSearchView" class="search-input" placeholder="Search" type="text"> -->
          </slot>

@@ -1,10 +1,9 @@
 <template>
    <app-layout>
-      <!-- Toolbar setup -->
       <template #toolbar>
-         <toolbar-one canMessage>
+         <toolbar-one canBack :searchIcon="false">
             <template #middle>
-               <p class="text-body1">My Orders</p>
+               <p class="text-center text-body1 text-bold q-ml-md">My Orders</p>
             </template>
          </toolbar-one>
       </template>

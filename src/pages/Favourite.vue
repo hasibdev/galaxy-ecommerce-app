@@ -1,5 +1,13 @@
 <template>
    <app-layout>
+      <template #toolbar>
+         <toolbar-one canBack :searchIcon="false">
+            <template #middle>
+               <p class="text-center text-body1 text-bold q-ml-md">My Favourite</p>
+            </template>
+         </toolbar-one>
+      </template>
+
       <template v-if="localFavItems.length">
          <div v-for="(item, i) in localFavItems" :key="i" :class="{'custom-shadow': i==0}" class="bg-white round-10 q-pa-sm q-mt-md">
             <div class="flex no-wrap items-center">
@@ -36,10 +44,11 @@
 <script>
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
+import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 export default {
    mixins: [createMetaMixin(() => ({ title: 'My Favourit' }))],
    components: {
-      AppLayout
+      AppLayout, ToolbarOne
    },
    data() {
       return {
