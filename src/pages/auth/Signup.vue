@@ -26,9 +26,9 @@
             </div>
             <!-- Mobile -->
             <div class="row q-col-gutter-sm">
-               <div class="col-3">
+               <!-- <div class="col-3">
                   <q-select outlined v-model="countryCode" :options="mobileOptions" class="small-select-box" dropdown-icon="expand_more" />
-               </div>
+               </div> -->
                <div class="col">
                   <q-input outlined color="secondary" v-model="form.phone" type="tel" placeholder="Mobile Number" input-class="text-body1" class="q-mb-md" />
                </div>
@@ -96,7 +96,7 @@ export default {
          try {
             await this.regester({
                url: '/register',
-               data: { ...this.form, phone: `${this.countryCode} ${this.form.phone}` }
+               data: { ...this.form }
             })
 
             this.$router.replace('/home')
