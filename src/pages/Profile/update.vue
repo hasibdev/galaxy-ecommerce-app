@@ -136,7 +136,7 @@ export default {
          this.savingState2 = true
          try {
             const res = await this.$api.post('account/address', this.addressForm)
-            console.log(res)
+            this.$store.commit('auth/SET_ADDRESS', res.data)
             this.$q.notify({
                type: 'positive',
                message: 'Address updated successfully!'

@@ -152,8 +152,20 @@ export default {
    },
    methods: {
       async placeOrder() {
-         const res = await this.$api.post('/checkout', {})
-         console.log(res)
+         try {
+            const res = await this.$api.post('/checkout', {
+               customer_email: this.user.email,
+               billing: this.address,
+               shipping: this.address,
+               payment_method: 'cod',
+               shipping_method: "free_shipping",
+               order_note: "Some note",
+               terms_and_conditions: true
+            })
+            console.log(res)
+         } catch (error) {
+            console.log(error)
+         }
       }
    },
    created() {

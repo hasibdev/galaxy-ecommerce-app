@@ -49,7 +49,6 @@ export default {
    methods: {
       handleChange(e) {
          this.onFileChange(e)
-         this.$emit("update:modelValue", e.target.files[0])
       },
 
       onFileChange: function (event) {
@@ -64,6 +63,8 @@ export default {
          const that = this
          reader.onload = function (e) {
             that.previewUrl = e.target.result
+
+            that.$emit("update:modelValue", e.target.result)
          }
          reader.readAsDataURL(file)
       },
