@@ -1,7 +1,7 @@
 <template>
    <app-layout>
       <template #toolbar>
-         <toolbar-one canMessage>
+         <toolbar-one canMessage :searchIcon="false">
             <template #middle>
                <p class="text-center text-body1 text-bold q-ml-xl">Profile</p>
             </template>
@@ -45,7 +45,6 @@
                            <p class="text-body1 q-mb-sm">Last Name: {{ user.last_name }} </p>
                            <p class="text-body1 q-mb-sm">Email: {{ user.email }}</p>
                            <p class="text-body1 q-mb-sm">Phone: {{ user.phone }}</p>
-                           <p class="text-body1">Last login: {{ user.last_login }}</p>
                         </address>
                      </q-card-section>
                   </q-card>
@@ -53,7 +52,7 @@
                <q-expansion-item icon="las la-map-marker" label="My Address">
                   <q-card>
                      <q-card-section>
-                        <address>
+                        <address v-if="address">
                            <p class="text-body1 q-mb-sm">Address One: {{ address.address_1 }} </p>
                            <p class="text-body1 q-mb-sm">Address Two: {{ address.address_2 }} </p>
                            <p class="text-body1 q-mb-sm">City: {{ address.city }} </p>
@@ -62,6 +61,7 @@
                            <p class="text-body1 q-mb-sm">Zip Code: {{ address.zip }} </p>
 
                         </address>
+                        <p v-else>No Address Found!</p>
                      </q-card-section>
                   </q-card>
                </q-expansion-item>

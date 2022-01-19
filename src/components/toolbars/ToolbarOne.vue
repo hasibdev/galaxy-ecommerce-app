@@ -1,5 +1,5 @@
 <template>
-   <div id="toolbar_one" class="flex justify-between items-center full-width q-my-sm q-px-sm">
+   <div id="toolbar_one" class="flex justify-between items-center full-width q-py-md q-px-sm custom-shadow">
       <!-- Prepend -->
       <div class="prepend-content">
          <slot name="prepend">
@@ -11,18 +11,20 @@
       <!-- Middle Input area -->
       <div class="middle-content">
          <slot name="middle">
-            <q-icon name="las la-search" color="grey-5" class="search-icon q-px-sm" />
-            <input @click="openSearchView" @focus="openSearchView" class="search-input" placeholder="Search" type="text">
+            <h6 class="q-ml-md">{{ title }}</h6>
+            <!-- <q-icon name="las la-search" color="grey-5" class="search-icon q-px-sm" />
+            <input @click="openSearchView" @focus="openSearchView" class="search-input" placeholder="Search" type="text"> -->
          </slot>
       </div>
 
       <!-- Append -->
       <div class="append-content">
          <slot name="append">
-            <q-btn to="/cart" flat round dense color="primary" class="q-ml-sm">
+            <q-icon @click="openSearchView" v-if="searchIcon" size="30px" color="primary" name="search" />
+
+            <q-btn to="/cart" flat round dense color="primary" class="q-mx-sm">
                <q-icon size="30px" name="las la-shopping-cart" />
                <q-badge color="orange" rounded floating>{{ totalCart }}</q-badge>
-
             </q-btn>
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
          </slot>
@@ -44,9 +46,17 @@ export default {
          type: Boolean,
          default: false
       },
+      searchIcon: {
+         type: Boolean,
+         default: true
+      },
       backWithText: {
          type: Boolean,
          default: false
+      },
+      title: {
+         type: [String, Number],
+         default: "Home"
       }
    },
    components: {
