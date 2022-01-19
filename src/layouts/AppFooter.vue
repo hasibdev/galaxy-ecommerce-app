@@ -53,23 +53,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu-list {
-   list-style: none;
-   display: flex;
-   justify-content: space-between;
-   width: 100%;
-   padding: 13px 25px;
-   border-top: 0.2px solid $grey-5;
-   margin: 0;
-   li {
-      text-align: center;
-      transition: 0.2s ease-in-out;
-      &.active {
-         color: $primary !important;
-      }
-   }
-}
 #app_footer {
    bottom: -1px;
+   box-shadow: -10px 0px 20px $grey-5;
+   border-top-left-radius: 28px;
+   border-top-right-radius: 28px;
+   .menu-list {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 13px 25px;
+      //  border-top: 0.2px solid $grey-5;
+      margin: 0;
+      li {
+         text-align: center;
+         transition: 0.2s ease-in-out;
+         &.active {
+            color: $primary !important;
+         }
+      }
+   }
 }
 </style>
