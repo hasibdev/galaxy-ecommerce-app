@@ -1,11 +1,12 @@
 <template>
    <div>
-      <q-card class="custom-shadow round-15">
-         <q-img :src="product.base_image.path" />
+      <q-card class="custom-shadow round-15 overflow-hidden">
+         <q-img @click="$router.push(`/products/${product.slug}`)" :src="product.base_image.path" />
+         <q-btn fab unelevated flat dense fab-mini @click="addToFavorit(product)" :icon="getFavIcon" color="red" class="absolute" style="top:0; right:0;" />
       </q-card>
 
       <!-- Product info -->
-      <div class="q-mt-lg text-center">
+      <div @click="$router.push(`/products/${product.slug}`)" class="q-mt-lg text-center">
          <p style="font-size:15px;">{{ product.name }}</p>
          <!-- Ragings -->
          <div class="flex justify-center q-mt-sm">
@@ -20,10 +21,49 @@
 
 <script>
 export default {
+   data() {
+      return {
+         localFavItems: []
+      }
+   },
    props: {
       product: {
          type: Object,
          required: true
+      }
+   },
+   computed: {
+      getFavIcon() {
+         return this.localFavItems.map(x => x.id).includes(this.product.id) ? 'favorite' : 'favorite_border'
+      }
+   },
+   methods: {
+      addToFavorit(product) {
+         const hasItem = this.localFavItems.some(p => p.id === product.id)
+         if (hasItem) {
+            this.localFavItems = this.localFavItems.filter(p => p.id !== product.id)
+            this.$q.notify({
+               message: 'Removed from Favourite',
+               color: 'warning'
+            })
+         } else {
+            this.localFavItems = [...this.localFavItems, product]
+            this.$q.notify({
+               message: 'Added to Favourite',
+               color: 'info'
+            })
+         }
+      }
+   },
+   created() {
+      const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
+      if (localfavourite && localfavourite.length) {
+         this.localFavItems = localfavourite
+      }
+   },
+   watch: {
+      localFavItems(val) {
+         localStorage.setItem('localfavourite', JSON.stringify(val))
       }
    }
 }

@@ -9,7 +9,7 @@
          <!-- Product Card  -->
          <template v-if="items.length">
             <div class="col-6" v-for="item in items" :key="item.id">
-               <product-card @click="$router.push(`/products/${item.slug}`)" :product="item" />
+               <product-card :product="item" />
             </div>
          </template>
 
