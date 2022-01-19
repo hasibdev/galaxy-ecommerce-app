@@ -21,6 +21,7 @@
          </div>
 
          <form @submit.prevent="formSubmit" class="q-mt-lg">
+            <p v-if="errorMessage" class="text-negative q-mb-sm">{{ errorMessage }}</p>
             <q-input outlined color="secondary" v-model="form.email" type="email" placeholder="Email Address" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="form.password" :type="passwordVisible?`text`:`password`" input-class="text-body1" placeholder="Password">
                <template #append>
@@ -62,19 +63,26 @@ export default {
             password: ''
          },
          passwordVisible: false,
-         savingState: false
+         savingState: false,
+         errorMessage: ''
       }
    },
    methods: {
       ...mapActions('auth', ['login']),
       async formSubmit() {
          this.savingState = true
+         this.errorMessage = ''
          try {
             await this.login({ url: '/login', data: this.form })
 
             this.$router.replace('/home')
          } catch (error) {
-            console.log(error)
+            // console.log({ ...error })
+            this.errorMessage = error.response.data.message
+            this.$q.notify({
+               type: 'negative',
+               message: 'Login Fail!'
+            })
          } finally {
             this.savingState = false
          }

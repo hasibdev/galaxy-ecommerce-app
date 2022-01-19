@@ -95,6 +95,10 @@ export default {
       async onLogout() {
          try {
             await this.logout()
+            this.$q.notify({
+               type: 'positive',
+               message: 'Logout successfully!'
+            })
             this.$router.replace('/home')
          } catch (error) {
             console.log(error)
