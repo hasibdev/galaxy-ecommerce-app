@@ -56,9 +56,11 @@
 
          <form @submit.prevent="updateAddress">
             <h6 class="q-my-md">Update Address</h6>
-            <q-input outlined color="secondary" v-model="addressForm.street" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Address 1" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.address_2" type="text" placeholder="Address 2" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.country" type="text" placeholder="Country" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 
             <div class="flex justify-end">
@@ -93,9 +95,8 @@ export default {
             password_confirmation: ''
          },
          addressForm: {
-            address_1: 'Address one',
-            address_2: 'Address Two',
-            street: '',
+            address_1: '',
+            address_2: '',
             city: '',
             state: '',
             country: '',

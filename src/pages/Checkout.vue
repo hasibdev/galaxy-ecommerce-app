@@ -24,7 +24,7 @@
                   <p class="text-grey-6">Total</p>
                   <p class="text-bold text-body1">{{ getTotalPrice }}</p>
                </div>
-               <q-btn rounded unelevated color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
+               <q-btn rounded unelevated @click="placeOrder" color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
             </div>
 
          </q-footer>
@@ -148,6 +148,12 @@ export default {
          }, 0)
 
          return `${symbol}${total}`
+      }
+   },
+   methods: {
+      async placeOrder() {
+         const res = await this.$api.post('/checkout', {})
+         console.log(res)
       }
    },
    created() {
