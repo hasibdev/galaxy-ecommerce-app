@@ -107,6 +107,7 @@ export default {
    },
    created() {
       this.initLocaldata()
+      this.loadData()
    },
    computed: {
       allIds() {
@@ -144,6 +145,10 @@ export default {
       }
    },
    methods: {
+      async loadData() {
+         const res = await this.$api.get('cart')
+         console.log(res)
+      },
       initLocaldata() {
          const localCart = JSON.parse(localStorage.getItem('localCart'))
          if (localCart && localCart.length) {

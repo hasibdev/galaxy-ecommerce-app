@@ -22,8 +22,8 @@
          <slot name="append">
             <q-icon @click="openSearchView" v-if="searchIcon" size="30px" color="primary" name="search" />
 
-            <q-btn to="/cart" flat round dense color="primary" class="q-mx-sm">
-               <q-icon size="30px" name="las la-shopping-cart" />
+            <q-btn to="/cart" v-if="cartIcon" flat round dense color="primary" class="q-mx-sm">
+               <q-icon name="o_shopping_cart" />
                <q-badge color="orange" rounded floating>{{ totalCart }}</q-badge>
             </q-btn>
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
@@ -41,6 +41,10 @@ export default {
       canBack: {
          type: Boolean,
          default: false
+      },
+      cartIcon: {
+         type: Boolean,
+         default: true
       },
       canMessage: {
          type: Boolean,

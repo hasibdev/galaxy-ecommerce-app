@@ -19,25 +19,25 @@ export default {
          items: [
             {
                label: "Home",
-               icon: "o_home",
+               icon: "home",
                to: '/',
                name: 'home'
             },
             {
                label: "My Order",
-               icon: "o_shopping_cart",
+               icon: "shopping_cart",
                to: '/orders',
                name: 'orders'
             },
             {
                label: "Favourite",
-               icon: "bookmark_border",
+               icon: "favorite",
                to: '/favourite',
                name: 'favourite'
             },
             {
                label: "Profile",
-               icon: "o_account_circle",
+               icon: "person",
                to: '/profile',
                name: 'profile'
             }

@@ -116,7 +116,7 @@ export default {
       async updateProfile() {
          this.savingState = true
          try {
-            const res = await this.$api.post('/account/profile', this.form)
+            const res = await this.$api.post('/account/profile', { ...this.form, image: `${this.form.image}` })
             console.log(res)
             this.$q.notify({
                type: 'positive',
