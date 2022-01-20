@@ -132,6 +132,11 @@ export default {
          if (localfavourite && localfavourite.length) {
             this.localFavItems = localfavourite
          }
+         // local cart
+         const localCart = JSON.parse(localStorage.getItem('localCart'))
+         if (localCart && localCart.length) {
+            this.localCartItems = localCart
+         }
       },
       addToFavorit(product) {
          const hasItem = this.localFavItems.some(p => p.id === product.id)
@@ -150,20 +155,33 @@ export default {
          }
       },
       async addToCart(product) {
-         const data = {
-            product_id: product.id,
-            qty: 1
+         const hasItem = this.localCartItems.some(p => p.id === product.id)
+         if (hasItem) {
+            const itemindex = this.localCartItems.findIndex(p => p.id === product.id)
+            ++this.localCartItems[itemindex].quantity
+            console.log(this.localCartItems)
+         } else {
+            this.localCartItems = [...this.localCartItems, { ...product, quantity: 1 }]
          }
-         try {
-            const res = await this.$api.post('cart/items', data)
-            console.log(res)
-            this.$q.notify({
-               message: 'Added to Cart',
-               color: 'info'
-            })
-         } catch (error) {
-            console.log(error)
-         }
+         this.$q.notify({
+            message: 'Added to Cart',
+            color: 'info'
+         })
+
+         //  const data = {
+         //     product_id: product.id,
+         //     qty: 1
+         //  }
+         //  try {
+         //     const res = await this.$api.post('cart/items', data)
+         //     console.log(res)
+         //     this.$q.notify({
+         //        message: 'Added to Cart',
+         //        color: 'info'
+         //     })
+         //  } catch (error) {
+         //     console.log(error)
+         //  }
       },
       onBuyNow() {
          this.$router.push('/checkout')
