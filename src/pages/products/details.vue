@@ -116,7 +116,10 @@ export default {
    },
    computed: {
       alreadyInFavorite() {
-         return this.localFavItems.find(p => p.id === this.product.id)
+         if (this.product) {
+            return this.localFavItems.find(p => p.id === this.product.id)
+         }
+         return false
       }
    },
    async created() {
