@@ -3,21 +3,23 @@
       <!-- Toolbar -->
       <template #toolbar>
          <toolbar-one canBack :searchIcon="false">
-            <!-- <template #prepend>
-               <q-icon @click="$router.back()" name="las la-angle-left" color="primary" size="25px" class="q-pr-sm" />
-            </template> -->
 
             <template #middle>
-               <div class="text-center">
-                  <q-icon name="las la-search" color="grey-5" class="search-icon q-px-sm" />
-                  <input v-model="searchText" @input="onSearch" ref="searchInput" class="search-input" placeholder="Search" type="text">
-               </div>
+               <p class="text-center text-body1 text-bold q-ml-md">Search</p>
+
             </template>
-            <!-- <template v-if="!searchText" #append>
-               <p @click="$router.back()" class="q-pl-md">Cancle</p>
-            </template> -->
+
          </toolbar-one>
       </template>
+
+      <!-- Search -->
+      <div class="q-my-md">
+         <q-input outlined placeholder="Search products..">
+            <template v-slot:prepend>
+               <q-icon name="search" />
+            </template>
+         </q-input>
+      </div>
 
       <!-- Search Suggestions -->
       <div v-if="!searchText">

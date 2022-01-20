@@ -9,6 +9,7 @@
       </template>
 
       <template v-if="localFavItems.length">
+         <!-- Search -->
          <div>
             <q-input outlined placeholder="Search your favourite items">
                <template v-slot:prepend>
