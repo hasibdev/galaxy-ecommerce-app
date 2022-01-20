@@ -171,20 +171,20 @@ export default {
             color: 'info'
          })
 
-         //  const data = {
-         //     product_id: product.id,
-         //     qty: 1
-         //  }
-         //  try {
-         //     const res = await this.$api.post('cart/items', data)
-         //     console.log(res)
-         //     this.$q.notify({
-         //        message: 'Added to Cart',
-         //        color: 'info'
-         //     })
-         //  } catch (error) {
-         //     console.log(error)
-         //  }
+         const data = {
+            product_id: product.id,
+            qty: 1
+         }
+         try {
+            const res = await this.$api.post('cart/items', data)
+            console.log(res)
+            this.$q.notify({
+               message: 'Added to Cart',
+               color: 'info'
+            })
+         } catch (error) {
+            console.log(error)
+         }
       },
       onBuyNow() {
          this.$router.push('/checkout')

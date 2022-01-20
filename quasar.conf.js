@@ -152,8 +152,8 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: 'Ecommerce App',
-        short_name: 'Ecommerce App',
+        name: 'Galaxy Telecom',
+        short_name: 'Galaxy Telecom',
         description: 'A Ecommerce Framework app',
         display: 'standalone',
         orientation: 'portrait',

@@ -1,16 +1,18 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
+axios.defaults.withCredentials = true
+
 const api = axios.create({
   baseURL: 'https://galaxytelecom.fr/api'
-  // withCredentials: true
 })
+
+// api.defaults.withCredentials = true
 
 api.interceptors.request.use(async function (config) {
   // Do something before request is sent
   const token = localStorage.getItem('token')
   config.headers.common.Authorization = `Bearer ${token || ''}`
-  // config.headers.common['Access-Control-Allow-Origin'] = '*'
 
   return config
 }, function (error) {
