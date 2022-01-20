@@ -5,6 +5,10 @@
             <template #prepend>
                <logo-image />
             </template>
+
+            <template #middle>
+               <div></div>
+            </template>
          </toolbar-one>
 
       </template>
