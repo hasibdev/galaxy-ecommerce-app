@@ -186,6 +186,18 @@ export default {
       onBuyNow() {
          this.$router.push('/checkout')
       }
+   },
+   watch: {
+      localCartItems: {
+         handler: function (val) {
+            localStorage.setItem('localCart', JSON.stringify(val))
+            this.$store.dispatch('cart/loadData')
+         },
+         deep: true
+      },
+      localFavItems(val) {
+         localStorage.setItem('localfavourite', JSON.stringify(val))
+      }
    }
 }
 </script>
