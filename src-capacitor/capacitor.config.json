@@ -1,6 +1,6 @@
 {
   "appId": "galaxytelecom.fr.app",
-  "appName": "Galaxy Ecommerce",
+  "appName": "Galaxy Telecom",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"

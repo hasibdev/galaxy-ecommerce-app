@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Galaxy Ecommerce</string>
-    <string name="title_activity_main">Galaxy Ecommerce</string>
+    <string name="app_name">Galaxy Telecom</string>
+    <string name="title_activity_main">Galaxy Telecom</string>
     <string name="package_name">galaxytelecom.fr.app</string>
     <string name="custom_url_scheme">galaxytelecom.fr.app</string>
 </resources>

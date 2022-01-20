@@ -9,35 +9,27 @@
       </template>
 
       <template v-if="localFavItems.length">
-         <div v-for="(item, i) in localFavItems" :key="i" :class="{'custom-shadow': i==0}" class="bg-white round-10 q-pa-sm q-mt-md">
-            <div class="flex no-wrap items-center">
-               <div>
-                  <q-avatar size="70px" class="round-10">
-                     <img :src="item.base_image.path">
-                  </q-avatar>
-               </div>
-               <div class="q-ml-md">
-                  <p class="text-body1">{{ item.name }}</p>
-                  <div class="flex">
-                     <q-rating :model-value="item.rating_percent" icon-half="star_half" :max="5" size="13px" color="secondary" />
-                     <span class="q-ml-sm" style="font-size: 10px;">{{ item.reviews.length }} Reviews</span>
-                  </div>
+         <div>
+            <q-input outlined placeholder="Search your favourite items">
+               <template v-slot:prepend>
+                  <q-icon name="search" />
+               </template>
+            </q-input>
+         </div>
 
-                  <p class="text-h6 text-bold q-mt-sm">{{ item.formatted_price }}</p>
-               </div>
-            </div>
-
-            <div class="flex q-mt-sm">
-               <q-btn @click="removeFavorite(item.id)" outline dense color="primary" class="round-10 q-pa-sm" icon="las la-trash" />
-               <q-btn no-caps @click="addCheckout(item)" color="primary" rounded class="flex-1 q-ml-md" label="Buy Now" />
+         <div class="row q-col-gutter-md">
+            <div class="col-6 q-mt-lg" v-for="item in localFavItems" :key="item.id">
+               <product-card :product="item" />
             </div>
          </div>
+
       </template>
 
       <!-- If no favourite -->
-      <template v-else>
+      <div v-else class="text-center q-mt-xl">
+         <q-icon size="180px" color="grey-7" name="las la-frown" />
          <p class="text-body1">No Favourit Item Found!</p>
-      </template>
+      </div>
    </app-layout>
 </template>
 
@@ -45,10 +37,12 @@
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
+import ProductCard from 'components/ProductCard'
+
 export default {
    mixins: [createMetaMixin(() => ({ title: 'My Favourit' }))],
    components: {
-      AppLayout, ToolbarOne
+      AppLayout, ToolbarOne, ProductCard
    },
    data() {
       return {

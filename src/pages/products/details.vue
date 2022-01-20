@@ -4,7 +4,9 @@
       <template #toolbar>
          <toolbar-one backWithText>
             <template #middle>
-               <div></div>
+               <div class="flex justify-center">
+                  <logo-image />
+               </div>
             </template>
             <template #append>
                <!-- <q-icon color="grey-10" size="22px" name="share" class="q-pa-md" /> -->
@@ -87,6 +89,7 @@
 
 <script>
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
+import LogoImage from 'components/LogoImage.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
@@ -94,7 +97,7 @@ import 'swiper/css'
 import "swiper/css/pagination"
 export default {
    components: {
-      ToolbarOne, AppLayout, Swiper, SwiperSlide
+      ToolbarOne, AppLayout, Swiper, SwiperSlide, LogoImage
    },
    data() {
       return {

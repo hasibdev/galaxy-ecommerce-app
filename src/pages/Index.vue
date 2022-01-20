@@ -3,9 +3,7 @@
       <template #toolbar>
          <toolbar-one>
             <template #prepend>
-               <q-btn unelevated class="q-pl-sm">
-                  <img :src="require('assets/galaxy-svg.png')" style="width: 110px;">
-               </q-btn>
+               <logo-image />
             </template>
          </toolbar-one>
 
@@ -30,10 +28,11 @@ import TodaysBest from 'components/home/TodaysBest.vue'
 import BannerSlider from 'components/home/BannerSlider.vue'
 import { createMetaMixin } from 'quasar'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
+import LogoImage from 'components/LogoImage.vue'
 
 export default defineComponent({
    name: 'PageIndex',
-   components: { AppLayout, BannerSlider, TodaysBest, HeroSlider, ToolbarOne },
+   components: { AppLayout, BannerSlider, TodaysBest, HeroSlider, ToolbarOne, LogoImage },
    mixins: [createMetaMixin(() => ({ title: 'Galaxy Telecom' }))],
    data() {
       return {
