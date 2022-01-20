@@ -146,6 +146,7 @@ export default {
    },
    methods: {
       async loadData() {
+         this.initLocaldata()
          const res = await this.$api.get('cart')
          console.log(res)
       },
