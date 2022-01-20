@@ -20,8 +20,8 @@
       <template #footer>
          <q-footer class="bg-white text-grey-9">
             <div class="flex justify-between items-center q-px-md q-my-lg">
-               <q-btn dense outline @click="addToCart(product)" color="primary" icon="las la-shopping-cart" class="q-pa-md round-10"></q-btn>
-               <q-btn rounded @click="onBuyNow" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Buy Now</q-btn>
+               <q-btn dense flat @click="addToFavorit(product)" color="red" :icon="alreadyInFavorite ? 'favorite' : 'favorite_border'" class="q-pa-md round-10"></q-btn>
+               <q-btn rounded @click="addToCart(product)" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Add to cart</q-btn>
             </div>
          </q-footer>
       </template>
@@ -40,34 +40,42 @@
          <!-- Main Content -->
          <div class="q-mt-lg relative-position">
             <!-- Product details -->
-            <h5 class="q-pr-lg">{{ product.name }}</h5>
-            <h5 class="q-mt-sm text-bold">{{ product.formatted_price }}</h5>
+            <h5 class="">{{ product.name }}</h5>
             <!-- Ragings -->
-            <div class="flex q-mt-sm">
-               <q-rating :model-value="product.rating_percent" icon-half="star_half" :max="5" size="16px" color="secondary" />
-               <span class="q-ml-sm" style="font-size: 12px;">{{product.reviews.length}} Reviews</span>
+            <div class="flex items-center q-mt-sm">
+               <q-rating no-dimming :model-value="product.rating_percent" icon-half="star_half" :max="5" size="18px" color-selected="orange" color-half="orange" color="grey-5" />
+               <span style="font-size: 12px;margin-left: 5px;">{{product.rating_percent}} | <span class="text-blue-8">{{ product.reviews.length }} Reviews</span></span>
             </div>
 
-            <div @click="addToFavorit(product)" class="floating-btn">
+            <h5 class="q-mt-sm text-bold">{{ product.formatted_price }}</h5>
+
+            <!-- <div @click="addToFavorit(product)" class="floating-btn">
                <span :class="{'text-primary': alreadyInFavorite}" class="material-icons-outlined text-h5 q-pa-sm">
                   favorite_border
                </span>
+            </div> -->
+         </div>
+
+         <div class="flex items-center">
+            <!-- Variant -->
+            <div class="flex-1">
+               <div class="q-mt-md flex">
+                  <span class="">Color: </span>
+                  <div class="bg-primary q-ml-sm color-box"></div>
+                  <div class="bg-secondary q-ml-sm color-box"></div>
+                  <div class="bg-warning q-ml-sm color-box"></div>
+                  <div class="bg-negative q-ml-sm color-box"></div>
+               </div>
             </div>
-         </div>
 
-         <!-- Sold range -->
-         <div class="sold-range q-mt-md">
-            <span class="first-range"></span>
-            <span class="second-range"></span>
-            <span class="content">200 Sold</span>
-         </div>
+            <div style="width:10px;"></div>
 
-         <!-- Variant -->
-         <div class="q-mt-md">
-            <q-btn color="primary" class="q-pa-lg q-mr-sm round-10" />
-            <q-btn color="secondary" class="q-pa-lg q-mr-sm round-10" />
-            <q-btn color="grey-6" class="q-pa-lg q-mr-sm round-10" />
-            <q-btn color="black" class="q-pa-lg q-mr-sm round-10" />
+            <!-- Sold range -->
+            <div class="sold-range q-mt-md flex-1">
+               <span class="first-range"></span>
+               <span class="second-range"></span>
+               <span class="content">200 Sold</span>
+            </div>
          </div>
 
          <!-- Description -->
@@ -165,36 +173,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sold-range {
-   position: relative;
-   height: 30px;
-   display: flex;
-   align-items: center;
-   border-radius: 10px;
-   overflow: hidden;
-   .first-range,
-   .second-range {
-      position: absolute;
-      height: 100%;
-   }
-   .first-range {
-      background: $secondary;
-      width: 100%;
-      opacity: 0.3;
-   }
-   .second-range {
-      background: $primary;
-      width: 65%;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-   }
-   .content {
-      position: relative;
-      color: white;
-      padding: 10px;
-   }
-}
-
 // Floating Favourite Icon
 .floating-btn {
    position: absolute;

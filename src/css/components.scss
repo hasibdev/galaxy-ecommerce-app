@@ -38,3 +38,42 @@
       background-color: $grey-10;
    }
 }
+
+// color box
+.color-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+
+// Sold range
+.sold-range {
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  .first-range,
+  .second-range {
+     position: absolute;
+     height: 100%;
+  }
+  .first-range {
+     background: $secondary;
+     width: 100%;
+     opacity: 0.3;
+  }
+  .second-range {
+     background: $primary;
+     width: 65%;
+     border-top-right-radius: 10px;
+     border-bottom-right-radius: 10px;
+  }
+  .content {
+     position: relative;
+     color: white;
+     padding: 10px;
+  }
+}

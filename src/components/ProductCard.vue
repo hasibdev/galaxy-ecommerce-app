@@ -8,12 +8,13 @@
       <!-- Product info -->
       <div @click="$router.push(`/products/${product.slug}`)" class="q-mt-lg text-center">
          <p style="font-size:15px;">{{ product.name }}</p>
+
          <!-- Ragings -->
          <div class="flex justify-center q-mt-sm">
             <q-rating no-dimming :model-value="product.rating_percent" icon-half="star_half" :max="5" size="14px" color-selected="orange" color-half="orange" color="grey-5" />
-
             <span style="font-size: 10px;margin-left: 5px;">{{product.rating_percent}} | <span class="text-blue-8">{{ product.reviews.length }} Reviews</span></span>
          </div>
+
          <p class="text-h6 text-bold q-mt-sm">{{ product.formatted_price }}</p>
       </div>
    </div>
