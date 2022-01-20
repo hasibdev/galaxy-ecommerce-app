@@ -2,8 +2,8 @@ import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://galaxytelecom.fr/api',
-  withCredentials: true
+  baseURL: 'https://galaxytelecom.fr/api'
+  // withCredentials: true
 })
 
 api.interceptors.request.use(async function (config) {
