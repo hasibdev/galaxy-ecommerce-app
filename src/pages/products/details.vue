@@ -15,7 +15,7 @@
          <q-footer class="bg-white text-grey-9">
             <div class="flex justify-between items-center q-px-md q-my-lg">
                <q-btn dense flat @click="addToFavorit(product)" color="red" :icon="alreadyInFavorite ? 'favorite' : 'favorite_border'" class="q-pa-md round-10"></q-btn>
-               <q-btn rounded @click="addToCart(product)" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Add to cart</q-btn>
+               <q-btn rounded @click="addToCart(product)" :disable="addCartState" :loading="addCartState" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Add to cart</q-btn>
             </div>
          </q-footer>
       </template>
@@ -52,7 +52,7 @@
 
          <div class="flex items-center">
             <!-- Variant -->
-            <div class="flex-1">
+            <!-- <div class="flex-1">
                <div class="q-mt-md flex">
                   <span class="">Color: </span>
                   <div class="bg-primary q-ml-sm color-box"></div>
@@ -60,9 +60,9 @@
                   <div class="bg-warning q-ml-sm color-box"></div>
                   <div class="bg-negative q-ml-sm color-box"></div>
                </div>
-            </div>
+            </div> -->
 
-            <div style="width:10px;"></div>
+            <!-- <div style="width:10px;"></div> -->
 
             <!-- Sold range -->
             <div class="sold-range q-mt-md flex-1">
@@ -104,7 +104,8 @@ export default {
    data() {
       return {
          product: null,
-         localFavItems: []
+         localFavItems: [],
+         addCartState: false
       }
    },
    computed: {
@@ -151,15 +152,19 @@ export default {
             qty: 1
          }
          try {
+            this.addCartState = true
             const res = await this.$api.post('cart/items', data)
-            console.log(res)
+            this.$store.commit('cart/SET_ITEMS', res.data.items)
+
             this.$q.notify({
                message: 'Added to Cart',
-               color: 'success',
+               color: 'positive',
                position: 'top'
             })
          } catch (error) {
             console.log(error)
+         } finally {
+            this.addCartState = false
          }
       }
    },

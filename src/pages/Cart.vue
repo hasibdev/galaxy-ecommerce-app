@@ -55,7 +55,7 @@
                            <span class="bg-grey-14 inline-block rounded-borders" style="width:19px; height:19px;"></span>
                            <span class="q-ml-sm inline-block ">Grey</span>
                         </p> -->
-                        <p class="text-h6 text-black q-mt-sm text-bold">{{item.total.formatted}}</p>
+                        <p class="text-h6 text-black text-bold">{{item.total.formatted}}</p>
                      </q-item-label>
                      <!-- Quantity adjust -->
                      <q-item-label>

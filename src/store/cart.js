@@ -9,7 +9,7 @@ export default {
     subTotal: {},
     taxes: [],
     total: {},
-    availableShippingMethods: {},
+    availableShippingMethods: [],
     coupon: {},
     cartLoadingState: false
   },
@@ -21,6 +21,10 @@ export default {
   mutations: {
     SET_DATA(state, { property, data }) {
       state[property] = data
+    },
+    SET_ITEMS(state, data) {
+      const items = Object.keys(data).map(key => ({ ...data[key] }))
+      state.items = items
     }
   },
   actions: {
@@ -29,14 +33,16 @@ export default {
         commit('SET_DATA', { property: 'cartLoadingState', data: true })
 
         const res = await api.get('/cart')
-        const items = Object.keys(res.data.items).map(key => ({ ...res.data.items[key] }))
 
-        commit('SET_DATA', { property: 'items', data: items })
+        const asm = res.data.availableShippingMethods
+        const shippingMethods = Object.keys(asm).map(key => ({ ...asm[key] }))
+
+        commit('SET_ITEMS', res.data.items)
         commit('SET_DATA', { property: 'quantity', data: res.data.quantity })
         commit('SET_DATA', { property: 'shippingCost', data: res.data.shippingCost })
         commit('SET_DATA', { property: 'subTotal', data: res.data.subTotal })
         commit('SET_DATA', { property: 'taxes', data: res.data.taxes })
-        commit('SET_DATA', { property: 'availableShippingMethods', data: res.data.availableShippingMethods })
+        commit('SET_DATA', { property: 'availableShippingMethods', data: shippingMethods })
         commit('SET_DATA', { property: 'coupon', data: res.data.coupon })
       } catch (error) {
         console.log(error)
