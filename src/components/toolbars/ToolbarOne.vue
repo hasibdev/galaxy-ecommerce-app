@@ -27,6 +27,10 @@
                <q-badge color="orange" rounded floating>{{ totalCart }}</q-badge>
             </q-btn>
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
+
+            <span v-if="shareProduct" class="material-icons-outlined text-h6 q-pa-sm">
+               share
+            </span>
          </slot>
       </div>
    </div>
@@ -45,6 +49,10 @@ export default {
       cartIcon: {
          type: Boolean,
          default: true
+      },
+      shareProduct: {
+         type: Boolean,
+         default: false
       },
       canMessage: {
          type: Boolean,

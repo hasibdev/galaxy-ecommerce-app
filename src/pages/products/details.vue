@@ -2,17 +2,11 @@
    <app-layout :footer="false">
       <!-- Toolbar setup -->
       <template #toolbar>
-         <toolbar-one backWithText>
+         <toolbar-one backWithText :shareProduct="true" :searchIcon="false">
             <template #middle>
                <div class="flex justify-center">
                   <logo-image />
                </div>
-            </template>
-            <template #append>
-               <!-- <q-icon color="grey-10" size="22px" name="share" class="q-pa-md" /> -->
-               <span class="material-icons-outlined text-h6 q-pa-sm">
-                  share
-               </span>
             </template>
          </toolbar-one>
       </template>
