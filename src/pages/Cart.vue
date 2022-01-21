@@ -16,10 +16,10 @@
       <template #footer>
          <q-footer id="app_footer" class="bg-white text-grey-9">
 
-            <div v-if="localCartItems.length" class="flex justify-between items-center q-px-md q-my-lg">
+            <div v-if="items.length" class="flex justify-between items-center q-px-md q-my-lg">
                <div>
-                  <p class="text-grey-6" style="font-size: 12px;">Total ({{totalCartItems}} Items)</p>
-                  <p class="text-bold text-body1">{{ getTotalPrice }}</p>
+                  <p class="text-grey-6" style="font-size: 12px;">Total ({{items.length}} Items)</p>
+                  <p class="text-bold text-body1">{{ subTotal.formatted }}</p>
                </div>
                <q-btn rounded @click="addCheckout" color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
             </div>
@@ -31,16 +31,16 @@
       </template>
 
       <!-- Main Content -->
-      <section v-if="localCartItems.length">
+      <section>
          <!-- Check box -->
-         <div class="flex justify-between">
+         <div v-if="items.length" class="flex justify-between">
             <q-checkbox @click="onCheckAll" v-model="checkAll" label="Select All" />
             <span v-if="selected.length" @click="onDeleteAll" class="text-primary">Delete All</span>
          </div>
          <!-- List -->
          <div>
             <q-list>
-               <q-item v-for="(item, i) in localCartItems" :key="i" tag="label" :class="{'custom-shadow': i==0}" class="bg-white round-10 q-mt-md">
+               <q-item v-for="(item, i) in items" :key="i" tag="label" class="bg-white custom-shadow round-10 q-mt-md">
                   <q-item-section side top>
                      <q-checkbox v-model="selected" :val="item.id" />
                   </q-item-section>
@@ -48,22 +48,22 @@
                   <!-- Label -->
                   <q-item-section>
                      <q-item-label>
-                        <p class="text-body1">{{ item.name }}</p>
+                        <p class="text-body1">{{ item.product.name }}</p>
                      </q-item-label>
                      <q-item-label caption>
                         <!-- <p class="flex items-center" style="margin-top: 5px;">
                            <span class="bg-grey-14 inline-block rounded-borders" style="width:19px; height:19px;"></span>
                            <span class="q-ml-sm inline-block ">Grey</span>
                         </p> -->
-                        <p class="text-h6 text-black q-mt-sm text-bold">{{item.formatted_price[0]}}{{ (item.price.inCurrentCurrency.amount * item.quantity).toFixed(2) }}</p>
+                        <p class="text-h6 text-black q-mt-sm text-bold">{{item.total.formatted}}</p>
                      </q-item-label>
                      <!-- Quantity adjust -->
                      <q-item-label>
                         <div class="flex justify-end">
                            <div style="margin-top: -25px;">
-                              <q-btn dense unelevated @click="item.quantity !== 1 ? --item.quantity : null" color="grey-3" class="round-10 text-grey-6" icon="remove" />
-                              <q-btn outline dense unelevated color="grey-3" class="round-10 q-px-md text-grey-10 q-mx-sm">{{ item.quantity }}</q-btn>
-                              <q-btn dense unelevated @click="++item.quantity" color="grey-3" class="round-10 text-grey-6" icon="add" />
+                              <q-btn dense unelevated @click="item.qty !== 1 ? --item.qty : null" color="grey-3" class="round-10 text-grey-6" icon="remove" />
+                              <q-btn outline dense unelevated color="grey-3" class="round-10 q-px-md text-grey-10 q-mx-sm">{{ item.qty }}</q-btn>
+                              <q-btn dense unelevated @click="++item.qty" color="grey-3" class="round-10 text-grey-6" icon="add" />
                            </div>
                         </div>
                      </q-item-label>
@@ -75,7 +75,7 @@
       </section>
 
       <!-- Empty Cart -->
-      <section v-else>
+      <section v-if="!cartLoadingState && !items.length">
          <div class="text-center q-mt-lg">
             <cart-svg />
             <div class="q-mt-lg q-pa-md">
@@ -85,6 +85,11 @@
          </div>
       </section>
 
+      <!-- Loading state -->
+      <div v-if="cartLoadingState" class="text-center q-mt-xl">
+         <q-spinner color="grey-14" size="3em" />
+      </div>
+
    </app-layout>
 </template>
 
@@ -93,6 +98,8 @@ import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import CartSvg from 'components/svg/CartSvg.vue'
 import { createMetaMixin } from 'quasar'
+import { mapState } from 'vuex'
+
 export default {
    mixins: [createMetaMixin(() => ({ title: 'Galaxy Shop' }))],
    components: {
@@ -105,11 +112,9 @@ export default {
          checkAll: false
       }
    },
-   created() {
-      this.initLocaldata()
-      this.loadData()
-   },
+
    computed: {
+      ...mapState('cart', ['items', 'subTotal', 'cartLoadingState']),
       allIds() {
          return this.localCartItems.map(c => c.id)
       },
@@ -121,41 +126,10 @@ export default {
          }
       },
       getTotalPrice() {
-         if (this.selected.length) {
-            let p = 0
-            let symbol = ''
-            this.selected.forEach(id => {
-               const product = this.localCartItems.find(item => item.id === id)
-               p += (product.price.inCurrentCurrency.amount * product.quantity)
-
-               // this is a little bit hack for currency symbol
-               symbol = product.formatted_price[0]
-            })
-            return `${symbol}${p}`
-         } else {
-            // this is a little bit hack for currency symbol
-            const symbol = this.localCartItems[0].formatted_price[0]
-            const total = this.localCartItems.reduce((acc, product) => {
-               const t = acc += product.price.inCurrentCurrency.amount * product.quantity
-               return t
-            }, 0)
-
-            return `${symbol}${total}`
-         }
+         return 0
       }
    },
    methods: {
-      async loadData() {
-         this.initLocaldata()
-         const res = await this.$api.get('cart')
-         console.log(res)
-      },
-      initLocaldata() {
-         const localCart = JSON.parse(localStorage.getItem('localCart'))
-         if (localCart && localCart.length) {
-            this.localCartItems = localCart
-         }
-      },
       onCheckAll() {
          console.log('check all')
          if (this.checkAll) this.selected = this.allIds
@@ -172,25 +146,10 @@ export default {
          })
       },
       addCheckout() {
-         if (!this.selected.length) {
-            this.$store.commit('checkout/SET_DATA', { property: 'products', data: this.localCartItems })
-            localStorage.setItem('checkout', JSON.stringify(this.localCartItems))
-         } else {
-            const data = []
-            for (let i = 0; i < this.selected.length; i++) {
-               const product = this.localCartItems.find(p => p.id === this.selected[i])
-               data.push(product)
-            }
-            this.$store.commit('checkout/SET_DATA', { property: 'products', data })
-            localStorage.setItem('checkout', JSON.stringify(data))
-         }
          this.$router.push('/checkout')
       }
    },
    watch: {
-      localCartItems(val) {
-         localStorage.setItem('localCart', JSON.stringify(val))
-      },
       selected(val) {
          if (val.length === this.allIds.length) this.checkAll = true
          else this.checkAll = false

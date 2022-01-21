@@ -24,7 +24,7 @@
 
             <q-btn to="/cart" v-if="cartIcon" flat round dense color="primary" class="q-mx-sm">
                <q-icon name="o_shopping_cart" />
-               <q-badge color="orange" rounded floating>{{ totalCart }}</q-badge>
+               <q-badge color="orange" v-if="totalCart" rounded floating>{{ totalCart }}</q-badge>
             </q-btn>
             <q-btn @click="openMessage" v-if="canMessage" flat round dense color="primary" icon="las la-sms" class="q-ml-sm" />
 
