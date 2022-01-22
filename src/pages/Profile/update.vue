@@ -59,7 +59,7 @@
             <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Address 1" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.address_2" type="text" placeholder="Address 2" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.country" type="text" placeholder="Country" input-class="text-body1" class="q-mb-md" />
+            <q-select outlined emit-value map-options v-model="addressForm.country" option-value="key" option-label="name" input-debounce="0" label="Select country" :options="countries" behavior="menu" class="q-mb-md"></q-select>
             <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mb-md" />
             <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 

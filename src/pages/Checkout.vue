@@ -47,14 +47,14 @@
                   <q-icon name="o_map" color="primary" size="md" />
                   Shipping Address
                </h6>
-               <span class="text-primary">Edit</span>
+               <span @click="openShipping" class="text-primary">Edit</span>
             </div>
 
             <div v-if="form.shipping">
                <p class="text-bold text-body1 q-mt-md">{{ form.shipping.street }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }}, {{ form.shipping.country }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm" v-if="user.phone">{{ user.phone }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user.email }}</p>
+               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }} <span v-if="form.shipping.countr">, {{ form.shipping.country }}</span></p>
+               <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
+               <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user && user.email }}</p>
             </div>
             <div v-else>
                <p class="text-grey-7 text-body1 q-mt-sm">No Address Found!</p>
@@ -68,14 +68,14 @@
                   <q-icon name="store" color="primary" size="md" />
                   Billing Address
                </h6>
-               <span class="text-primary">Edit</span>
+               <span @click="openBilling" class="text-primary">Edit</span>
             </div>
 
             <div v-if="form.billing">
                <p class="text-bold text-body1 q-mt-md">{{ form.billing.street }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.billing.city }}, {{ form.billing.country }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm" v-if="user.phone">{{ user.phone }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user.email }}</p>
+               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.billing.city }}<span v-if=" form.billing.country">, {{ form.billing.country }}</span></p>
+               <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
+               <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user && user.email }}</p>
             </div>
             <div v-else>
                <p class="text-grey-7 text-body1 q-mt-sm">No Address Found!</p>
@@ -123,6 +123,9 @@ import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
 import { mapState } from 'vuex'
+import ShippingAddress from 'components/modals/ShippingAddress.vue'
+import BillingAddress from 'components/modals/BillingAddress.vue'
+
 export default {
    mixins: [createMetaMixin(() => ({ title: 'Checkout' }))],
    components: {
@@ -131,8 +134,24 @@ export default {
    data() {
       return {
          form: {
-            shipping: null,
-            billing: null,
+            shipping: {
+               first_name: "",
+               last_name: "",
+               address_1: "",
+               city: "",
+               zip: '',
+               country: "",
+               state: ""
+            },
+            billing: {
+               first_name: "",
+               last_name: "",
+               address_1: "",
+               city: "",
+               zip: '',
+               country: "",
+               state: ""
+            },
             shipping_method: 'free_shipping',
             order_note: "Some note",
             terms_and_conditions: true,
@@ -155,13 +174,49 @@ export default {
          } catch (error) {
             console.log(error)
          }
+      },
+      openBilling() {
+         this.$q.dialog({
+            component: BillingAddress
+         }).onOk(() => {
+            console.log('Ok')
+         })
+      },
+      openShipping() {
+         this.$q.dialog({
+            component: ShippingAddress
+         })
       }
    },
    watch: {
       address: {
          handler: function (val) {
-            this.form.shipping = val
-            this.form.billing = val
+            this.form.shipping = {
+               ...this.form.shipping,
+               ...val
+            }
+            this.form.billing = {
+               ...this.form.billing,
+               ...val
+            }
+         },
+         immediate: true
+      },
+      user: {
+         handler: function (val) {
+            if (!val) {
+               return
+            }
+            this.form.shipping = {
+               ...this.form.shipping,
+               first_name: val.first_name,
+               last_name: val.last_name
+            }
+            this.form.billing = {
+               ...this.form.billing,
+               first_name: val.first_name,
+               last_name: val.last_name
+            }
          },
          immediate: true
       }

@@ -14,7 +14,7 @@
 
       <!-- Search -->
       <div class="q-my-md">
-         <q-input outlined placeholder="Search products..">
+         <q-input outlined ref="searchInput" placeholder="Search products..">
             <template v-slot:prepend>
                <q-icon name="search" />
             </template>

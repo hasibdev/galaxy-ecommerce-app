@@ -2,7 +2,7 @@
    <div>
       <div class="q-mb-lg flex justify-between">
          <h5>Today's Best Deal</h5>
-         <span>View All</span>
+         <!-- <span>View All</span> -->
       </div>
 
       <div class="row q-col-gutter-md">
