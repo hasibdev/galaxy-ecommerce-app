@@ -146,6 +146,11 @@ export default {
          })
       },
       addCheckout() {
+         const userStatus = this.$store.state.auth.status
+         if (!userStatus) {
+            this.$store.dispatch('layout/show')
+            return
+         }
          this.$router.push('/checkout')
       },
       adjustQty(mode, qty, item) {

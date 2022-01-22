@@ -14,8 +14,8 @@
       <template #footer>
          <q-footer class="bg-white text-grey-9">
             <div class="flex justify-between items-center q-px-md q-my-lg">
-               <q-btn dense flat @click="addToFavorit(product)" color="red" :icon="alreadyInFavorite ? 'favorite' : 'favorite_border'" class="q-pa-md round-10"></q-btn>
-               <q-btn rounded @click="addToCart(product)" :disable="addCartState" :loading="addCartState" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Add to cart</q-btn>
+               <q-btn dense flat :disable="!product" @click="addToFavorit(product)" color="red" :icon="alreadyInFavorite ? 'favorite' : 'favorite_border'" class="q-pa-md round-10"></q-btn>
+               <q-btn rounded @click="addToCart(product)" :disable="!product || addCartState" :loading="addCartState" color="primary" class="q-px-xl q-py-sm flex-1 q-ml-lg">Add to cart</q-btn>
             </div>
          </q-footer>
       </template>
