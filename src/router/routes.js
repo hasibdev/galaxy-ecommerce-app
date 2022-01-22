@@ -31,7 +31,8 @@ const routes = [
       },
       { path: 'cart', name: 'cart', component: () => import('pages/Cart.vue') },
       { path: 'favourite', name: 'favourite', component: () => import('pages/Favourite.vue') },
-      { path: 'orders', name: 'orders', component: () => import('pages/Orders.vue') },
+      { path: 'orders', name: 'orders', component: () => import('src/pages/orders/index.vue') },
+      { path: 'orders/:id', name: 'order-details', component: () => import('src/pages/orders/details.vue') },
       {
         path: 'signin',
         name: 'signin',
