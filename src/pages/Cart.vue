@@ -19,7 +19,7 @@
             <div v-if="items.length" class="flex justify-between items-center q-px-md q-my-lg">
                <div>
                   <p class="text-grey-6" style="font-size: 12px;">Total ({{items.length}} Items)</p>
-                  <p class="text-bold text-body1">{{ subTotal.formatted }}</p>
+                  <p class="text-bold text-body1">{{ getTotalPrice }}</p>
                </div>
                <q-btn rounded @click="addCheckout" color="primary" class="q-px-xl q-py-sm">Buy Now</q-btn>
             </div>
@@ -55,7 +55,7 @@
                            <span class="bg-grey-14 inline-block rounded-borders" style="width:19px; height:19px;"></span>
                            <span class="q-ml-sm inline-block ">Grey</span>
                         </p> -->
-                        <p class="text-h6 text-black text-bold">{{item.total.formatted}}</p>
+                        <p class="text-h6 text-black text-bold">{{getPrice(item)}}</p>
                      </q-item-label>
                      <!-- Quantity adjust -->
                      <q-item-label>
@@ -118,15 +118,16 @@ export default {
       allIds() {
          return this.items.map(c => c.id)
       },
-      totalCartItems() {
-         if (this.selected.length) {
-            return this.selected.length
-         } else {
-            return this.localCartItems.length
-         }
-      },
+
       getTotalPrice() {
-         return 0
+         let symbol = ''
+         const total = this.items.reduce((acc, p) => {
+            symbol = p.total.formatted[0]
+            const amount = acc + (p.total.amount * p.qty)
+            return amount
+         }, 0).toFixed(2)
+
+         return `${symbol}${total}`
       }
    },
    methods: {
@@ -149,6 +150,12 @@ export default {
       },
       adjustQty(mode, qty, item) {
          this.$store.dispatch('cart/adjustQty', { mode, qty, item })
+      },
+      getPrice(item) {
+         const amount = (item.total.amount * item.qty).toFixed(2)
+         const symbol = item.total.formatted[0]
+
+         return `${symbol}${amount}`
       }
    },
    watch: {
