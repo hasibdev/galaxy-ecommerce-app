@@ -11,7 +11,7 @@
       <template v-if="localFavItems.length">
          <!-- Search -->
          <div>
-            <q-input outlined placeholder="Search your favourite items">
+            <q-input v-model="search" outlined placeholder="Search your favourite items">
                <template v-slot:prepend>
                   <q-icon name="search" />
                </template>
@@ -19,7 +19,7 @@
          </div>
 
          <div class="row q-col-gutter-md">
-            <div class="col-6 q-mt-lg" v-for="item in localFavItems" :key="item.id">
+            <div class="col-6 q-mt-lg" v-for="item in filteredItems" :key="item.id">
                <product-card :product="item" />
             </div>
          </div>
@@ -47,7 +47,9 @@ export default {
    },
    data() {
       return {
-         localFavItems: []
+         localFavItems: [],
+         filteredItems: [],
+         search: ''
       }
    },
    created() {
@@ -58,6 +60,7 @@ export default {
          const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
          if (localfavourite && localfavourite.length) {
             this.localFavItems = localfavourite
+            this.filteredItems = localfavourite
          }
       },
       removeFavorite(id) {
@@ -77,6 +80,14 @@ export default {
    watch: {
       localFavItems(val) {
          localStorage.setItem('localfavourite', JSON.stringify(val))
+      },
+      search: {
+         handler: function (val) {
+            if (!val) {
+               this.filteredItems = this.localFavItems
+            }
+            this.filteredItems = this.localFavItems.filter(x => x.name.toLocaleLowerCase().includes(val.toLocaleLowerCase()))
+         }
       }
    }
 }

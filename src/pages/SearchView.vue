@@ -14,7 +14,7 @@
 
       <!-- Search -->
       <div class="q-my-md">
-         <q-input outlined ref="searchInput" placeholder="Search products..">
+         <q-input v-model="searchText" outlined ref="searchInput" placeholder="Search products..">
             <template v-slot:prepend>
                <q-icon name="search" />
             </template>
@@ -95,13 +95,18 @@
 
          <!-- Results -->
          <div class="row q-col-gutter-md q-mt-md">
-            <template v-if="searchResults && searchResults.length">
+            <template v-if="!loadingProducts">
                <div class="col-6" v-for="(item, i) in searchResults" :key="i">
                   <product-card @click="onProductItemClick(item)" :product="item" />
                </div>
             </template>
+
+            <template v-if="!loadingProducts && !searchResults.length">
+               <p>No Data found</p>
+            </template>
+
             <!-- Product Card Skeleton -->
-            <template v-else>
+            <template v-if="loadingProducts">
                <div v-for="item in 4" :key="item" class="col-6">
                   <product-skeleton />
                </div>
@@ -128,9 +133,10 @@ export default {
    data() {
       return {
          searchText: '',
-         searchResults: null,
+         searchResults: [],
          recentSearch: [],
-         popularSearch: []
+         popularSearch: [],
+         loadingProducts: false
       }
    },
    mounted() {
@@ -152,6 +158,8 @@ export default {
             this.searchResults = res.data.products.data
          } catch (error) {
             console.log(error)
+         } finally {
+            this.loadingProducts = false
          }
       }, 300),
       onProductItemClick(item) {
@@ -166,6 +174,12 @@ export default {
       },
       removePopularSearch(id) {
          this.popularSearch = this.popularSearch.filter(item => item.id !== id)
+      }
+   },
+   watch: {
+      searchText() {
+         this.loadingProducts = true
+         this.onSearch()
       }
    }
 }
