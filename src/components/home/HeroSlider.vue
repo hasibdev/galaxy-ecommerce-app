@@ -21,30 +21,7 @@
       </q-carousel>
 
       <div class="under-bottom q-pa-md round-10 custom-shadow">
-         <div class="row">
-            <div class="col">
-               <div class="flex items-center">
-                  <div class="q-pa-sm round-10 bg-blue-1">
-                     <q-icon name="las la-wallet text-primary" size="30px" />
-                  </div>
-                  <div class="q-ml-sm">
-                     <h6>$4,899</h6>
-                     <p style="font-size: 12px;">Balance</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col">
-               <div class="flex items-center">
-                  <div class="q-pa-sm round-10 bg-cyan-1">
-                     <q-icon name="las la-ticket-alt text-secondary" size="30px" />
-                  </div>
-                  <div class="q-ml-sm">
-                     <h6>12</h6>
-                     <p style="font-size: 12px;">Voucher Avilable</p>
-                  </div>
-               </div>
-            </div>
-         </div>
+         hello
       </div>
    </div>
 </template>

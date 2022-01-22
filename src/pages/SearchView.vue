@@ -3,12 +3,9 @@
       <!-- Toolbar -->
       <template #toolbar>
          <toolbar-one canBack :searchIcon="false">
-
             <template #middle>
-               <p class="text-center text-body1 text-bold q-ml-md">Search</p>
-
+               <p class="text-body1 text-bold q-ml-sm">Search</p>
             </template>
-
          </toolbar-one>
       </template>
 
