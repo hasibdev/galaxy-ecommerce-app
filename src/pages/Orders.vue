@@ -19,7 +19,7 @@
       </div>
 
       <!-- Content list -->
-      <div v-for="(item, i) in 2" :key="i" class="bg-white custom-shadow round-10 q-pa-sm q-mt-md">
+      <div v-for="(order, i) in orders" :key="i" class="bg-white custom-shadow round-10 q-pa-sm q-mt-md">
          <div class="flex no-wrap">
             <div>
                <q-avatar size="70px" class="round-10">
@@ -29,7 +29,7 @@
             <div class="q-ml-md">
                <div class="flex items-start justify-between no-wrap">
                   <p class="text-body1">Beats 3 Wireless Over‑Ear Headphones</p>
-                  <q-badge rounded color="primary" label="Delivered" />
+                  <q-badge rounded :color="getColor(order.status)" :label="order.status" />
                </div>
                <p class="text-bold">$120</p>
 
@@ -69,12 +69,23 @@ export default {
             { title: "To Deliver", value: 'delivered' },
             { title: "Cancled", value: 'cancled' }
          ],
+         orders: [],
          currentValue: 'shipped'
+      }
+   },
+   methods: {
+      getColor(val) {
+         const colors = {
+            pending: 'primary',
+            pending_payment: 'orange'
+         }
+         return colors[val]
       }
    },
    async created() {
       try {
          const res = await this.$api.get('/account/orders')
+         this.orders = res.data.orders.data
          console.log(res.data.orders)
       } catch (error) {
          console.log(error)

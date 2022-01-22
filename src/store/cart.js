@@ -49,6 +49,9 @@ export default {
       } finally {
         commit('SET_DATA', { property: 'cartLoadingState', data: false })
       }
+    },
+    updateQty(ctx, payload) {
+      console.log(payload)
     }
   }
 }

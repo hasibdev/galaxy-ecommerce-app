@@ -24,7 +24,7 @@
                   <p class="text-grey-6">Total</p>
                   <p class="text-bold text-body1">{{ subTotal.formatted }}</p>
                </div>
-               <q-btn rounded unelevated @click="placeOrder" color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
+               <q-btn rounded unelevated @click="placeOrder" :disable="savingState" :loading="savingState" color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
             </div>
 
          </q-footer>
@@ -114,6 +114,19 @@
 
          <q-separator class="q-my-lg" />
 
+         <!-- Note -->
+         <div class="q-mt-lg">
+            <h6>
+               <q-icon name="description" size="md" class="text-primary q-mr-sm" />
+               Order Note
+            </h6>
+            <q-input outlined color="secondary" v-model="form.order_note" type="textarea" placeholder="Write a note" input-class="text-body1" class="q-my-md" />
+         </div>
+
+         <q-checkbox v-model="form.terms_and_conditions" color="primary" label="Do you agree with the terms & conditions?" />
+
+         <q-separator class="q-my-lg" />
+
       </div>
    </app-layout>
 </template>
@@ -153,10 +166,11 @@ export default {
                state: ""
             },
             shipping_method: 'free_shipping',
-            order_note: "Some note",
+            order_note: "",
             terms_and_conditions: true,
             payment_method: 'cod'
-         }
+         },
+         savingState: false
       }
    },
    computed: {
@@ -166,13 +180,23 @@ export default {
    methods: {
       async placeOrder() {
          try {
+            this.savingState = true
             const res = await this.$api.post('/checkout', {
                customer_email: this.user.email,
                ...this.form
             })
-            console.log(res)
+            await this.$api.get(`checkout/${res.data.orderId}/complete?paymentMethod=${this.form.payment_method}`)
+
+            this.$router.push('/orders')
+
+            this.$q.notify({
+               type: 'negative',
+               message: 'Order Placed Successfully!'
+            })
          } catch (error) {
             console.log(error)
+         } finally {
+            this.savingState = false
          }
       },
       openBilling() {
