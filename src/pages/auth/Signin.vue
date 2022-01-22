@@ -37,11 +37,11 @@
             <p class="text-grey-6 text-body1 text-center q-my-md">Or</p>
             <q-btn rounded outline no-caps size="lg" color="grey" class="full-width">
                <facebook-svg />
-               <span class="q-ml-lg">Continue With FB</span>
+               <span class="q-ml-md">Continue With FB</span>
             </q-btn>
             <q-btn rounded outline no-caps size="lg" color="grey" class="full-width q-mt-md">
                <google-svg />
-               <span class="q-ml-lg">Continue With Google</span>
+               <span class="q-ml-md">Continue With Google</span>
             </q-btn>
 
             <p class="text-body1 q-mt-lg text-center">Don't have an account?
