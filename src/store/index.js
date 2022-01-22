@@ -3,13 +3,15 @@ import { createStore } from 'vuex'
 import appData from './appData'
 import auth from './auth'
 import cart from './cart'
+import layout from './layout'
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       appData,
       auth,
-      cart
+      cart,
+      layout
     },
 
     // enable strict mode (adds overhead!)

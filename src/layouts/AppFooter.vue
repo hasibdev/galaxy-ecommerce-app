@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
    name: 'app-footer',
    data() {
@@ -27,7 +28,8 @@ export default {
                label: "My Order",
                icon: "shopping_cart",
                to: '/orders',
-               name: 'orders'
+               name: 'orders',
+               auth: true
             },
             {
                label: "Favourite",
@@ -39,14 +41,18 @@ export default {
                label: "Profile",
                icon: "person",
                to: '/profile',
-               name: 'profile'
+               name: 'profile',
+               auth: true
             }
          ]
       }
    },
    methods: {
       handleRoute(item) {
-         this.$router.push(item.to)
+         const userStatus = this.$store.state.auth.status
+         if (item.auth && !userStatus) {
+            this.$store.dispatch('layout/show')
+         }
       }
    }
 }

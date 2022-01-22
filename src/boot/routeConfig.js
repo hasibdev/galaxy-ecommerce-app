@@ -12,12 +12,7 @@ export default boot(async ({ router }) => {
     }
     const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware]
 
-    const context = {
-      to,
-      from,
-      next,
-      router
-    }
+    const context = { to, from, next, router }
 
     return middleware[0]({
       ...context,
