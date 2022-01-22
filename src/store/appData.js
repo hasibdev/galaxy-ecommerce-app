@@ -5,8 +5,10 @@ export default {
   state: {
     categories: null,
     heroSliders: [],
+    todaysBestDeal: [],
     todaysBest: [],
-    countries: []
+    countries: [],
+    accessories: []
   },
   getters: {
     getRecentSearch() {
@@ -51,10 +53,26 @@ export default {
         console.log(error)
       }
     },
+    async fetchTodaysBestDeal({ commit }) {
+      try {
+        const res = await api.get('/storefront/tab-products/sections/1/tabs/1')
+        commit('SET_DATA', { property: 'todaysBestDeal', data: res.data })
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async fetchTodaysBest({ commit }) {
       try {
-        const res = await api.get('/storefront/vertical-products/1')
+        const res = await api.get('/storefront/product-grid/tabs/1')
         commit('SET_DATA', { property: 'todaysBest', data: res.data })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchAccessories({ commit }) {
+      try {
+        const res = await api.get('/storefront/tab-products/sections/2/tabs/1')
+        commit('SET_DATA', { property: 'accessories', data: res.data })
       } catch (error) {
         console.log(error)
       }

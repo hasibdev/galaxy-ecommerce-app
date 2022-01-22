@@ -142,7 +142,7 @@ export default {
    mounted() {
       this.$refs.searchInput.focus()
       this.recentSearch = this.$store.getters['appData/getRecentSearch']
-      this.popularSearch = this.$store.state.appData.todaysBest
+      this.popularSearch = this.$store.state.appData.todaysBestDeal
    },
    methods: {
       openFilter() {
