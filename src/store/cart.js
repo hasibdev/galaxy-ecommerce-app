@@ -25,6 +25,17 @@ export default {
     SET_ITEMS(state, data) {
       const items = Object.keys(data).map(key => ({ ...data[key] }))
       state.items = items
+    },
+    ADJUST_QTY(state, { mode, qty, item }) {
+      if (mode === 'increment') {
+        const product = state.items.find(p => p.id === item.id)
+        product.qty += 1
+      } else {
+        const product = state.items.find(p => p.id === item.id)
+        if (!(product.qty <= 1)) {
+          product.qty -= 1
+        }
+      }
     }
   },
   actions: {
@@ -50,8 +61,8 @@ export default {
         commit('SET_DATA', { property: 'cartLoadingState', data: false })
       }
     },
-    updateQty(ctx, payload) {
-      console.log(payload)
+    adjustQty({ commit }, { mode, qty, item }) {
+      commit('ADJUST_QTY', { mode, qty, item })
     }
   }
 }

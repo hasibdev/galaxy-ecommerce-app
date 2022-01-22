@@ -61,9 +61,9 @@
                      <q-item-label>
                         <div class="flex justify-end">
                            <div style="margin-top: -25px;">
-                              <q-btn dense unelevated @click="item.qty !== 1 ? --item.qty : null" color="grey-3" class="round-10 text-grey-6" icon="remove" />
+                              <q-btn dense unelevated @click="adjustQty('decrement', item.qty, item)" color="grey-3" class="round-10 text-grey-6" icon="remove" />
                               <q-btn outline dense unelevated color="grey-3" class="round-10 q-px-md text-grey-10 q-mx-sm">{{ item.qty }}</q-btn>
-                              <q-btn dense unelevated @click="++item.qty" color="grey-3" class="round-10 text-grey-6" icon="add" />
+                              <q-btn dense unelevated @click="adjustQty('increment', item.qty, item)" class="round-10 text-grey-6" icon="add" />
                            </div>
                         </div>
                      </q-item-label>
@@ -131,7 +131,6 @@ export default {
    },
    methods: {
       onCheckAll() {
-         console.log('check all')
          if (this.checkAll) this.selected = this.allIds
          else this.selected = []
       },
@@ -147,6 +146,9 @@ export default {
       },
       addCheckout() {
          this.$router.push('/checkout')
+      },
+      adjustQty(mode, qty, item) {
+         this.$store.dispatch('cart/adjustQty', { mode, qty, item })
       }
    },
    watch: {
