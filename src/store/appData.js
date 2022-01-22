@@ -5,7 +5,8 @@ export default {
   state: {
     categories: null,
     heroSliders: [],
-    todaysBest: []
+    todaysBest: [],
+    countries: []
   },
   getters: {
     getRecentSearch() {
@@ -56,6 +57,17 @@ export default {
         commit('SET_DATA', { property: 'todaysBest', data: res.data })
       } catch (error) {
         console.log(error)
+      }
+    },
+    async fetchCountries({ state, commit }) {
+      if (!state.countries.length) {
+        try {
+          const res = await api.get('countries-withcode')
+          const countries = Object.keys(res.data).map(key => ({ ...res.data[key], key }))
+          commit('SET_DATA', { property: 'countries', data: countries })
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }

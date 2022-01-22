@@ -102,15 +102,15 @@ export default {
             country: '',
             zip: ''
          },
-         countryCode: '+880',
-         mobileOptions: ['+880', '+650', '+84'],
+
          passwordVisible: false,
          savingState: false,
          savingState2: false
       }
    },
    computed: {
-      ...mapState('auth', ['user', 'address'])
+      ...mapState('auth', ['user', 'address']),
+      ...mapState('appData', ['countries'])
    },
    methods: {
       async updateProfile() {
@@ -151,6 +151,9 @@ export default {
             this.savingState2 = false
          }
       }
+   },
+   created() {
+      this.$store.dispatch('appData/fetchCountries')
    },
    watch: {
       user: {
