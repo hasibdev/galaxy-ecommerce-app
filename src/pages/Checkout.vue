@@ -51,7 +51,7 @@
             </div>
 
             <div v-if="form.shipping">
-               <p class="text-bold text-body1 q-mt-md">{{ form.shipping.street }}</p>
+               <p class="text-bold text-body1 q-mt-md">{{ form.shipping.address_1 }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }} <span v-if="form.shipping.countr">, {{ form.shipping.country }}</span></p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user && user.email }}</p>
@@ -72,7 +72,7 @@
             </div>
 
             <div v-if="form.billing">
-               <p class="text-bold text-body1 q-mt-md">{{ form.billing.street }}</p>
+               <p class="text-bold text-body1 q-mt-md">{{ form.billing.address_1 }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm">{{ form.billing.city }}<span v-if=" form.billing.country">, {{ form.billing.country }}</span></p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user && user.email }}</p>
@@ -177,14 +177,22 @@ export default {
       },
       openBilling() {
          this.$q.dialog({
-            component: BillingAddress
-         }).onOk(() => {
-            console.log('Ok')
+            component: BillingAddress,
+            componentProps: {
+               data: this.form.billing
+            }
+         }).onOk((val) => {
+            this.form.billing = { ...val }
          })
       },
       openShipping() {
          this.$q.dialog({
-            component: ShippingAddress
+            component: ShippingAddress,
+            componentProps: {
+               data: this.form.shipping
+            }
+         }).onOk((val) => {
+            this.form.shipping = { ...val }
          })
       }
    },

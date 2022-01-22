@@ -6,19 +6,17 @@
             <q-icon @click="hide" name="expand_more" size="md" color="grey-10" />
          </div>
 
-         <form @submit.prevent="updateAddress">
-            <q-input outlined color="secondary" v-model="addressForm.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
-            <q-select outlined emit-value map-options v-model="addressForm.country" option-value="key" option-label="name" input-debounce="0" label="Select country" :options="countries" behavior="menu" class="q-mb-md"></q-select>
-            <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
+         <q-input outlined color="secondary" v-model="addressForm.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
+         <q-input outlined color="secondary" v-model="addressForm.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
+         <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Street" input-class="text-body1" class="q-mb-md" />
+         <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
+         <q-select outlined emit-value map-options v-model="addressForm.country" option-value="key" option-label="name" input-debounce="0" label="Select country" :options="countries" behavior="menu" class="q-mb-md"></q-select>
+         <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mb-md" />
+         <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
 
-            <div class="flex justify-end">
-               <q-btn :loading="savingState" :disable="savingState" type="submit" color="primary" rounded label="Update Address" />
-            </div>
-         </form>
+         <div class="flex justify-end">
+            <q-btn @click="updateAddress" color="primary" rounded label="Update Address" />
+         </div>
 
       </q-card>
    </q-dialog>
@@ -32,6 +30,9 @@ export default {
    },
    props: {
       // ...your custom props
+      data: {
+         type: Object
+      }
    },
 
    emits: [
@@ -51,8 +52,7 @@ export default {
             state: '',
             country: '',
             zip: ''
-         },
-         savingState: false
+         }
       }
    },
 
@@ -75,11 +75,13 @@ export default {
          this.$emit('hide')
       },
       updateAddress() {
-
+         this.$emit('ok', this.addressForm)
+         this.hide()
       }
    },
    created() {
       this.$store.dispatch('appData/fetchCountries')
+      this.addressForm = { ...this.data }
    }
 }
 </script>
