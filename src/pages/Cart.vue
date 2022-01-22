@@ -116,7 +116,7 @@ export default {
    computed: {
       ...mapState('cart', ['items', 'subTotal', 'cartLoadingState']),
       allIds() {
-         return this.localCartItems.map(c => c.id)
+         return this.items.map(c => c.id)
       },
       totalCartItems() {
          if (this.selected.length) {
