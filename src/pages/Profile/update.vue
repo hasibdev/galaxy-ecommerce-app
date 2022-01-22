@@ -120,13 +120,15 @@ export default {
             console.log(res)
             this.$q.notify({
                type: 'positive',
-               message: 'Profile updated successfully!'
+               message: 'Profile updated successfully!',
+               position: 'top'
             })
          } catch (error) {
             console.log(error)
             this.$q.notify({
                type: 'negative',
-               message: 'Request Fail!'
+               message: 'Request Fail!',
+               position: 'top'
             })
          } finally {
             this.savingState = false
@@ -139,13 +141,15 @@ export default {
             this.$store.commit('auth/SET_ADDRESS', res.data)
             this.$q.notify({
                type: 'positive',
-               message: 'Address updated successfully!'
+               message: 'Address updated successfully!',
+               position: 'top'
             })
          } catch (error) {
             console.log(error)
             this.$q.notify({
                type: 'negative',
-               message: 'Request Fail!'
+               message: 'Request Fail!',
+               position: 'top'
             })
          } finally {
             this.savingState2 = false

@@ -190,8 +190,9 @@ export default {
             this.$router.push('/orders')
 
             this.$q.notify({
-               type: 'negative',
-               message: 'Order Placed Successfully!'
+               type: 'positive',
+               message: 'Order Placed Successfully!',
+               position: 'top'
             })
          } catch (error) {
             console.log(error)

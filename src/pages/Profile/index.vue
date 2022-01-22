@@ -97,7 +97,8 @@ export default {
             await this.logout()
             this.$q.notify({
                type: 'positive',
-               message: 'Logout successfully!'
+               message: 'Logout successfully!',
+               position: 'top'
             })
             this.$router.replace('/home')
          } catch (error) {

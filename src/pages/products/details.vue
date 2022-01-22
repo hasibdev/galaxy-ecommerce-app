@@ -136,13 +136,15 @@ export default {
             this.localFavItems = this.localFavItems.filter(p => p.id !== product.id)
             this.$q.notify({
                message: 'Removed from Favourite',
-               color: 'warning'
+               color: 'warning',
+               position: 'top'
             })
          } else {
             this.localFavItems = [...this.localFavItems, product]
             this.$q.notify({
                message: 'Added to Favourite',
-               color: 'info'
+               color: 'positive',
+               position: 'top'
             })
          }
       },
@@ -157,7 +159,7 @@ export default {
             this.$store.commit('cart/SET_ITEMS', res.data.items)
 
             this.$q.notify({
-               message: 'Added to Cart',
+               message: '1 Item added to your cart',
                color: 'positive',
                position: 'top'
             })

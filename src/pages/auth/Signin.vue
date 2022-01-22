@@ -89,7 +89,8 @@ export default {
             this.errorMessage = error.response.data.message
             this.$q.notify({
                type: 'negative',
-               message: 'Login Fail!'
+               message: 'Login Fail!',
+               position: 'top'
             })
          } finally {
             this.savingState = false

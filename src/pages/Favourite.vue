@@ -67,7 +67,8 @@ export default {
          this.localFavItems = this.localFavItems.filter(p => p.id !== id)
          this.$q.notify({
             message: 'Removed from Favourite',
-            color: 'warning'
+            color: 'warning',
+            position: 'top'
          })
       },
       addCheckout(item) {
