@@ -36,6 +36,9 @@ export default {
           product.qty -= 1
         }
       }
+    },
+    REMOVE(state, id) {
+      state.items = state.items.filter(p => p.id !== id)
     }
   },
   actions: {

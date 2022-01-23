@@ -137,7 +137,8 @@ export default {
       },
       onDeleteAll() {
          this.selected.forEach(id => {
-            this.localCartItems = this.localCartItems.filter(product => product.id !== id)
+            this.$store.commit('cart/REMOVE', id)
+            // this.localCartItems = this.localCartItems.filter(product => product.id !== id)
          })
 
          this.$q.notify({
