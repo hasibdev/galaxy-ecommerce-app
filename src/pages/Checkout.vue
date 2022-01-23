@@ -52,7 +52,7 @@
 
             <div v-if="form.shipping">
                <p class="text-bold text-body1 q-mt-md">{{ form.shipping.address_1 }}</p>
-               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }} <span v-if="form.shipping.countr">, {{ form.shipping.country }}</span></p>
+               <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }} <span v-if="form.shipping.country">, {{ form.shipping.country }}</span></p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-else>{{ user && user.email }}</p>
             </div>
@@ -138,12 +138,15 @@ import { createMetaMixin } from 'quasar'
 import { mapState } from 'vuex'
 import ShippingAddress from 'components/modals/ShippingAddress.vue'
 import BillingAddress from 'components/modals/BillingAddress.vue'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 
 export default {
    mixins: [createMetaMixin(() => ({ title: 'Checkout' }))],
    components: {
       AppLayout, ToolbarOne
    },
+   setup: () => ({ v$: useVuelidate() }),
    data() {
       return {
          form: {
@@ -188,14 +191,20 @@ export default {
             await this.$api.get(`checkout/${res.data.orderId}/complete?paymentMethod=${this.form.payment_method}`)
 
             this.$router.push('/orders')
+            this.$store.commit('cart/SET_DATA', { property: 'items', data: [] })
 
             this.$q.notify({
-               type: 'blue',
+               type: 'positive',
                message: 'Order Placed Successfully!',
                position: 'top'
             })
          } catch (error) {
             console.log(error)
+            this.$q.notify({
+               type: 'negative',
+               message: 'Order Placed Fail!',
+               position: 'top'
+            })
          } finally {
             this.savingState = false
          }
@@ -253,8 +262,35 @@ export default {
          },
          immediate: true
       }
+   },
+   validations() {
+      return {
+         form: {
+            shipping: {
+               first_name: { required },
+               last_name: { required },
+               address_1: { required },
+               city: { required },
+               zip: { required },
+               country: { required },
+               state: { required }
+            },
+            billing: {
+               first_name: { required },
+               last_name: { required },
+               address_1: { required },
+               city: { required },
+               zip: { required },
+               country: { required },
+               state: { required }
+            },
+            shipping_method: { required },
+            order_note: { required },
+            terms_and_conditions: { required },
+            payment_method: { required }
+         }
+      }
    }
-
 }
 </script>
 

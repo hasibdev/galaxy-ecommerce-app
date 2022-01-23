@@ -162,7 +162,6 @@ export default {
                message: '1 Item added to your cart',
                color: 'grey-1',
                textColor: 'primary',
-               timeout: 100000,
                icon: 'o_shopping_cart',
                position: 'top'
             })
