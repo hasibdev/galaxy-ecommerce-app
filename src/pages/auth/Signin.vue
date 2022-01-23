@@ -22,12 +22,16 @@
 
          <form @submit.prevent="formSubmit" class="q-mt-lg">
             <p v-if="errorMessage" class="text-negative q-mb-sm">{{ errorMessage }}</p>
-            <q-input outlined color="secondary" v-model="form.email" type="email" placeholder="Email Address" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="form.password" :type="passwordVisible?`text`:`password`" input-class="text-body1" placeholder="Password">
+            <q-input outlined color="secondary" v-model="form.email" type="email" placeholder="Email Address" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.email" class="text-negative">This field is required.</p>
+
+            <q-input outlined color="secondary" v-model="form.password" :type="passwordVisible?`text`:`password`" input-class="text-body1" class="q-mt-md" placeholder="Password">
                <template #append>
                   <q-avatar @click="passwordVisible=!passwordVisible" :icon="passwordVisible?`visibility_off`:`visibility`" font-size="25px"></q-avatar>
                </template>
             </q-input>
+            <p v-if="validationErrors.password" class="text-negative">This field is required.</p>
+
             <div class="flex justify-between q-mt-md">
                <p v-if="false" class="text-negative">Incorect password</p>
                <p class="text-body2 q-ml-auto">Forgot Password?</p>
@@ -87,11 +91,6 @@ export default {
          } catch (error) {
             // console.log({ ...error })
             this.errorMessage = error.response.data.message
-            this.$q.notify({
-               type: 'negative',
-               message: 'Login Fail!',
-               position: 'top'
-            })
          } finally {
             this.savingState = false
          }

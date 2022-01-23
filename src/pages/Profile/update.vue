@@ -17,7 +17,7 @@
       <div>
          <form @submit.prevent="updateProfile" class="q-mt-lg">
             <div class="q-mb-md flex justify-center">
-               <image-atach-field v-model="form.image" :url="formatImage(form.image)" />
+               <image-atach-field v-model="form.image" :url="form.image && formatImage(form.image)" />
             </div>
             <!-- First and Last Name -->
             <div class="row q-col-gutter-sm q-mb-md">

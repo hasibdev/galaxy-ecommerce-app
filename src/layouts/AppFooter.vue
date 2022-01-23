@@ -52,9 +52,9 @@ export default {
          const userStatus = this.$store.state.auth.status
          if (item.auth && !userStatus) {
             this.$store.dispatch('layout/show')
-         } else {
-            this.$router.push(item.to)
+            return
          }
+         this.$router.push(item.to)
       }
    }
 }

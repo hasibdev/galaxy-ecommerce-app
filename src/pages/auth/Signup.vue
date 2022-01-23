@@ -18,10 +18,12 @@
             <!-- First and Last Name -->
             <div class="row q-col-gutter-sm">
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mt-md" />
+                  <p v-if="validationErrors.first_name" class="text-negative">This field is required.</p>
                </div>
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mt-md" />
+                  <p v-if="validationErrors.last_name" class="text-negative">This field is required.</p>
                </div>
             </div>
             <!-- Mobile -->
@@ -30,20 +32,24 @@
                   <q-select outlined v-model="countryCode" :options="mobileOptions" class="small-select-box" dropdown-icon="expand_more" />
                </div> -->
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.phone" type="tel" placeholder="Mobile Number" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.phone" type="tel" placeholder="Mobile Number" input-class="text-body1" class="q-mt-md" />
+                  <p v-if="validationErrors.phone" class="text-negative">This field is required.</p>
                </div>
             </div>
 
             <!-- Email -->
-            <q-input outlined color="secondary" v-model="form.email" type="email" placeholder="Email Address" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="form.email" type="email" placeholder="Email Address" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.email" class="text-negative">This field is required.</p>
             <!-- Password -->
-            <q-input outlined color="secondary" v-model="form.password" :type="passwordVisible?`text`:`password`" input-class="text-body1" placeholder="Password" class="q-mb-md">
+            <q-input outlined color="secondary" v-model="form.password" :type="passwordVisible?`text`:`password`" input-class="text-body1" placeholder="Password" class="q-mt-md">
                <template #append>
                   <q-avatar @click="passwordVisible=!passwordVisible" :icon="passwordVisible?`visibility_off`:`visibility`" font-size="25px"></q-avatar>
                </template>
             </q-input>
+            <p v-if="validationErrors.password" class="text-negative">This field is required.</p>
             <!-- Confirm Password -->
-            <q-input outlined color="secondary" v-model="form.password_confirmation" type="password" input-class="text-body1" placeholder="Confirm Password"></q-input>
+            <q-input outlined color="secondary" v-model="form.password_confirmation" type="password" input-class="text-body1" placeholder="Confirm Password" class="q-mt-md"></q-input>
+            <p v-if="validationErrors.password_confirmation" class="text-negative">This field is required.</p>
 
             <div class="flex justify-between q-mt-md">
                <p v-if="false" class="text-negative">Incorect password</p>
@@ -111,11 +117,6 @@ export default {
             this.$router.replace('/home')
          } catch (error) {
             console.log(error)
-            this.$q.notify({
-               type: 'negative',
-               message: 'Request Fail!',
-               position: 'top'
-            })
          } finally {
             this.savingState = false
          }
