@@ -143,7 +143,7 @@ export default {
             this.localFavItems = [...this.localFavItems, product]
             this.$q.notify({
                message: 'Added to Favourite',
-               color: 'positive',
+               color: 'blue',
                position: 'top'
             })
          }
@@ -160,7 +160,10 @@ export default {
 
             this.$q.notify({
                message: '1 Item added to your cart',
-               color: 'positive',
+               color: 'grey-1',
+               textColor: 'primary',
+               timeout: 100000,
+               icon: 'o_shopping_cart',
                position: 'top'
             })
          } catch (error) {
