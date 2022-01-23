@@ -119,7 +119,7 @@ export default {
             const res = await this.$api.post('/account/profile', { ...this.form, image: `${this.form.image}` })
             console.log(res)
             this.$q.notify({
-               type: 'positive',
+               type: 'blue',
                message: 'Profile updated successfully!',
                position: 'top'
             })
@@ -140,7 +140,7 @@ export default {
             const res = await this.$api.post('account/address', this.addressForm)
             this.$store.commit('auth/SET_ADDRESS', res.data)
             this.$q.notify({
-               type: 'positive',
+               type: 'blue',
                message: 'Address updated successfully!',
                position: 'top'
             })
