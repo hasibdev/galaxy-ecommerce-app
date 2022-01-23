@@ -26,7 +26,8 @@ module.exports = configure(function (ctx) {
       'swiper',
       'routeConfig',
       'loadData',
-      'mixins/validation.js'
+      'mixins/validation.js',
+      'mixins/global.js'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

@@ -17,15 +17,17 @@
       <div>
          <form @submit.prevent="updateProfile" class="q-mt-lg">
             <div class="q-mb-md flex justify-center">
-               <image-atach-field v-model="form.image" />
+               <image-atach-field v-model="form.image" :url="formatImage(form.image)" />
             </div>
             <!-- First and Last Name -->
-            <div class="row q-col-gutter-sm">
+            <div class="row q-col-gutter-sm q-mb-md">
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.first_name" type="text" placeholder="First Name" input-class="text-body1" class="q-mt-md" />
+                  <p v-if="validationErrors.first_name" class="text-negative">This field is required.</p>
                </div>
                <div class="col">
-                  <q-input outlined color="secondary" v-model="form.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mb-md" />
+                  <q-input outlined color="secondary" v-model="form.last_name" type="text" placeholder="Last Name" input-class="text-body1" class="q-mt-md" />
+                  <p v-if="validationErrors.last_name" class="text-negative">This field is required.</p>
                </div>
             </div>
             <!-- Mobile -->
@@ -56,14 +58,22 @@
 
          <form @submit.prevent="updateAddress">
             <h6 class="q-my-md">Update Address</h6>
-            <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Address 1" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.address_2" type="text" placeholder="Address 2" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mb-md" />
-            <q-select outlined emit-value map-options v-model="addressForm.country" option-value="key" option-label="name" input-debounce="0" label="Select country" :options="countries" behavior="menu" class="q-mb-md"></q-select>
-            <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mb-md" />
-            <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mb-md" />
+            <q-input outlined color="secondary" v-model="addressForm.address_1" type="text" placeholder="Address 1" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.address_1" class="text-negative">This field is required.</p>
 
-            <div class="flex justify-end">
+            <q-input outlined color="secondary" v-model="addressForm.address_2" type="text" placeholder="Address 2" input-class="text-body1" class="q-mt-md" />
+
+            <q-input outlined color="secondary" v-model="addressForm.city" type="text" placeholder="City" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.city" class="text-negative">This field is required.</p>
+
+            <q-select outlined emit-value map-options v-model="addressForm.country" option-value="key" option-label="name" input-debounce="0" label="Select country" :options="countries" behavior="menu" class="q-mt-md"></q-select>
+            <p v-if="validationErrors.country" class="text-negative">This field is required.</p>
+            <q-input outlined color="secondary" v-model="addressForm.state" type="text" placeholder="State" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.state" class="text-negative">This field is required.</p>
+            <q-input outlined color="secondary" v-model="addressForm.zip" type="text" placeholder="Zip Code" input-class="text-body1" class="q-mt-md" />
+            <p v-if="validationErrors.zip" class="text-negative">This field is required.</p>
+
+            <div class="flex justify-end q-mt-md">
                <q-btn :loading="savingState2" :disable="savingState2" type="submit" color="primary" rounded label="Update Address" />
             </div>
          </form>
@@ -125,11 +135,6 @@ export default {
             })
          } catch (error) {
             console.log(error)
-            this.$q.notify({
-               type: 'negative',
-               message: 'Request Fail!',
-               position: 'top'
-            })
          } finally {
             this.savingState = false
          }
@@ -146,11 +151,6 @@ export default {
             })
          } catch (error) {
             console.log(error)
-            this.$q.notify({
-               type: 'negative',
-               message: 'Request Fail!',
-               position: 'top'
-            })
          } finally {
             this.savingState2 = false
          }

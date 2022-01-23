@@ -1,4 +1,5 @@
 import { boot } from 'quasar/wrappers'
+import { Notify } from 'quasar'
 import axios from 'axios'
 
 axios.defaults.withCredentials = true
@@ -28,6 +29,11 @@ export default boot(({ app, store }) => {
   }, async function (err) {
     if (err.response.status === 422) {
       store.dispatch("validation/setErrors", err.response.data.errors)
+      Notify.create({
+        type: 'negative',
+        message: 'Form validation error!',
+        position: 'top'
+      })
     }
     return Promise.reject(err)
   })

@@ -15,7 +15,7 @@
       <div v-if="user">
          <div class="text-center">
             <q-avatar size="150px">
-               <img v-if="user.image" :src="`https://galaxytelecom.fr/storage/media/${user.image}`">
+               <img v-if="user.image" :src="formatImage(user.image)">
                <img v-else :src="require('assets/images/user-01.png')">
             </q-avatar>
             <h6 class="q-mt-lg">{{ user.first_name }} {{ user.last_name }}</h6>
