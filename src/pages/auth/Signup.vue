@@ -111,6 +111,11 @@ export default {
             this.$router.replace('/home')
          } catch (error) {
             console.log(error)
+            this.$q.notify({
+               type: 'negative',
+               message: 'Request Fail!',
+               position: 'top'
+            })
          } finally {
             this.savingState = false
          }

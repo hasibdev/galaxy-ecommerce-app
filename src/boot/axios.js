@@ -22,9 +22,17 @@ api.interceptors.request.use(async function (config) {
   return Promise.reject(error)
 })
 
-export default boot(({ app }) => {
-  app.config.globalProperties.$axios = axios
+export default boot(({ app, store }) => {
+  api.interceptors.response.use(function (config) {
+    return config
+  }, async function (err) {
+    if (err.response.status === 422) {
+      store.dispatch("validation/setErrors", err.response.data.errors)
+    }
+    return Promise.reject(err)
+  })
 
+  app.config.globalProperties.$axios = axios
   app.config.globalProperties.$api = api
 })
 

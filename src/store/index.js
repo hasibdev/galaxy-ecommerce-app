@@ -4,6 +4,7 @@ import appData from './appData'
 import auth from './auth'
 import cart from './cart'
 import layout from './layout'
+import validation from './validation'
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
@@ -11,7 +12,8 @@ export default store(function (/* { ssrContext } */) {
       appData,
       auth,
       cart,
-      layout
+      layout,
+      validation
     },
 
     // enable strict mode (adds overhead!)
