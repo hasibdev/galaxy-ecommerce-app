@@ -52,7 +52,7 @@ export default {
             this.localFavItems = [...this.localFavItems, product]
             this.$q.notify({
                message: 'Added to Favourite',
-               color: 'positive',
+               color: 'blue',
                position: 'top'
             })
          }

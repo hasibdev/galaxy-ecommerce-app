@@ -96,7 +96,7 @@ export default {
          try {
             await this.logout()
             this.$q.notify({
-               type: 'positive',
+               type: 'blue',
                message: 'Logout successfully!',
                position: 'top'
             })

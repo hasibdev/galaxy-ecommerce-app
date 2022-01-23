@@ -150,9 +150,9 @@ export default {
          const userStatus = this.$store.state.auth.status
          if (!userStatus) {
             this.$store.dispatch('layout/show')
-            return
+         } else {
+            this.$router.push('/checkout')
          }
-         this.$router.push('/checkout')
       },
       adjustQty(mode, qty, item) {
          this.$store.dispatch('cart/adjustQty', { mode, qty, item })
