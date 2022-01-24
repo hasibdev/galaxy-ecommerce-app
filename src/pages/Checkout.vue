@@ -50,6 +50,7 @@
                <span @click="openShipping" class="text-primary">Edit</span>
             </div>
 
+            <p v-if="validationErrors['shipping.country']" class="text-negative text-body1">Shipping Address is required!</p>
             <div v-if="form.shipping">
                <p class="text-bold text-body1 q-mt-md">{{ form.shipping.address_1 }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm">{{ form.shipping.city }} <span v-if="form.shipping.country">, {{ form.shipping.country }}</span></p>
@@ -71,7 +72,9 @@
                <span @click="openBilling" class="text-primary">Edit</span>
             </div>
 
+            <p v-if="validationErrors['billing.address_1']" class="text-negative text-body1">Billing Address is required!</p>
             <div v-if="form.billing">
+
                <p class="text-bold text-body1 q-mt-md">{{ form.billing.address_1 }}</p>
                <p class="text-grey-7 text-body1 q-mt-sm">{{ form.billing.city }}<span v-if=" form.billing.country">, {{ form.billing.country }}</span></p>
                <p class="text-grey-7 text-body1 q-mt-sm" v-if="user && user.phone">{{ user.phone }}</p>
