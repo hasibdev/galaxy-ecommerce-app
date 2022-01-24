@@ -62,8 +62,13 @@
                <p class="text-grey-7 text-body1">Please update you Address</p>
             </div>
          </div>
+
+         <div class="q-my-md" style="margin-left: -8px">
+            <q-checkbox v-model="sameAsshipping" label="Billing is same as Shipping?" />
+         </div>
+
          <!-- Billing Address -->
-         <div class="q-mt-lg">
+         <div class="">
             <div class="flex justify-between items-center">
                <h6>
                   <q-icon name="store" color="primary" size="md" />
@@ -176,7 +181,8 @@ export default {
             terms_and_conditions: true,
             payment_method: 'cod'
          },
-         savingState: false
+         savingState: false,
+         sameAsshipping: false
       }
    },
    computed: {
@@ -264,6 +270,13 @@ export default {
             }
          },
          immediate: true
+      },
+      sameAsshipping(val) {
+         if (val) {
+            this.form.billing = { ...this.form.shipping }
+         } else {
+            console.log('not same')
+         }
       }
    },
    validations() {
