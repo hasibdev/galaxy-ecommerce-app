@@ -20,17 +20,58 @@
 
       </q-carousel>
 
-      <div class="under-bottom q-pa-md round-10 custom-shadow">
-         hello
+      <!-- Bottom slide -->
+      <div class="under-bottom round-10 custom-shadow">
+         <!-- Slider -->
+         <div id="hero_bottom_slider">
+            <swiper :slides-per-view="1" :autoHeight="true" :mousewheel="true" :space-between="0">
+               <swiper-slide v-for="(item, i) in bottomSlide" :key="i">
+                  <div class="flex items-center no-wrap q-pa-md">
+                     <q-icon :name="item.icon" color="primary" size="40px" />
+                     <div class="q-ml-md">
+                        <p class="text-body1">{{ item.title }}</p>
+                        <p class="text-grey">{{ item.subtitle }}</p>
+                     </div>
+                  </div>
+               </swiper-slide>
+            </swiper>
+         </div>
       </div>
    </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
 export default {
+   components: {
+      Swiper, SwiperSlide
+   },
    data() {
       return {
-         slide: 1
+         slide: 1,
+         bottomSlide: [
+            {
+               title: 'Payment & Delivery',
+               subtitle: 'Free shipping for orders over $50',
+               icon: 'las la-truck'
+            },
+            {
+               title: 'Return & Refund',
+               subtitle: 'Free 100% money back guarantee',
+               icon: 'las la-spinner'
+            },
+            {
+               title: 'Quality Support',
+               subtitle: 'Alway online feedback 24/7',
+               icon: 'las la-life-ring'
+            },
+            {
+               title: 'JOIN OUR NEWSLETTER',
+               subtitle: '10% off by subscribing to our newsletter',
+               icon: 'las la-envelope'
+            }
+         ]
       }
    },
    computed: {
