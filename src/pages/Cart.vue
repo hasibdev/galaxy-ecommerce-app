@@ -123,7 +123,7 @@ export default {
          let symbol = ''
          const total = this.items.reduce((acc, p) => {
             symbol = p.total.formatted[0]
-            const amount = acc + (p.total.amount * p.qty)
+            const amount = acc + (p.product.price.amount * p.qty)
             return amount
          }, 0).toFixed(2)
 
@@ -135,16 +135,32 @@ export default {
          if (this.checkAll) this.selected = this.allIds
          else this.selected = []
       },
-      onDeleteAll() {
-         this.selected.forEach(id => {
+      async onDeleteAll() {
+         this.selected.forEach(async id => {
             this.$store.commit('cart/REMOVE', id)
-            // this.localCartItems = this.localCartItems.filter(product => product.id !== id)
          })
 
-         this.$q.notify({
-            message: 'Removed from Cart',
-            color: 'warning'
-         })
+         try {
+            if (this.checkAll) {
+               await this.$api.post(`/cart/clear`)
+               this.$q.notify({
+                  message: 'Removed from Cart',
+                  color: 'positive'
+               })
+            } else {
+               this.selected.forEach(async id => {
+                  await this.$api.delete(`/cart/items/${id}`)
+               })
+            }
+            this.$store.dispatch('cart/loadData')
+         } catch (error) {
+            console.log(error)
+            this.$q.notify({
+               message: 'Request Fail',
+               color: 'warning'
+            })
+            this.$store.dispatch('cart/loadData')
+         }
       },
       addCheckout() {
          const userStatus = this.$store.state.auth.status
@@ -154,11 +170,11 @@ export default {
          }
          this.$router.push('/checkout')
       },
-      adjustQty(mode, qty, item) {
+      async adjustQty(mode, qty, item) {
          this.$store.dispatch('cart/adjustQty', { mode, qty, item })
       },
       getPrice(item) {
-         const amount = (item.total.amount * item.qty).toFixed(2)
+         const amount = (item.product.price.amount * item.qty).toFixed(2)
          const symbol = item.total.formatted[0]
 
          return `${symbol}${amount}`

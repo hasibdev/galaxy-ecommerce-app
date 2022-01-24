@@ -64,8 +64,17 @@ export default {
         commit('SET_DATA', { property: 'cartLoadingState', data: false })
       }
     },
-    adjustQty({ commit }, { mode, qty, item }) {
+    async adjustQty({ commit, state, dispatch }, { mode, qty, item }) {
       commit('ADJUST_QTY', { mode, qty, item })
+
+      const product = state.items.find(p => p.id === item.id)
+      try {
+        await api.put(`/cart/items/${product.id}`, { qty: product.qty })
+        dispatch('loadData')
+      } catch (error) {
+        console.log(error)
+        dispatch('loadData')
+      }
     }
   }
 }
