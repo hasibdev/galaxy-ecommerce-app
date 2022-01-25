@@ -24,7 +24,7 @@
                   <p class="text-grey-6">Total</p>
                   <p class="text-bold text-body1">{{ subTotal.formatted }}</p>
                </div>
-               <q-btn rounded unelevated @click="placeOrder" :disable="savingState" :loading="savingState" color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
+               <q-btn rounded unelevated @click="placeOrder" :disable="savingState || !form.terms_and_conditions" :loading="savingState" color="primary" class="q-px-xl q-py-sm">Place Order</q-btn>
             </div>
 
          </q-footer>
