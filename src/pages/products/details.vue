@@ -2,7 +2,7 @@
    <app-layout :footer="false">
       <!-- Toolbar setup -->
       <template #toolbar>
-         <toolbar-one backWithText :shareProduct="true" :searchIcon="false">
+         <toolbar-one backWithText :searchIcon="false">
             <template #middle>
                <div class="flex justify-center">
                   <logo-image />
