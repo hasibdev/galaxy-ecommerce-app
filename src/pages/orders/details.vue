@@ -1,11 +1,45 @@
 <template>
    <app-layout>
+      <!-- Toolbar -->
       <template #toolbar>
          <toolbar-one :canBack="true" :searchIcon="false">
             <template #middle>
                <p class="text-center text-body1 text-bold q-ml-md">Order Details</p>
             </template>
          </toolbar-one>
+      </template>
+
+      <!-- Footer -->
+      <template #footer>
+         <q-footer id="app_footer" class="bg-white text-grey-9">
+
+            <div v-if="order" class="q-pa-md">
+               <div class="row">
+                  <div class="col-5">
+                     <p class="text-body1">Subtotal: </p>
+                  </div>
+                  <div class="col-7">
+                     <p class="text-body1">{{order.sub_total.formatted}}</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-5">
+                     <p class="text-body1">{{order.shipping_method}}: </p>
+                  </div>
+                  <div class="col-7">
+                     <p class="text-body1">{{order.shipping_cost.formatted}}</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-5">
+                     <h6>Total: </h6>
+                  </div>
+                  <div class="col-7">
+                     <h6>{{ order.total.formatted }}</h6>
+                  </div>
+               </div>
+            </div>
+         </q-footer>
       </template>
 
       <div v-if="order">
@@ -69,6 +103,26 @@
                </div>
             </q-card-section>
          </q-card>
+
+         <!-- Products list -->
+         <div class="q-mt-lg">
+            <h6>Products</h6>
+            <q-list>
+               <q-item v-for="(item, i) in order.products" :key="i" tag="label" class="bg-white round-10 q-mt-sm">
+                  <!-- Label -->
+                  <q-item-section>
+                     <q-item-label>
+                        <p class="text-body1">{{ item.product.name }}</p>
+                     </q-item-label>
+                     <q-item-label>
+                        <p class="text-grey">UNIT PRICE: {{ item.unit_price.formatted }}</p>
+                        <p class="text-grey">QUANTITY: {{ item.qty }}</p>
+                        <p class="text-grey">LINE TOTAL: {{ item.line_total.formatted }}</p>
+                     </q-item-label>
+                  </q-item-section>
+               </q-item>
+            </q-list>
+         </div>
       </div>
    </app-layout>
 </template>
