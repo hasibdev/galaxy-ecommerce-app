@@ -88,7 +88,7 @@ export default {
             await this.login({ url: '/login', data: this.form })
 
             this.$q.notify({
-               type: 'blue',
+               type: 'positive',
                message: 'You are signed in!',
                position: 'top'
             })

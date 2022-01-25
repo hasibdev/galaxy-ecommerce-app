@@ -115,7 +115,7 @@ export default {
             })
 
             this.$q.notify({
-               type: 'blue',
+               type: 'positive',
                message: 'Your account created successfully!',
                position: 'top'
             })

@@ -9,11 +9,11 @@
       </template>
 
       <!-- Loading state -->
-      <!-- <template v-if="loadingOrders">
+      <template v-if="loadingOrders">
          <div class="text-center q-mt-xl">
             <q-spinner color="grey-14" size="3em" />
          </div>
-      </template> -->
+      </template>
 
       <div ref="order-wrapper">
          <!-- main Content -->
