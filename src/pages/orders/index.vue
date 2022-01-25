@@ -19,11 +19,15 @@
          <!-- main Content -->
          <!-- Slider -->
          <div id="orders_category_slider">
-            <swiper :slides-per-view="3" :freeMode="true" :mousewheel="true" :space-between="5">
-               <swiper-slide v-for="(item, i) in items" :key="i">
+            <div class="flex no-wrap justify-around">
+               <div v-for="(item, i) in items" :key="i">
                   <p class="text-item" @click="currentValue=item.value" :class="{active: currentValue==item.value}">{{ item.title }}</p>
+               </div>
+            </div>
+            <!-- <swiper :slides-per-view="3" :freeMode="true" :mousewheel="true" :space-between="5">
+               <swiper-slide v-for="(item, i) in items" :key="i">
                </swiper-slide>
-            </swiper>
+            </swiper> -->
          </div>
 
          <!-- Content list -->
@@ -54,12 +58,13 @@
 <script>
 import AppLayout from 'layouts/AppLayout.vue'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
 import { createMetaMixin, date } from 'quasar'
 
 export default {
    components: {
-      AppLayout, ToolbarOne, Swiper, SwiperSlide
+      AppLayout, ToolbarOne
+      // , Swiper, SwiperSlide
    },
    mixins: [createMetaMixin(() => ({ title: "My Orders" }))],
    data() {
