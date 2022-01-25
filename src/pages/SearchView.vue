@@ -132,14 +132,18 @@ export default {
          searchText: '',
          searchResults: [],
          recentSearch: [],
-         popularSearch: [],
+
          loadingProducts: false
+      }
+   },
+   computed: {
+      popularSearch() {
+         return this.$store.state.appData.todaysBest
       }
    },
    mounted() {
       this.$refs.searchInput.focus()
       this.recentSearch = this.$store.getters['appData/getRecentSearch']
-      this.popularSearch = this.$store.state.appData.todaysBestDeal
    },
    methods: {
       openFilter() {
