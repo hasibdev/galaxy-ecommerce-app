@@ -1,7 +1,7 @@
 <template>
    <app-layout>
       <template #toolbar>
-         <toolbar-one canBack :canMessage="true" :cartIcon="false" :searchIcon="false">
+         <toolbar-one canBack>
             <template #middle>
                <p class="text-center text-body1 text-bold q-ml-md">My Orders</p>
             </template>

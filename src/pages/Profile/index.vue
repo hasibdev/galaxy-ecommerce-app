@@ -1,7 +1,7 @@
 <template>
    <app-layout>
       <template #toolbar>
-         <toolbar-one canBack canMessage :searchIcon="false">
+         <toolbar-one canBack :searchIcon="false">
             <template #middle>
                <p class="text-center text-body1 text-bold q-ml-md">Profile</p>
             </template>
@@ -66,7 +66,7 @@
                   </q-card>
                </q-expansion-item>
 
-               <q-expansion-item @click="openMessage" icon="gpp_good" label="Help Center" expand-icon-class="hidden"> </q-expansion-item>
+               <!-- <q-expansion-item @click="openMessage" icon="gpp_good" label="Help Center" expand-icon-class="hidden"> </q-expansion-item> -->
                <q-expansion-item @click="onLogout" icon="logout" label="Logout" expand-icon-class="hidden"> </q-expansion-item>
             </q-list>
          </div>

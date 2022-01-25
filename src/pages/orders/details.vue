@@ -1,7 +1,15 @@
 <template>
    <app-layout>
+      <template #toolbar>
+         <toolbar-one backWithText>
+            <template #middle>
+               <div></div>
+            </template>
+         </toolbar-one>
+      </template>
+
       <div v-if="order">
-         <q-card>
+         <q-card class="custom-shadow">
             <q-card-section>
                <h6>Order Information</h6>
             </q-card-section>
@@ -12,9 +20,11 @@
 
 <script>
 import AppLayout from 'layouts/AppLayout.vue'
+import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
+
 export default {
    components: {
-      AppLayout
+      AppLayout, ToolbarOne
    },
    data() {
       return {
