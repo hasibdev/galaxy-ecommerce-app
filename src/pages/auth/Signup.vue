@@ -114,6 +114,12 @@ export default {
                data: { ...this.form }
             })
 
+            this.$q.notify({
+               type: 'blue',
+               message: 'Your account created successfully!',
+               position: 'top'
+            })
+
             this.$router.replace('/home')
          } catch (error) {
             console.log(error)

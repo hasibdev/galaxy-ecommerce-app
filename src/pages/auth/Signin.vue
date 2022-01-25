@@ -87,6 +87,12 @@ export default {
          try {
             await this.login({ url: '/login', data: this.form })
 
+            this.$q.notify({
+               type: 'blue',
+               message: 'You are signed in!',
+               position: 'top'
+            })
+
             this.$router.replace('/home')
          } catch (error) {
             // console.log({ ...error })
