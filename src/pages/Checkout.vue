@@ -3,7 +3,7 @@
       <template #toolbar>
          <toolbar-one backWithText>
             <template #middle>
-               <p class="text-center text-body1 text-bold q-mr-lg">Checkout</p>
+               <p class="text-center text-body1 text-bold q-mr-xl">Checkout</p>
             </template>
             <template #append>
                <div></div>
@@ -199,7 +199,7 @@ export default {
             })
             await this.$api.get(`checkout/${res.data.orderId}/complete?paymentMethod=${this.form.payment_method}`)
 
-            this.$router.push('/orders')
+            this.$router.replace('/orders')
             this.$store.commit('cart/SET_DATA', { property: 'items', data: [] })
 
             this.$q.notify({
