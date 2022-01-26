@@ -1,5 +1,5 @@
 <template>
-   <div id="home-hero">
+   <div v-intersection.once="interHeroSlider" id="home-hero">
       <q-carousel navigation autoplay swipeable infinite v-model="slide" height="230px" transition-prev="slide-right" transition-next="slide-left" transition-duration="1000" animated control-color="grey-10" class="rounded-borders">
 
          <template v-if="items.length">
@@ -77,6 +77,11 @@ export default {
    computed: {
       items() {
          return this.$store.state.appData.heroSliders
+      }
+   },
+   methods: {
+      interHeroSlider() {
+         this.$store.dispatch('appData/fetchHeroSliders')
       }
    }
 

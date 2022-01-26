@@ -46,8 +46,12 @@ export default {
       try {
         const res = await api.post(url, data)
         localStorage.setItem('token', res.data.token)
-
         commit('SET_AUTH', { status: true, user: res.data.user })
+
+        const resAddress = await api.get('/account/address')
+        if (resAddress.data.address) {
+          commit('SET_ADDRESS', resAddress.data.address)
+        }
 
         return Promise.resolve(res)
       } catch (error) {

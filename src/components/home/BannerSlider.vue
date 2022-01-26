@@ -1,5 +1,5 @@
 <template>
-   <div class="q-mt-md swiper-wrapper items-center">
+   <div v-intersection.once="interCategories" class="q-mt-md swiper-wrapper items-center">
       <swiper v-if="items" :slides-per-view="4" :pagination="{ 'clickable': true }" :mousewheel="true" :space-between="20">
          <swiper-slide v-for="(item, i) in items" :key="i">
             <div @click="$router.push(`/categories/${item.slug}`)" class="text-center q-pb-xl">
@@ -52,6 +52,11 @@ export default {
    computed: {
       items() {
          return this.$store.state.appData.categories
+      }
+   },
+   methods: {
+      interCategories() {
+         this.$store.dispatch('appData/fetchCategories')
       }
    }
 }

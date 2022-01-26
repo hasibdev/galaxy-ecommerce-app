@@ -1,7 +1,7 @@
 <template>
-   <div>
+   <div id="todays_best_section">
       <!-- Todays Best -->
-      <div class="q-mb-lg flex justify-between">
+      <div v-intersection.once="interTodaysBest" class="q-mb-lg flex justify-between">
          <h5>Today's Best</h5>
          <!-- <span>View All</span> -->
       </div>
@@ -24,7 +24,7 @@
 
       <q-separator class="q-my-lg" />
       <!-- Accessories -->
-      <div class="q-mb-lg flex justify-between">
+      <div v-intersection.once="interAccessories" class="q-mb-lg flex justify-between">
          <h5>Accessories</h5>
          <!-- <span>View All</span> -->
       </div>
@@ -82,6 +82,14 @@ export default {
       // todaysBestDeal() {
       //    return this.$store.state.appData.todaysBestDeal
       // }
+   },
+   methods: {
+      interTodaysBest() {
+         this.$store.dispatch('appData/fetchTodaysBest')
+      },
+      interAccessories() {
+         this.$store.dispatch('appData/fetchAccessories')
+      }
    }
 }
 </script>
