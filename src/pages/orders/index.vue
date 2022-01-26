@@ -102,7 +102,6 @@ export default {
          const res = await this.$api.get('/account/orders')
          this.orders = res.data.orders.data
          this.filteredOrders = res.data.orders.data
-         console.log(res.data.orders)
       } catch (error) {
          console.log(error)
       } finally {

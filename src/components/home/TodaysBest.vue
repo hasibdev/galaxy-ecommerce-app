@@ -45,14 +45,14 @@
          </template>
       </div>
 
-      <q-separator class="q-my-lg" />
+      <!-- <q-separator class="q-my-lg" /> -->
 
       <!-- Today's Best Deal -->
       <!-- <div class="q-mb-lg flex justify-between">
          <h5>Today's Best Deal</h5>
-      </div>
+      </div> -->
 
-      <div class="row q-col-gutter-md">
+      <!-- <div class="row q-col-gutter-md">
          <template v-if="todaysBestDeal.length">
             <div class="col-6" v-for="item in todaysBestDeal" :key="item.id">
                <product-card :product="item" />
@@ -90,6 +90,7 @@ export default {
       interAccessories() {
          this.$store.dispatch('appData/fetchAccessories')
       }
+
    }
 }
 </script>
