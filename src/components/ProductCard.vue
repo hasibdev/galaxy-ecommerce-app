@@ -7,7 +7,7 @@
 
       <!-- Product info -->
       <div @click="$router.push(`/products/${product.slug}`)" class="q-mt-lg text-center">
-         <p style="font-size:15px;">{{ product.name }}</p>
+         <p style="font-size:15px;" class="ellipsis-2-lines">{{ product.name }}</p>
 
          <!-- Ragings -->
          <div class="flex justify-center q-mt-sm">
