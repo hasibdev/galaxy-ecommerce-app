@@ -67,10 +67,12 @@ export default {
         return Promise.reject(error)
       }
     },
-    async logout() {
+    async logout({ commit }) {
       try {
         const res = await api.post('/logout')
         localStorage.removeItem('token')
+        commit('SET_AUTH', { status: false, user: null })
+        commit('SET_ADDRESS', null)
         return Promise.resolve(res)
       } catch (error) {
         return Promise.reject(error)
