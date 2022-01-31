@@ -5,6 +5,7 @@ import auth from './auth'
 import cart from './cart'
 import layout from './layout'
 import validation from './validation'
+import favorites from './favorites'
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
@@ -13,7 +14,8 @@ export default store(function (/* { ssrContext } */) {
       auth,
       cart,
       layout,
-      validation
+      validation,
+      favorites
     },
 
     // enable strict mode (adds overhead!)

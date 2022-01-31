@@ -8,7 +8,7 @@
          </toolbar-one>
       </template>
 
-      <template v-if="localFavItems.length">
+      <template v-if="favorites.length">
          <!-- Search -->
          <div>
             <q-input v-model="search" outlined placeholder="Search your favourite items">
@@ -39,6 +39,7 @@ import AppLayout from 'layouts/AppLayout.vue'
 import { createMetaMixin } from 'quasar'
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import ProductCard from 'components/ProductCard'
+import { mapState } from 'vuex'
 
 export default {
    mixins: [createMetaMixin(() => ({ title: 'My Favourit' }))],
@@ -47,47 +48,25 @@ export default {
    },
    data() {
       return {
-         localFavItems: [],
          filteredItems: [],
          search: ''
       }
    },
+   computed: {
+      ...mapState('favorites', ['favorites'])
+   },
    created() {
-      this.initLocaldata()
+      this.filteredItems = this.favorites
    },
    methods: {
-      initLocaldata() {
-         const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
-         if (localfavourite && localfavourite.length) {
-            this.localFavItems = localfavourite
-            this.filteredItems = localfavourite
-         }
-      },
-      removeFavorite(id) {
-         this.localFavItems = this.localFavItems.filter(p => p.id !== id)
-         this.$q.notify({
-            message: 'Removed from Favourite',
-            color: 'warning',
-            position: 'top'
-         })
-      },
-      addCheckout(item) {
-         const data = [{ ...item, quantity: 1 }]
-         this.$store.commit('checkout/SET_DATA', { property: 'products', data })
-         localStorage.setItem('checkout', JSON.stringify(data))
-         this.$router.push('/checkout')
-      }
    },
    watch: {
-      localFavItems(val) {
-         localStorage.setItem('localfavourite', JSON.stringify(val))
-      },
       search: {
          handler: function (val) {
             if (!val) {
-               this.filteredItems = this.localFavItems
+               this.filteredItems = this.favorites
             }
-            this.filteredItems = this.localFavItems.filter(x => x.name.toLocaleLowerCase().includes(val.toLocaleLowerCase()))
+            this.filteredItems = this.favorites.filter(x => x.name.toLocaleLowerCase().includes(val.toLocaleLowerCase()))
          }
       }
    }

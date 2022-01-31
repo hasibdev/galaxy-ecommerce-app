@@ -21,12 +21,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-   data() {
-      return {
-         localFavItems: []
-      }
-   },
+
    props: {
       product: {
          type: Object,
@@ -34,39 +31,14 @@ export default {
       }
    },
    computed: {
+      ...mapState('favorites', ['favorites']),
       getFavIcon() {
-         return this.localFavItems.map(x => x.id).includes(this.product.id) ? 'favorite' : 'favorite_border'
+         return this.favorites.map(x => x.id).includes(this.product.id) ? 'favorite' : 'favorite_border'
       }
    },
    methods: {
-      addToFavorit(product) {
-         const hasItem = this.localFavItems.some(p => p.id === product.id)
-         if (hasItem) {
-            this.localFavItems = this.localFavItems.filter(p => p.id !== product.id)
-            this.$q.notify({
-               message: 'Removed from Favourite',
-               color: 'warning',
-               position: 'top'
-            })
-         } else {
-            this.localFavItems = [...this.localFavItems, product]
-            this.$q.notify({
-               message: 'Added to Favourite',
-               color: 'blue',
-               position: 'top'
-            })
-         }
-      }
-   },
-   created() {
-      const localfavourite = JSON.parse(localStorage.getItem('localfavourite'))
-      if (localfavourite && localfavourite.length) {
-         this.localFavItems = localfavourite
-      }
-   },
-   watch: {
-      localFavItems(val) {
-         localStorage.setItem('localfavourite', JSON.stringify(val))
+      async addToFavorit(product) {
+         this.$store.commit('favorites/TOGGLE', product)
       }
    }
 }
