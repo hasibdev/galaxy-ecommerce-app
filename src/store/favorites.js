@@ -19,7 +19,7 @@ export default {
       if (hasItem) {
         state.favorites = state.favorites.filter(p => p.id !== product.id)
         Notify.create({
-          type: 'negative',
+          type: 'warning',
           message: 'Removed from favourite',
           position: 'top'
         })

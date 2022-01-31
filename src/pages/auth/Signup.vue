@@ -60,7 +60,7 @@
 
             <q-btn rounded no-caps :loading="savingState" :disable="savingState" size="lg" type="submit" label="Sign Up" color="primary" class="full-width q-mt-lg" />
 
-            <!-- <p class="text-grey-6 text-body1 text-center q-my-md">Or Sign up with</p>
+            <p class="text-grey-6 text-body1 text-center q-my-md">Or Sign up with</p>
             <q-btn rounded outline no-caps size="lg" color="grey" class="full-width">
                <facebook-svg />
                <span class="q-ml-md">Continue With FB</span>
@@ -68,7 +68,7 @@
             <q-btn rounded outline no-caps size="lg" color="grey" class="full-width q-mt-md">
                <google-svg />
                <span class="q-ml-md">Continue With Google</span>
-            </q-btn> -->
+            </q-btn>
 
             <p class="text-body1 q-mt-lg text-center">Already have an account?
                <q-btn dense flat no-caps to="/signin" label="Log In" class="text-bold text-body1" />
@@ -82,12 +82,12 @@
 import ToolbarOne from 'components/toolbars/ToolbarOne.vue'
 import AppLayout from 'layouts/AppLayout.vue'
 import { mapActions } from 'vuex'
-// import FacebookSvg from 'components/svg/Facebook.vue'
-// import GoogleSvg from 'components/svg/Google.vue'
+import FacebookSvg from 'components/svg/Facebook.vue'
+import GoogleSvg from 'components/svg/Google.vue'
 
 export default {
    components: {
-      ToolbarOne, AppLayout
+      ToolbarOne, AppLayout, FacebookSvg, GoogleSvg
    },
    data() {
       return {
