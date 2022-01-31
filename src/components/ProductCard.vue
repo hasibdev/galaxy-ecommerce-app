@@ -33,7 +33,7 @@ export default {
    computed: {
       ...mapState('favorites', ['favorites']),
       getFavIcon() {
-         return this.favorites.map(x => x.id).includes(this.product.id) ? 'favorite' : 'favorite_border'
+         return this.favorites.find(p => p.id === this.product.id) ? 'favorite' : 'favorite_border'
       }
    },
    methods: {
