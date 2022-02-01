@@ -40,7 +40,7 @@
             <q-btn rounded no-caps :disable="savingState" :loading="savingState" type="submit" size="lg" label="Login" color="primary" class="full-width q-mt-lg" />
 
             <p class="text-grey-6 text-body1 text-center q-my-md">Or</p>
-            <q-btn rounded outline no-caps size="lg" color="grey" class="full-width">
+            <q-btn rounded outline no-caps href="https://www.galaxytelecom.fr/api/login/facbook" size="lg" color="grey" class="full-width">
                <facebook-svg />
                <span class="q-ml-md">Continue With FB</span>
             </q-btn>
