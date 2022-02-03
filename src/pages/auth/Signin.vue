@@ -106,6 +106,11 @@ export default {
          const res = await fetch('https://www.galaxytelecom.fr/api/login/google')
          console.log(res)
       }
+   },
+   watch: {
+      '$route'(val) {
+         console.log(val)
+      }
    }
 }
 </script>
