@@ -108,8 +108,15 @@ export default {
       }
    },
    watch: {
-      '$route'(val) {
-         console.log(val)
+      $route: {
+         handler: function (val) {
+            console.log(val)
+            const token = val.query.token
+            if (token) {
+               console.log(token)
+            }
+         },
+         immediate: true
       }
    }
 }
