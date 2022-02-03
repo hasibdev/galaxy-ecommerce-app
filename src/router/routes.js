@@ -1,15 +1,21 @@
 import auth from 'src/middlewares/auth'
 import guest from 'src/middlewares/guest'
-
-const isFirst = localStorage.getItem('onboarding')
+import intro from 'src/middlewares/intro'
 
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', redirect: isFirst ? '/home' : '/onboarding' },
-      { path: '/home', name: 'home', component: () => import('pages/Index.vue') },
+      { path: '', redirect: '/home' },
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          middleware: [intro]
+        }
+      },
       { path: 'search-view', name: 'search-view', component: () => import('pages/SearchView.vue') },
       { path: 'categories/:slug', name: 'category-details', component: () => import('pages/categories/details.vue') },
       { path: 'products/:slug', name: 'product-details', component: () => import('pages/products/details.vue') },
