@@ -109,11 +109,13 @@ export default {
    },
    watch: {
       $route: {
-         handler: function (val) {
+         handler: async function (val) {
             console.log(val)
             const token = val.query.token
             if (token) {
-               console.log(token)
+               localStorage.setItem('token', token)
+               await this.$store.dispatch('auth/checkAuth')
+               this.$router.push('/home')
             }
          },
          immediate: true
