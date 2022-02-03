@@ -199,7 +199,7 @@ export default {
             })
             await this.$api.get(`checkout/${res.data.orderId}/complete?paymentMethod=${this.form.payment_method}`)
 
-            this.$router.replace('/orders')
+            this.$router.replace('/order-success')
             this.$store.commit('cart/SET_DATA', { property: 'items', data: [] })
 
             this.$q.notify({

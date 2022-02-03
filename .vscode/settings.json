@@ -1,7 +1,7 @@
 {
   "vetur.validation.template": false,
   "vetur.format.enable": true,
-  // "vetur.format.options.tabSize": 3,
+  "vetur.format.options.tabSize": 3,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -9,5 +9,5 @@
     "vue"
   ],
   "vetur.experimental.templateInterpolationService": false,
-  // "editor.tabSize": 3
+  "editor.tabSize": 3
 }

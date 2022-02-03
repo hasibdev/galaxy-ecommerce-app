@@ -66,7 +66,6 @@ const routes = [
           middleware: [guest]
         }
       },
-      { path: 'onboarding', name: 'onboarding', component: () => import('pages/Onboarding.vue') },
       {
         path: 'checkout',
         name: 'checkout',
@@ -75,6 +74,8 @@ const routes = [
           middleware: [auth]
         }
       },
+      { path: 'contact', name: 'contact', component: () => import('pages/Contact.vue') },
+      { path: 'onboarding', name: 'onboarding', component: () => import('pages/Onboarding.vue') },
       { path: 'verification', name: 'verification', component: () => import('src/pages/Verification.vue') },
       { path: 'order-success', name: 'order-success', component: () => import('src/pages/OrderSuccess.vue') }
     ]
